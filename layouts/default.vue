@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <Nuxt />
+  <div data-app>
+    <NavigationBar />
+    <v-main>
+      <Nuxt />
+    </v-main>
   </div>
 </template>
 
