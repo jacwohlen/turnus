@@ -46,7 +46,8 @@ export const mutations = {
     Object.assign(state.list[idx], { id, name, sex, ages, weights })
   },
 
-  remove(state, { c }) {
-    state.list.splice(state.list.indexOf(c), 1)
+  remove(state, id) {
+    const idx = state.list.findIndex((x) => x.id === id)
+    state.list.splice(idx, 1)
   },
 }

@@ -1,5 +1,10 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-dialog
+    v-model="dialog"
+    persistent
+    max-width="600px"
+    @keydown.esc="dialog = false"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         v-if="prefilled.empty"
@@ -10,9 +15,26 @@
       >
         Add New
       </v-btn>
-      <v-icon v-else small class="mr-2" v-bind="attrs" v-on="on">
-        mdi-pencil
-      </v-icon>
+      <div v-else>
+        <v-icon v-show="!confirm" small class="mr-2" v-bind="attrs" v-on="on">
+          mdi-pencil
+        </v-icon>
+        <v-icon v-show="!confirm" small @click="confirm = !confirm">
+          mdi-delete
+        </v-icon>
+        <v-btn
+          v-show="confirm"
+          x-small
+          color="primary"
+          dark
+          @click="confirm = !confirm"
+        >
+          Cancel
+        </v-btn>
+        <v-btn v-show="confirm" x-small color="error" dark @click="remove()">
+          Delete
+        </v-btn>
+      </div>
     </template>
     <v-card>
       <v-card-title>
@@ -78,15 +100,6 @@
         >
           Add
         </v-btn>
-        <v-btn
-          v-else
-          color="blue darken-1"
-          text
-          :disabled="!valid"
-          @click="edit"
-        >
-          Edit
-        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -103,6 +116,7 @@ export default {
   data() {
     return {
       dialog: false,
+      confirm: false,
       item: Object.assign({}, this.prefilled),
       nameRules: [
         (v) => !!v || 'Name is required',
@@ -132,6 +146,9 @@ export default {
         weights: this.item.weights,
       })
       this.dialog = false
+    },
+    remove() {
+      this.$store.commit('categories/remove', this.item.id)
     },
   },
 }
