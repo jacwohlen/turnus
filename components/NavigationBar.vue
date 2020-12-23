@@ -11,8 +11,12 @@ export default {
   data: () => ({
     links: [
       { name: 'Home', link: '/' },
+      { name: 'Registration', link: '/competitors' },
       { name: 'Categories', link: '/categories' },
-      { name: 'Competitors', link: '/competitors' },
+      { name: 'Weigh In', link: '/weighin' },
+      { name: 'Pools', link: '/pools' },
+      { name: 'Schedule', link: '/schedule' },
+      { name: 'Results', link: '/results' },
     ],
   }),
 }

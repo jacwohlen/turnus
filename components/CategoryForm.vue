@@ -78,6 +78,7 @@
                     v-model="item.weights"
                     label="Weights"
                     multiple
+                    small-chips
                   ></v-combobox>
                 </v-col>
               </v-row>
@@ -99,6 +100,15 @@
           @click="add"
         >
           Add
+        </v-btn>
+        <v-btn
+          v-else
+          color="blue darken-1"
+          text
+          :disabled="!valid"
+          @click="edit"
+        >
+          Edit
         </v-btn>
       </v-card-actions>
     </v-card>
