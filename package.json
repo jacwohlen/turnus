@@ -22,7 +22,8 @@
     "core-js": "^3.16.4",
     "firebase": "^8.10.0",
     "nuxt": "^2.15.8",
-    "vuedraggable": "^2.24.3"
+    "vuedraggable": "^2.24.3",
+    "vue-tournament-bracket": "^2.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
