@@ -1,45 +1,11 @@
 <template>
   <div>
     <h1>Schedule</h1>
-    <v-container style="background-color: yellow" fill-height fluid pl-0 pr-0>
+    <v-container fill-height fluid pl-0 pr-0>
       <!-- FIXME: justify property does not work as intended -->
-      <v-row justify="end">
+      <v-row justify="space-between">
         <v-col v-for="(tatami, idx) in tatamis" :key="idx" md="3">
-          <v-card>
-            <v-card-title>{{ tatami.name }}</v-card-title>
-            <v-row>
-              <v-col>
-                <nuxt-link to="">Operator Board</nuxt-link>
-                <nuxt-link to="Scoreboard">Scoreboard</nuxt-link>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col> Actual Fight </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-data-table
-                  :headers="headers"
-                  :items="pool_running_on_tatami(tatami)"
-                  hide-default-footer
-                >
-                </v-data-table>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col> Next </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-data-table
-                  :headers="headers"
-                  :items="pools_scheduled_on_tatami(tatami)"
-                  hide-default-footer
-                >
-                </v-data-table>
-              </v-col>
-            </v-row>
-          </v-card>
+          <TatamiSchedule :tatami="tatami" />
         </v-col>
       </v-row>
     </v-container>
@@ -87,17 +53,6 @@ export default {
   }),
   computed: {},
   methods: {
-    pool_running_on_tatami(tatami) {
-      return this.$store.state.pools.list.filter(
-        (pool) =>
-          pool.status === 'running' && pool.tatami_scheduled === tatami.id
-      )
-    },
-    pools_scheduled_on_tatami(tatami) {
-      return this.$store.state.pools.list.filter(
-        (pool) => pool.status === 'ready' && pool.tatami_scheduled === tatami.id
-      )
-    },
     pools_unscheduled() {
       return this.$store.state.pools.list.filter(
         (pool) => pool.status === 'ready'
@@ -105,9 +60,6 @@ export default {
     },
     schedule(pool, tatami) {
       this.$store.commit('pools/schedule', pool.id, tatami)
-    },
-    unschedule(pool) {
-      this.$store.commit('pools/unschedule', pool.id)
     },
   },
 }
