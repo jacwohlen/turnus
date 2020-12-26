@@ -16,12 +16,10 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-data-table
-          :headers="headers"
-          :items="pool_running_on_tatami(tatami)"
-          hide-default-footer
-        >
-        </v-data-table>
+        <SchedulePoolTable
+          :pools="pool_running_on_tatami()"
+          :tatamis="tatamis"
+        />
       </v-col>
     </v-row>
     <v-row>
@@ -29,12 +27,10 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-data-table
-          :headers="headers"
-          :items="pools_scheduled_on_tatami(tatami)"
-          hide-default-footer
-        >
-        </v-data-table>
+        <SchedulePoolTable
+          :pools="pool_scheduled_on_tatami()"
+          :tatamis="tatamis"
+        />
       </v-col>
     </v-row>
   </v-card>
@@ -44,36 +40,22 @@
 export default {
   props: {
     tatami: { type: Object, required: true },
+    tatamis: { type: Array, required: true },
   },
-  data: () => ({
-    headers: [
-      { text: 'Pool', value: 'name' },
-      { text: 'Progress', value: 'progress' },
-    ],
-  }),
+  data: () => ({}),
   computed: {},
   methods: {
-    pool_running_on_tatami(tatami) {
+    pool_running_on_tatami() {
       return this.$store.state.pools.list.filter(
         (pool) =>
-          pool.status === 'running' && pool.tatami_scheduled === tatami.id
+          pool.status === 'running' && pool.tatami_scheduled === this.tatami.id
       )
     },
-    pools_scheduled_on_tatami(tatami) {
+    pool_scheduled_on_tatami() {
       return this.$store.state.pools.list.filter(
-        (pool) => pool.status === 'ready' && pool.tatami_scheduled === tatami.id
+        (pool) =>
+          pool.status === 'ready' && pool.tatami_scheduled === this.tatami.id
       )
-    },
-    pools_unscheduled() {
-      return this.$store.state.pools.list.filter(
-        (pool) => pool.status === 'ready'
-      )
-    },
-    schedule(pool, tatami) {
-      this.$store.commit('pools/schedule', pool.id, tatami)
-    },
-    unschedule(pool) {
-      this.$store.commit('pools/unschedule', pool.id)
     },
   },
 }

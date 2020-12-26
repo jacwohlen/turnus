@@ -4,22 +4,13 @@
     <v-container fill-height fluid pl-0 pr-0>
       <!-- FIXME: justify property does not work as intended -->
       <v-row justify="space-between">
-        <v-col v-for="(tatami, idx) in tatamis" :key="idx" md="3">
-          <TatamiSchedule :tatami="tatami" />
+        <v-col v-for="(tatami, idx) in tatamis" :key="idx" sm="6" md="4">
+          <TatamiSchedule :tatami="tatami" :tatamis="tatamis" />
         </v-col>
       </v-row>
     </v-container>
 
-    <v-data-table
-      :headers="headers"
-      :items="pools_unscheduled()"
-      :expanded.sync="expanded"
-      item-key="name"
-      show-expand
-    >
-      <template v-slot:item.actions="{ item }">
-        <SchedulePoolForm :pool="item" :tatamis="tatamis" />
-      </template>
+    <SchedulePoolTable :pools="pools_unscheduled()" :tatamis="tatamis">
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <ol>
@@ -31,7 +22,7 @@
           </ol>
         </td>
       </template>
-    </v-data-table>
+    </SchedulePoolTable>
   </div>
 </template>
 
@@ -44,12 +35,6 @@ export default {
       { id: 2, name: 'Tatami 3' },
     ],
     expanded: [],
-    headers: [
-      { text: 'Pool', value: 'name' },
-      { text: 'Size', value: 'size' },
-      { text: 'System', value: 'system' },
-      { text: 'Actions', value: 'actions' },
-    ],
   }),
   computed: {},
   methods: {
@@ -57,9 +42,6 @@ export default {
       return this.$store.state.pools.list.filter(
         (pool) => pool.status === 'ready'
       )
-    },
-    schedule(pool, tatami) {
-      this.$store.commit('pools/schedule', pool.id, tatami)
     },
   },
 }
