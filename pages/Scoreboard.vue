@@ -1,108 +1,102 @@
 <template>
-  <ScreenLayout>
-    <v-container fill-height fluid pl-0 pr-0>
-      <v-row class="border">
-        <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
-        <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
-        <v-col md="2"></v-col>
-      </v-row>
-      <v-row>
-        <v-col class="red" md="6">
-          <v-row>
-            <v-col class="competitor">{{
-              actualFight.competitorRed.name
-            }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col class="club">{{ actualFight.competitorRed.club }}</v-col>
-          </v-row>
-        </v-col>
-        <v-col class="white" md="6">
-          <v-row>
-            <v-col class="competitor">{{
-              actualFight.competitorWhite.name
-            }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col class="club">{{ actualFight.competitorWhite.club }}</v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row class="border">
-        <v-col class="red" md="3">
-          <v-row class="score">
-            <v-col align="center">
-              {{ actualFight.competitorRed.score.ippon }}
-            </v-col>
-            <v-col align="center">
-              {{ actualFight.competitorRed.score.wazari }}
-            </v-col>
-            <v-col align="center">
-              {{ actualFight.competitorRed.score.shido }}
-            </v-col>
-          </v-row>
-          <v-row class="scorelegend">
-            <v-col align="center"> Ippon </v-col>
-            <v-col align="center"> Wazari </v-col>
-            <v-col align="center"> Shido </v-col>
-          </v-row>
-        </v-col>
-        <v-col class="red" md="3"></v-col>
-        <v-col class="white" md="3"></v-col>
-        <v-col class="white" md="3">
-          <v-row class="score">
-            <v-col align="center">
-              {{ actualFight.competitorRed.score.ippon }}
-            </v-col>
-            <v-col align="center">
-              {{ actualFight.competitorRed.score.wazari }}
-            </v-col>
-            <v-col align="center">
-              {{ actualFight.competitorRed.score.shido }}
-            </v-col>
-          </v-row>
-          <v-row class="scorelegend">
-            <v-col align="center"> Ippon </v-col>
-            <v-col align="center"> Wazari </v-col>
-            <v-col align="center"> Shido </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row class="border">
-        <v-col class="flag" md="3">Flag</v-col>
-        <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
-        <v-col class="flag" md="3">Flag</v-col>
-      </v-row>
-      <v-row class="border">
-        <v-col class="next" md="1">Next</v-col>
-        <v-col class="red" md="5">
-          <v-row>
-            <v-col class="nextCompetitor">{{
-              actualFight.competitorRed.name
-            }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col class="nextCompetitorClub">{{
-              actualFight.competitorRed.club
-            }}</v-col>
-          </v-row>
-        </v-col>
-        <v-col class="white" md="5">
-          <v-row>
-            <v-col class="nextCompetitor">{{
-              actualFight.competitorWhite.name
-            }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col class="nextCompetitorClub">{{
-              actualFight.competitorWhite.club
-            }}</v-col>
-          </v-row>
-        </v-col>
-        <v-col md="1"></v-col>
-      </v-row>
-    </v-container>
-  </ScreenLayout>
+  <v-container fluid pt-0 pb-0>
+    <v-row class="border">
+      <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
+      <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
+      <v-col md="2"></v-col>
+    </v-row>
+    <v-row>
+      <v-col class="red2" md="6">
+        <v-row>
+          <v-col class="competitor">{{ actualFight.competitorRed.name }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col class="club">{{ actualFight.competitorRed.club }}</v-col>
+        </v-row>
+      </v-col>
+      <v-col class="white" md="6">
+        <v-row>
+          <v-col class="competitor">{{
+            actualFight.competitorWhite.name
+          }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col class="club">{{ actualFight.competitorWhite.club }}</v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-row class="border">
+      <v-col class="red2" md="6">
+        <v-row class="score">
+          <v-col align="center">
+            {{ actualFight.competitorRed.score.ippon }}
+          </v-col>
+          <v-col align="center">
+            {{ actualFight.competitorRed.score.wazari }}
+          </v-col>
+          <v-col align="center">
+            {{ actualFight.competitorRed.score.shido }}
+          </v-col>
+        </v-row>
+        <v-row class="scorelegend">
+          <v-col align="center"> Ippon </v-col>
+          <v-col align="center"> Wazari </v-col>
+          <v-col align="center"> Shido </v-col>
+        </v-row>
+      </v-col>
+      <v-col class="white" md="6">
+        <v-row class="score">
+          <v-col align="center">
+            {{ actualFight.competitorRed.score.ippon }}
+          </v-col>
+          <v-col align="center">
+            {{ actualFight.competitorRed.score.wazari }}
+          </v-col>
+          <v-col align="center">
+            {{ actualFight.competitorRed.score.shido }}
+          </v-col>
+        </v-row>
+        <v-row class="scorelegend">
+          <v-col align="center"> Ippon </v-col>
+          <v-col align="center"> Wazari </v-col>
+          <v-col align="center"> Shido </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-row class="border">
+      <v-col class="flag" md="3">Flag</v-col>
+      <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
+      <v-col class="flag" md="3">Flag</v-col>
+    </v-row>
+    <v-row class="border">
+      <v-col class="next" md="1">Next</v-col>
+      <v-col class="red2" md="5">
+        <v-row>
+          <v-col class="nextCompetitor">{{
+            actualFight.competitorRed.name
+          }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col class="nextCompetitorClub">{{
+            actualFight.competitorRed.club
+          }}</v-col>
+        </v-row>
+      </v-col>
+      <v-col class="white" md="5">
+        <v-row>
+          <v-col class="nextCompetitor">{{
+            actualFight.competitorWhite.name
+          }}</v-col>
+        </v-row>
+        <v-row>
+          <v-col class="nextCompetitorClub">{{
+            actualFight.competitorWhite.club
+          }}</v-col>
+        </v-row>
+      </v-col>
+      <v-col md="1"></v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -134,49 +128,56 @@ export default {
 }
 </script>
 <style>
+.container div {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .border {
   border-bottom: solid black 1px;
 }
 .tatami {
-  font-size: 2em;
+  font-size: 3vh;
+  font-weight: bold;
 }
 .pool {
-  font-size: 3em;
+  font-size: 4vh;
 }
 .competitor {
-  font-size: 6.5em;
+  font-size: 7.5vh;
   font-weight: bold;
 }
 .club {
-  font-size: 3.2em;
+  font-size: 4.2vh;
 }
 .score {
-  font-size: 15em;
+  font-size: 16vh;
   font-weight: bold;
 }
 .scorelegend {
-  font-size: 2em;
+  font-size: 3vh;
   font-weight: bold;
 }
 .clock {
-  font-size: 20em;
+  font-size: 21vh;
   font-weight: bold;
 }
 .flag {
-  font-size: 1em;
+  font-size: 1vh;
 }
 .next {
-  font-size: 3.2em;
+  font-size: 3.2vh;
 }
 .nextCompetitor {
-  font-size: 3.2em;
+  font-size: 4.2vh;
   font-weight: bold;
 }
 .nextCompetitorClub {
-  font-size: 3em;
+  font-size: 3vh;
   font-weight: bold;
 }
-.red {
+
+/* red is a class known by vuetify -> red2 */
+.red2 {
   background-color: blue;
   color: white;
 }

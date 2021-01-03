@@ -1,3 +1,7 @@
 <template>
-  <nuxt />
+  <v-app>
+    <v-main>
+      <nuxt />
+    </v-main>
+  </v-app>
 </template>
