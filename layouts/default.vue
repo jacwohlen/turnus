@@ -1,10 +1,10 @@
 <template>
-  <div data-app>
+  <v-app>
     <NavigationBar />
     <v-main>
       <Nuxt />
     </v-main>
-  </div>
+  </v-app>
 </template>
 
 <style>
