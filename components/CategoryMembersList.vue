@@ -25,7 +25,7 @@ export default {
         { text: 'First Name', value: 'firstname' },
         { text: 'Last Name', value: 'lastname' },
         { text: 'Sex', value: 'sex' },
-        { text: 'Birthday', value: 'birthday' },
+        { text: 'Birthday', value: 'birthyear' },
         { text: 'Club', value: 'club' },
         { text: 'Weight', value: 'weight' },
         { text: 'Actions', value: 'actions', sortable: false },

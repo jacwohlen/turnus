@@ -19,7 +19,7 @@
             <td>{{ item.firstname }}</td>
             <td>{{ item.lastname }}</td>
             <td>{{ item.sex }}</td>
-            <td>{{ item.birthday }}</td>
+            <td>{{ item.birthyear }}</td>
             <td>{{ item.club }}</td>
             <td>{{ item.weight }}</td>
           </tr>

@@ -5,7 +5,7 @@ export const state = () => ({
       firstname: 'Andreas',
       lastname: 'Schmid',
       sex: 'male',
-      birthday: '1900-03-24',
+      birthyear: '1990',
       club: 'JAC Wohlen',
       weight: 92,
       weight_measured: 92.3,
@@ -15,7 +15,7 @@ export const state = () => ({
       firstname: 'Benjamin',
       lastname: 'Wey',
       sex: 'male',
-      birthday: '1900-02-24',
+      birthyear: '1988',
       club: 'JAC Wohlen',
       weight: 73,
       weight_measured: null,
@@ -25,7 +25,7 @@ export const state = () => ({
       firstname: 'Samuel',
       lastname: 'Wey',
       sex: 'male',
-      birthday: '1900-01-24',
+      birthyear: '1992',
       club: 'JAC Wohlen',
       weight: 66,
       weight_measured: null,
@@ -35,7 +35,7 @@ export const state = () => ({
       firstname: 'Manuela',
       lastname: 'Scherer',
       sex: 'female',
-      birthday: '1990-02-10',
+      birthyear: '1990',
       club: 'JAC Wohlen',
       weight: 60,
       weight_measured: null,
@@ -44,12 +44,12 @@ export const state = () => ({
 })
 
 export const mutations = {
-  add(state, { firstname, lastname, sex, birthday, club, weight }) {
+  add(state, { firstname, lastname, sex, birthyear, club, weight }) {
     state.list.push({
       firstname,
       lastname,
       sex,
-      birthday,
+      birthyear,
       club,
       weight,
     })

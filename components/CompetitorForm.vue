@@ -41,32 +41,13 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="4">
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
+          <v-combobox
+            v-model="birthyear"
+            label="Birthyear"
+            :items="years"
+            prepend-icon="mdi-calendar"
           >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="birthday"
-                label="Birthday"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              ref="picker"
-              v-model="birthday"
-              :max="new Date().toISOString().substr(0, 10)"
-              min="1940-01-01"
-              @change="save"
-            ></v-date-picker>
-          </v-menu>
+          </v-combobox>
         </v-col>
         <v-col cols="12" md="4">
           <v-autocomplete
@@ -98,7 +79,7 @@ export default {
     firstname: null,
     lastname: null,
     sex: null,
-    birthday: null,
+    birthyear: null,
     email: null,
     club: null,
     weight: null,
@@ -111,6 +92,7 @@ export default {
       (v) => !!v || 'E-mail is required',
       (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
     ],
+    years: [],
     menu: false,
     valid: true,
   }),
@@ -124,19 +106,25 @@ export default {
       val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
     },
   },
+  mounted() {
+    const currentYear = new Date().getFullYear()
+    for (let i = currentYear; i > currentYear - 100; i--) {
+      this.years.push(i)
+    }
+  },
   methods: {
     addCompetitor() {
       this.$store.commit('competitors/add', {
         firstname: this.firstname,
         lastname: this.lastname,
         sex: this.sex,
-        birthday: this.birthday,
+        birthyear: this.birthyear,
         club: this.club,
         weight: this.weight,
       })
       this.firstname = null
       this.lastname = null
-      this.birthday = null
+      this.birthyear = null
       this.email = null
       // this.club
       this.weight = null

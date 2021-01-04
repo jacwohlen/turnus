@@ -31,7 +31,7 @@ export default {
       { text: 'Firstname', value: 'firstname' },
       { text: 'Lastname', value: 'lastname' },
       { text: 'Sex', value: 'sex' },
-      { text: 'Birthday', value: 'birthday' },
+      { text: 'Birthday', value: 'birthyear' },
       { text: 'Club', value: 'club' },
       { text: 'Given Weight', value: 'weight' },
       { text: 'Measured Weight', value: 'weight_measured' },
