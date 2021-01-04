@@ -12,6 +12,15 @@
           <CategoryForm />
         </v-toolbar>
       </template>
+      <template v-slot:item.weights="{ item }">
+        <v-item-group>
+          <v-item v-for="w in item.weights" :key="w.name">
+            <v-chip>
+              {{ w.name }}
+            </v-chip>
+          </v-item>
+        </v-item-group>
+      </template>
       <template v-slot:item.actions="{ item }">
         <CategoryForm :prefilled="item" />
       </template>
@@ -32,7 +41,8 @@ export default {
     headers: [
       { text: 'Name', value: 'name' },
       { text: 'Sex', value: 'sex' },
-      { text: 'Ages', value: 'ages' },
+      { text: 'Ages From', value: 'ageFrom' },
+      { text: 'Ages To', value: 'ageTo' },
       { text: 'Weights', value: 'weights' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
