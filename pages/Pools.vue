@@ -8,14 +8,12 @@
           <v-data-table
             :headers="headers"
             :items="items"
-            :expanded.sync="expanded"
             item-key="name"
-            show-expand
             disable-sort
             hide-default-footer
           >
             <template v-slot:item.size="{ item }">
-              {{ item.competitors.length }}
+              <CompetitorList :pool="item" />
             </template>
             <template v-slot:item.system="{ item }">
               <v-row no-gutters align="center">
@@ -40,17 +38,6 @@
                 Push to Schedule
               </v-btn>
             </template>
-            <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
-                <ol>
-                  <li v-for="(comp, idx) in item.competitors" :key="idx">
-                    {{ comp.firstname }} {{ comp.lastname }} ({{
-                      comp.weight_measured
-                    }})
-                  </li>
-                </ol>
-              </td>
-            </template>
           </v-data-table>
         </v-card>
       </v-col>
@@ -73,24 +60,15 @@
         :headers="pools_ready_headers"
         :items="pools_ready_items"
         item-key="name"
-        show-expand
         disable-sort
         hide-default-footer
       >
         >
+        <template v-slot:item.size="{ item }">
+          <CompetitorList :pool="item" :readonly="true" />
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-btn @click="setNotReadyForSchedule(item)"> Take back </v-btn>
-        </template>
-        <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length">
-            <ol>
-              <li v-for="(comp, idx) in item.competitors" :key="idx">
-                {{ comp.firstname }} {{ comp.lastname }} ({{
-                  comp.weight_measured
-                }})
-              </li>
-            </ol>
-          </td>
         </template>
       </v-data-table>
     </v-card>
@@ -102,7 +80,6 @@ import DrawView from '~/components/DrawView.vue'
 export default {
   components: { DrawView },
   data: () => ({
-    expanded: [],
     systems: ['Round Robin', 'Bresil'],
     headers: [
       { text: 'Pool', value: 'name' },

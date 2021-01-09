@@ -15,7 +15,7 @@
       ></v-select>
     </v-col>
     <v-col>
-      <v-icon @click="moveToPools()"> mdi-account-check</v-icon>
+      <v-icon @click="moveToPools()"> mdi-check</v-icon>
     </v-col>
   </v-row>
 
@@ -54,12 +54,18 @@ export default {
     },
   },
   mounted() {
-    this.potentialPool = this.$store.getters['pools/getPotentialPools'](
-      this.competitor
-    )
+    this.potentialPool = this.getPoolsByCompetitor
+    if (this.potentialPool.length === 0) {
+      this.potentialPool = this.$store.getters['pools/getPotentialPools'](
+        this.competitor
+      )
+    }
   },
   methods: {
     moveToPools() {
+      this.$store.commit('pools/removeCompetitorFromAllPools', {
+        competitor: this.competitor,
+      })
       this.potentialPool.forEach((pool) => {
         this.$store.commit('pools/addCompetitorToPool', {
           competitor: this.competitor,

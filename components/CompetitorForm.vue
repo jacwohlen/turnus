@@ -101,11 +101,6 @@ export default {
       return this.$store.state.club.list
     },
   },
-  watch: {
-    menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
-    },
-  },
   mounted() {
     const currentYear = new Date().getFullYear()
     for (let i = currentYear; i > currentYear - 100; i--) {

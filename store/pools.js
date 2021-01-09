@@ -137,6 +137,21 @@ export const mutations = {
     const idx = state.list.findIndex((x) => x.id === pool.id)
     state.list[idx].competitors.push(competitor)
   },
+  removeCompetitorFromAllPools(state, { competitor }) {
+    state.list.forEach((pool) => {
+      const idx = pool.competitors.findIndex((c) => c.id === competitor.id)
+      if (idx >= 0) {
+        pool.competitors.splice(idx, 1)
+      }
+    })
+  },
+  removeCompetitorFromPool(state, { competitor, pool }) {
+    const idx = state.list.findIndex((x) => x.id === pool.id)
+    const cidx = state.list[idx].competitors.findIndex(
+      (c) => c.id === competitor.id
+    )
+    state.list[idx].competitors.splice(cidx, 1)
+  },
 
   removeAllPoolsFromCategory(state, { id }) {
     let i = state.list.length
