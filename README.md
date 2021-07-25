@@ -1,5 +1,17 @@
 # turnus
 
+1. Create Firebase account
+2. Source environment with data from firebase account
+```
+export FIREBASE_API_KEY=
+export FIREBASE_AUTH_DOMAIN=
+export FIREBASE_DATABASE_URL=
+export FIREBASE_PROJECT_ID=
+export FIREBASE_STORAGE_BUCKET=
+export FIREBASE_MESSAGING_SENDER_ID=
+export FIREBASE_APP_ID=
+```
+
 ## Build Setup
 
 ```bash
