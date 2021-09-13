@@ -1,5 +1,8 @@
 <template>
   <v-app-bar app>
+    <img src="~/assets/turnus-logo.svg" height="70%" alt="turnus logo">
+    <h1 class="text-h5 ml-3 mr-3">turnus</h1>
+
     <v-btn v-for="(l, idx) in links" :key="idx" :to="l.link">
       {{ l.name }}
     </v-btn>
