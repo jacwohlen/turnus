@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar>
+  <v-app-bar app>
     <v-btn v-for="(l, idx) in links" :key="idx" :to="l.link">
       {{ l.name }}
     </v-btn>
