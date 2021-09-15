@@ -1,10 +1,15 @@
 export const state = () => ({
-  user: '',
+  user: null,
 })
 
 export const mutations = {
-  setUser(state, payload) {
-    state.user = payload
+  setUser: (state, { authUser }) => {
+    if (authUser) {
+      const { uid, email, emailVerified } = authUser
+      state.user = { uid, email, emailVerified }
+    } else {
+      state.user = null
+    }
   },
 }
 
@@ -19,13 +24,13 @@ export const getters = {
 }
 
 export const actions = {
-  signUp: (_, { email, password }) => {
+  signUp(_, { email, password }) {
     return this.$fire.auth.createUserWithEmailAndPassword(email, password)
   },
-  signInWithEmail: (_, { email, password }) => {
-    return this.$fire.auth.signInWithEmailAndPasword(email, password)
+  signInWithEmail(_, { email, password }) {
+    return this.$fire.auth.signInWithEmailAndPassword(email, password)
   },
-  signOut: (_) => {
+  signOut() {
     return this.$fire.auth.signOut()
   },
 }
