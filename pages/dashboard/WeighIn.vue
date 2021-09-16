@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  layout: 'DashboardLayout',
   data: () => ({
     search: '',
     headers: [

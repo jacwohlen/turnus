@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  layout: 'DashboardLayout',
   data: () => ({
     tatamis: [
       { id: 0, name: 'Tatami 1' },

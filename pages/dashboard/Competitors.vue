@@ -31,6 +31,7 @@
 
 <script>
 export default {
+  layout: 'DashboardLayout',
   computed: {
     items() {
       return this.$store.state.competitors.list

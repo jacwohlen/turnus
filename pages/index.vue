@@ -20,7 +20,6 @@
 
 <script>
 export default {
-  layout: 'LandingPage',
   computed: {
     isAuthenticated() {
       return this.$store.getters['users/isAuthenticated']

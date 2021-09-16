@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  layout: 'DashboardLayout',
   data: () => ({
     headers: [
       { text: 'Name', value: 'name' },

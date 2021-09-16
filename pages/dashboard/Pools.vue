@@ -78,6 +78,7 @@
 <script>
 import DrawView from '~/components/DrawView.vue'
 export default {
+  layout: 'DashboardLayout',
   components: { DrawView },
   data: () => ({
     systems: ['Round Robin', 'Bresil'],
