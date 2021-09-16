@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie'
+
 export const state = () => ({
   user: null,
 })
@@ -42,8 +44,12 @@ export const actions = {
     if (authUser) {
       const { uid, email, emailVerified } = authUser
       commit('setUser', { uid, email, emailVerified })
+      // save user as cookie for server (SSR workaround)
+      const token = await authUser.getIdToken()
+      Cookie.set('access-token', token)
     } else {
       commit('unsetUser')
+      Cookie.remove('access-token')
     }
   },
 }
