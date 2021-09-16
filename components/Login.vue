@@ -121,7 +121,6 @@ enum View {
 }
 
 export default {
-  layout: 'LandingPage',
   data: () => ({
     view: View.LoginView, // default view
     View,
@@ -162,6 +161,9 @@ export default {
         .dispatch('users/signInWithEmail', {
           email: this.email,
           password: this.password,
+        })
+        .then(() => {
+          this.$router.push('/competitors')
         })
         .catch((err) => {
           this.$store.dispatch('alert/setError', { msg: err, type: 'error' })

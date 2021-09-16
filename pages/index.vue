@@ -7,19 +7,12 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col v-if="!isAuthenticated" align="center">
-        <Login />
+      <v-col v-if="isAuthenticated" align="center">
+        <p>Hi {{ user.email }}</p>
+        <v-btn class="primary" to="/competitors">Open Dashboard</v-btn>
       </v-col>
       <v-col v-else align="center">
-        <v-card class="elevation-12" width="50%">
-          <v-toolbar dark color="primary">
-            <v-toolbar-title>Welcome back, {{ user.email }}!</v-toolbar-title>
-          </v-toolbar>
-          <v-card-actions>
-            <v-btn color="secondary" @click="signOut">Log out</v-btn>
-            <v-btn color="primary" to="/competitors">Launch Dashboard</v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-btn class="primary" to="/login">Start</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -34,11 +27,6 @@ export default {
     },
     user() {
       return this.$store.getters['users/user']
-    },
-  },
-  methods: {
-    signOut() {
-      this.$store.dispatch('users/signOut')
     },
   },
 }
