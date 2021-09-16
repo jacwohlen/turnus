@@ -9,11 +9,5 @@ export default function({ store, redirect, route }) {
 }
 
 function requireAuthentication(route) {
-  return [
-    '/competitors',
-    '/pools',
-    '/schedule',
-    '/categories',
-    '/weightin',
-  ].includes(route.path)
+  return route.path.startsWith('/dashboard')
 }

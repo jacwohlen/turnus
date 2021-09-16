@@ -162,7 +162,7 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$router.push('/competitors')
+          this.$router.push('/dashboard')
         })
         .catch((err) => {
           this.$store.dispatch('alert/setError', { msg: err, type: 'error' })

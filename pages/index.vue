@@ -9,7 +9,7 @@
     <v-row>
       <v-col v-if="isAuthenticated" align="center">
         <p>Hi {{ user.email }}</p>
-        <v-btn class="primary" to="/competitors">Open Dashboard</v-btn>
+        <v-btn class="primary" to="/dashboard">Open Dashboard</v-btn>
       </v-col>
       <v-col v-else align="center">
         <v-btn class="primary" to="/login">Start</v-btn>

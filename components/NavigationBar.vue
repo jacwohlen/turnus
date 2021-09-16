@@ -1,7 +1,11 @@
 <template>
   <v-app-bar app>
-    <img src="~/assets/turnus-logo.svg" height="70%" alt="turnus logo">
-    <h1 class="text-h5 ml-3 mr-3">turnus</h1>
+    <v-btn text plain to="/">
+      <v-avatar tile>
+        <img src="~/assets/turnus-logo.svg" height="70%" alt="turnus logo" />
+      </v-avatar>
+      <h1 class="text-h5 ml-3 mr-3">turnus</h1>
+    </v-btn>
 
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(l, idx) in links" :key="idx" :to="l.link">
@@ -37,13 +41,13 @@
 export default {
   data: () => ({
     links: [
-      { name: 'Home', link: '/' },
-      { name: 'Registration', link: '/competitors' },
-      { name: 'Categories', link: '/categories' },
-      { name: 'Weigh In', link: '/weighin' },
-      { name: 'Pools', link: '/pools' },
-      { name: 'Schedule', link: '/schedule' },
-      { name: 'Results', link: '/results' },
+      { name: 'Home', link: '/dashboard' },
+      { name: 'Registration', link: '/dashboard/competitors' },
+      { name: 'Categories', link: '/dashboard/categories' },
+      { name: 'Weigh In', link: '/dashboard/weighin' },
+      { name: 'Pools', link: '/dashboard/pools' },
+      { name: 'Schedule', link: '/dashboard/schedule' },
+      { name: 'Results', link: '/dashboard/results' },
     ],
   }),
   computed: {
