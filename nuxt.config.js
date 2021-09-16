@@ -62,7 +62,7 @@ export default {
         services: {
           auth: {
             initialize: {
-              onAuthStateChangedMutation: 'users/setUser',
+              onAuthStateChangedAction: 'users/onAuthStateChanged',
             },
           },
           database: true,
@@ -70,6 +70,10 @@ export default {
       },
     ],
   ],
+
+  router: {
+    middleware: ['router-auth'],
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

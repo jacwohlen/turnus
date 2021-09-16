@@ -3,13 +3,11 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setUser: (state, { authUser }) => {
-    if (authUser) {
-      const { uid, email, emailVerified } = authUser
-      state.user = { uid, email, emailVerified }
-    } else {
-      state.user = null
-    }
+  setUser(state, { uid, email, emailVerified }) {
+    state.user = { uid, email, emailVerified }
+  },
+  unsetUser(state) {
+    state.user = null
   },
 }
 
@@ -27,10 +25,25 @@ export const actions = {
   signUp(_, { email, password }) {
     return this.$fire.auth.createUserWithEmailAndPassword(email, password)
   },
-  signInWithEmail(_, { email, password }) {
-    return this.$fire.auth.signInWithEmailAndPassword(email, password)
+  async signInWithEmail({ dispatch }, { email, password }) {
+    const ret = await this.$fire.auth.signInWithEmailAndPassword(
+      email,
+      password
+    )
+    const authUser = ret.user
+    // force state update, as onAuthStateChanged has delay and messes up
+    // redirection after login
+    dispatch('onAuthStateChanged', { authUser })
   },
   signOut() {
     return this.$fire.auth.signOut()
+  },
+  async onAuthStateChanged({ commit }, { authUser }) {
+    if (authUser) {
+      const { uid, email, emailVerified } = authUser
+      commit('setUser', { uid, email, emailVerified })
+    } else {
+      commit('unsetUser')
+    }
   },
 }

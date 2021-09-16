@@ -109,7 +109,6 @@
         <v-btn color="primary" to="/">Reset Account</v-btn>
       </v-card-actions>
     </div>
-
   </v-card>
 </template>
 
