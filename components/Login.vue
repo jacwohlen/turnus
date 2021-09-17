@@ -3,8 +3,6 @@
     <v-toolbar dark color="primary">
       <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
-
-    <v-alert v-if="errorMessage" type="error">{{ errorMessage }}</v-alert>
     <Alert />
 
     <!-- Login View -->
@@ -115,7 +113,7 @@
 </template>
 
 <script lang="ts">
-import { userStore } from '~/store'
+import { userStore, alertStore } from '~/store'
 
 enum View {
   LoginView,
@@ -160,7 +158,7 @@ export default {
           this.$router.push('/dashboard')
         })
         .catch((err) => {
-          this.$store.dispatch('alert/setError', { msg: err, type: 'error' })
+          alertStore.setError({ msg: err })
         })
     },
     login() {
@@ -173,7 +171,7 @@ export default {
           this.$router.push('/dashboard')
         })
         .catch((err) => {
-          this.$store.dispatch('alert/setError', { msg: err, type: 'error' })
+          alertStore.setError({ msg: err })
         })
     },
   },

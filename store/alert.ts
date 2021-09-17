@@ -1,24 +1,34 @@
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+
 enum AlertType {
   Error = 'error',
   Info = 'info',
 }
 
-export const state = () => ({
-  alert: {
-    message: '',
-    type: AlertType.Error,
-  },
-})
-
-export const mutations = {
-  setAlert(state: any, { msg, type }: { msg: string; type: AlertType }) {
-    state.alert.message = msg
-    state.alert.type = type
-  },
+interface AlertMessage {
+  message: string
+  type: AlertType
 }
 
-export const actions = {
-  setError(ctx: any, { msg }: { msg: string }) {
-    ctx.commit('setAlert', { msg, type: 'error' })
-  },
+@Module({
+  name: 'alert',
+  stateFactory: true,
+  namespaced: true,
+})
+export default class Alert extends VuexModule {
+  alert: AlertMessage = {
+    message: '',
+    type: AlertType.Error,
+  }
+
+  @Mutation
+  setAlert({ message, type }: AlertMessage) {
+    this.alert.message = message
+    this.alert.type = type
+  }
+
+  @Action({ rawError: true })
+  setError({ msg }: { msg: string }) {
+    this.setAlert({ message: msg, type: AlertType.Error })
+  }
 }

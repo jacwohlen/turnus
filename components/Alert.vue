@@ -12,19 +12,20 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapMutations } from 'vuex'
+<script lang="ts">
+import { alertStore } from '~/store'
 
 export default {
   computed: {
-    ...mapState('alert', ['alert'])
+    alert() {
+      return alertStore.alert
+    },
   },
 
   methods: {
-    ...mapMutations('alert', ['setAlert']),
-    closeAlert(val) {
-      this.setAlert({})
-    }
-  }
+    closeAlert() {
+      alertStore.setError({})
+    },
+  },
 }
 </script>
