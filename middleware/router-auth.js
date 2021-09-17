@@ -3,7 +3,7 @@ export default function({ store, redirect, route }) {
   if (!authenticatedUser && requireAuthentication(route)) {
     redirect('/login')
   } else if (authenticatedUser && route.path === '/login') {
-    redirect('/competitors')
+    redirect('/dashboard')
   } else {
   }
 }
