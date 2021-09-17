@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { userStore } from '~/store'
+
 export default {
   data: () => ({
     links: [
@@ -52,12 +54,12 @@ export default {
   }),
   computed: {
     user() {
-      return this.$store.getters['users/user']
+      return userStore.user
     },
   },
   methods: {
     signOut() {
-      this.$store.dispatch('users/signOut').then(() => {
+      userStore.signOut().then(() => {
         this.$router.push('/')
       })
     },

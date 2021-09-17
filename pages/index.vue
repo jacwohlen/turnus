@@ -18,14 +18,16 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import { userStore } from '~/store'
+
 export default {
   computed: {
     isAuthenticated() {
-      return this.$store.getters['users/isAuthenticated']
+      return userStore.isAuthenticated
     },
     user() {
-      return this.$store.getters['users/user']
+      return userStore.user
     },
   },
 }

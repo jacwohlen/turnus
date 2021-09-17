@@ -2,6 +2,13 @@
 // cookie (see https://www.youtube.com/watch?v=_-_bz5lH_fI)
 import JWTDecode from 'jwt-decode'
 import cookieparser from 'cookieparser'
+// FIXME: repalce cookieparser with cookie-parser which comes with types
+
+import { Store } from 'vuex'
+import { initializeStores } from '@/utils/store-accessor'
+const initializer = (store: Store<any>) => initializeStores(store)
+export const plugins = [initializer]
+export * from '@/utils/store-accessor'
 
 export const actions = {
   nuxtServerInit({ commit }, { req }) {

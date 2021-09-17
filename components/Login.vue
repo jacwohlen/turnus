@@ -4,7 +4,7 @@
       <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
 
-    <v-alert v-if="errorMessage" type="error">{{errorMessage}}</v-alert>
+    <v-alert v-if="errorMessage" type="error">{{ errorMessage }}</v-alert>
     <Alert />
 
     <!-- Login View -->
@@ -84,7 +84,9 @@
         <v-btn plain @click="view = View.LoginView">
           Already have an Account
         </v-btn>
-        <v-btn :disabled="!valid" color="primary" @click="createAccount">Create Account</v-btn>
+        <v-btn :disabled="!valid" color="primary" @click="createAccount"
+          >Create Account</v-btn
+        >
       </v-card-actions>
     </div>
 
@@ -113,6 +115,8 @@
 </template>
 
 <script lang="ts">
+import { userStore } from '~/store'
+
 enum View {
   LoginView,
   CreateAccountView,
@@ -130,7 +134,8 @@ export default {
     password2: null,
     nameRules: [
       (v: string) => !!v || 'Name is required',
-      (v: string) => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      (v: string) =>
+        (v && v.length <= 10) || 'Name must be less than 10 characters',
     ],
     passwordRules: [(v: string) => !!v || 'Password is required'],
     emailRules: [
@@ -146,18 +151,21 @@ export default {
   },
   methods: {
     createAccount() {
-      this.$store
-        .dispatch('users/signUp', {
+      userStore
+        .signUp({
           email: this.email,
           password: this.password,
+        })
+        .then(() => {
+          this.$router.push('/dashboard')
         })
         .catch((err) => {
           this.$store.dispatch('alert/setError', { msg: err, type: 'error' })
         })
     },
     login() {
-      this.$store
-        .dispatch('users/signInWithEmail', {
+      userStore
+        .signInWithEmail({
           email: this.email,
           password: this.password,
         })
