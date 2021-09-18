@@ -16,7 +16,7 @@
           <ol>
             <li v-for="(comp, idx) in item.competitors" :key="idx">
               {{ comp.firstname }} {{ comp.lastname }} ({{
-                comp.weight_measured
+                comp.weightMeasured
               }})
             </li>
           </ol>

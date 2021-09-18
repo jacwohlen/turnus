@@ -6,7 +6,7 @@
     @keydown.esc="dialog = false"
   >
     <template v-slot:activator="{ on, attrs }">
-      <span v-if="prefilled.weight_measured !== null">
+      <span v-if="prefilled.weightMeasured !== null">
         <SafeButton :execute="remove" />
       </span>
       <span v-else>
@@ -52,7 +52,7 @@
 
                 <v-col cols="12">
                   <v-text-field
-                    v-model="item.weight_measured"
+                    v-model="item.weightMeasured"
                     label="Actual Weight"
                     suffix="kg"
                     type="number"
@@ -98,7 +98,7 @@ export default {
     add() {
       this.$store.commit('competitors/addWeight', {
         id: this.item.id,
-        weight: this.item.weight_measured,
+        weight: this.item.weightMeasured,
       })
       this.dialog = false
     },

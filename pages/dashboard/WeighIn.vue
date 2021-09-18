@@ -14,8 +14,8 @@
         ></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="items" :search="search">
-        <template v-slot:item.weight_measured="{ item }">
-          {{ item.weight_measured }}
+        <template v-slot:item.weightMeasured="{ item }">
+          {{ item.weightMeasured }}
           <WeighForm :prefilled="item" />
         </template>
       </v-data-table>
@@ -35,7 +35,7 @@ export default {
       { text: 'Birthday', value: 'birthyear' },
       { text: 'Club', value: 'club' },
       { text: 'Given Weight', value: 'weight' },
-      { text: 'Measured Weight', value: 'weight_measured' },
+      { text: 'Measured Weight', value: 'weightMeasured' },
     ],
     selectedCategory: null,
   }),

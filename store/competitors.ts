@@ -8,7 +8,7 @@ export const state = () => ({
       birthyear: '1990',
       club: 'JAC Wohlen',
       weight: 92,
-      weight_measured: 92.3,
+      weightMeasured: 92.3,
     },
     {
       id: 1,
@@ -18,7 +18,7 @@ export const state = () => ({
       birthyear: '1988',
       club: 'JAC Wohlen',
       weight: 73,
-      weight_measured: null,
+      weightMeasured: null,
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ export const state = () => ({
       birthyear: '1992',
       club: 'JAC Wohlen',
       weight: 66,
-      weight_measured: null,
+      weightMeasured: null,
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ export const state = () => ({
       birthyear: '1990',
       club: 'JAC Wohlen',
       weight: 60,
-      weight_measured: null,
+      weightMeasured: null,
     },
   ],
 })
@@ -61,11 +61,11 @@ export const mutations = {
 
   addWeight(state, { id, weight }) {
     const idx = state.list.findIndex((x) => x.id === id)
-    Object.assign(state.list[idx], { id, weight_measured: weight })
+    Object.assign(state.list[idx], { id, weightMeasured: weight })
   },
 
   removeWeight(state, id) {
     const idx = state.list.findIndex((x) => x.id === id)
-    Object.assign(state.list[idx], { id, weight_measured: null })
+    Object.assign(state.list[idx], { id, weightMeasured: null })
   },
 }
