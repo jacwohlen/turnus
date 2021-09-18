@@ -29,13 +29,18 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { competitorsStore } from '~/store'
+
 export default {
   layout: 'DashboardLayout',
   computed: {
     items() {
-      return this.$store.state.competitors.list
+      return competitorsStore.list
     },
+  },
+  mounted() {
+    competitorsStore.init()
   },
 }
 </script>

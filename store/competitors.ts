@@ -1,4 +1,7 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { firebaseAction } from 'vuexfire'
+import firebase from 'firebase/app'
+import 'firebase/database'
 
 interface Competitor {
   id: number
@@ -62,7 +65,7 @@ export default class Competitors extends VuexModule {
 
   @Mutation
   add(competitor: Competitor) {
-    this.list.push(competitor)
+    firebase.database().ref('competitors').push(competitor)
   }
 
   @Mutation
@@ -80,5 +83,14 @@ export default class Competitors extends VuexModule {
   removeWeight(id: number) {
     const idx = this.list.findIndex((x: Competitor) => x.id === id)
     Object.assign(this.list[idx], { id, weightMeasured: null })
+  }
+
+  @Action
+  init() {
+    const action = firebaseAction(({ bindFirebaseRef }) => {
+      return bindFirebaseRef('list', firebase.database().ref('competitors'))
+    }) as Function
+    // Call function that firebaseAction returns
+    return action(this.context)
   }
 }
