@@ -1,11 +1,29 @@
-export const state = () => ({
-  list: [
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+
+interface Competitor {
+  id: number
+  firstname: string
+  lastname: string
+  sex: string
+  birthyear: number
+  club: string
+  weight: number
+  weightMeasured: number | null
+}
+
+@Module({
+  name: 'competitors',
+  stateFactory: true,
+  namespaced: true,
+})
+export default class Competitors extends VuexModule {
+  list: Competitor[] = [
     {
       id: 0,
       firstname: 'Andreas',
       lastname: 'Schmid',
       sex: 'male',
-      birthyear: '1990',
+      birthyear: 1990,
       club: 'JAC Wohlen',
       weight: 92,
       weightMeasured: 92.3,
@@ -15,7 +33,7 @@ export const state = () => ({
       firstname: 'Benjamin',
       lastname: 'Wey',
       sex: 'male',
-      birthyear: '1988',
+      birthyear: 1988,
       club: 'JAC Wohlen',
       weight: 73,
       weightMeasured: null,
@@ -25,7 +43,7 @@ export const state = () => ({
       firstname: 'Samuel',
       lastname: 'Wey',
       sex: 'male',
-      birthyear: '1992',
+      birthyear: 1992,
       club: 'JAC Wohlen',
       weight: 66,
       weightMeasured: null,
@@ -35,37 +53,32 @@ export const state = () => ({
       firstname: 'Manuela',
       lastname: 'Scherer',
       sex: 'female',
-      birthyear: '1990',
+      birthyear: 1990,
       club: 'JAC Wohlen',
       weight: 60,
       weightMeasured: null,
     },
-  ],
-})
+  ]
 
-export const mutations = {
-  add(state, { firstname, lastname, sex, birthyear, club, weight }) {
-    state.list.push({
-      firstname,
-      lastname,
-      sex,
-      birthyear,
-      club,
-      weight,
-    })
-  },
+  @Mutation
+  add(competitor: Competitor) {
+    this.list.push(competitor)
+  }
 
-  remove(state, { c }) {
-    state.list.splice(state.list.indexOf(c), 1)
-  },
+  @Mutation
+  remove({ c }: { c: Competitor }) {
+    this.list.splice(this.list.indexOf(c), 1)
+  }
 
-  addWeight(state, { id, weight }) {
-    const idx = state.list.findIndex((x) => x.id === id)
-    Object.assign(state.list[idx], { id, weightMeasured: weight })
-  },
+  @Mutation
+  addWeight({ id, weight }: { id: number; weight: number }) {
+    const idx = this.list.findIndex((x: Competitor) => x.id === id)
+    Object.assign(this.list[idx], { id, weightMeasured: weight })
+  }
 
-  removeWeight(state, id) {
-    const idx = state.list.findIndex((x) => x.id === id)
-    Object.assign(state.list[idx], { id, weightMeasured: null })
-  },
+  @Mutation
+  removeWeight(id: number) {
+    const idx = this.list.findIndex((x: Competitor) => x.id === id)
+    Object.assign(this.list[idx], { id, weightMeasured: null })
+  }
 }
