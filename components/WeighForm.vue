@@ -6,7 +6,7 @@
     @keydown.esc="dialog = false"
   >
     <template v-slot:activator="{ on, attrs }">
-      <span v-if="prefilled.weightMeasured !== null">
+      <span v-if="prefilled.weightMeasured !== undefined">
         <SafeButton :execute="remove" />
       </span>
       <span v-else>
@@ -78,7 +78,9 @@
   </v-dialog>
 </template>
 
-<script>
+<script lang="ts">
+import { competitorsStore } from '~/store'
+
 export default {
   props: {
     prefilled: {
@@ -90,20 +92,21 @@ export default {
     return {
       dialog: false,
       confirm: false,
+      itemId: this.prefilled['.key'],
       item: Object.assign({}, this.prefilled),
       valid: true,
     }
   },
   methods: {
     add() {
-      this.$store.commit('competitors/addWeight', {
-        id: this.item.id,
+      competitorsStore.addWeight({
+        id: this.itemId,
         weight: this.item.weightMeasured,
       })
       this.dialog = false
     },
     remove() {
-      this.$store.commit('competitors/removeWeight', this.item.id)
+      competitorsStore.removeWeight(this.itemId)
     },
   },
 }

@@ -64,25 +64,30 @@ export default class Competitors extends VuexModule {
   ]
 
   @Mutation
-  add(competitor: Competitor) {
-    firebase.database().ref('competitors').push(competitor)
+  add(item: Competitor) {
+    firebase.database().ref('competitors').push(item)
   }
 
   @Mutation
-  remove({ c }: { c: Competitor }) {
-    this.list.splice(this.list.indexOf(c), 1)
+  remove(_: Competitor) {
+    throw new Error('not implemented')
+    // firebase.database().ref(`competitors/${item.id}`).push(null)
   }
 
   @Mutation
-  addWeight({ id, weight }: { id: number; weight: number }) {
-    const idx = this.list.findIndex((x: Competitor) => x.id === id)
-    Object.assign(this.list[idx], { id, weightMeasured: weight })
+  addWeight({ id, weight }: { id: string; weight: number }) {
+    firebase
+      .database()
+      .ref(`competitors/${id}`)
+      .update({ weightMeasured: weight })
   }
 
   @Mutation
   removeWeight(id: number) {
-    const idx = this.list.findIndex((x: Competitor) => x.id === id)
-    Object.assign(this.list[idx], { id, weightMeasured: null })
+    firebase
+      .database()
+      .ref(`competitors/${id}`)
+      .update({ weightMeasured: null })
   }
 
   @Action
@@ -90,7 +95,6 @@ export default class Competitors extends VuexModule {
     const action = firebaseAction(({ bindFirebaseRef }) => {
       return bindFirebaseRef('list', firebase.database().ref('competitors'))
     }) as Function
-    // Call function that firebaseAction returns
     return action(this.context)
   }
 }
