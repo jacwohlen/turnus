@@ -3,16 +3,7 @@ import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/database'
 
-interface Competitor {
-  id: number
-  firstname: string
-  lastname: string
-  sex: string
-  birthyear: number
-  club: string
-  weight: number
-  weightMeasured: number | null
-}
+import { Competitor } from '~/types/models'
 
 @Module({
   name: 'competitors',
@@ -71,7 +62,6 @@ export default class Competitors extends VuexModule {
   @Mutation
   remove(_: Competitor) {
     throw new Error('not implemented')
-    // firebase.database().ref(`competitors/${item.id}`).push(null)
   }
 
   @Mutation
@@ -83,7 +73,7 @@ export default class Competitors extends VuexModule {
   }
 
   @Mutation
-  removeWeight(id: number) {
+  removeWeight(id: string) {
     firebase
       .database()
       .ref(`competitors/${id}`)
