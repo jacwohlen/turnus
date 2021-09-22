@@ -24,7 +24,7 @@ export default {
 
   methods: {
     closeAlert() {
-      alertStore.setError({})
+      alertStore.setError({ msg: '' })
     },
   },
 }
