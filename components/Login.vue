@@ -113,6 +113,9 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
 import { userStore, alertStore } from '~/store'
 
 enum View {
@@ -121,59 +124,60 @@ enum View {
   ForgotPasswordView,
 }
 
-export default {
-  data: () => ({
-    view: View.LoginView, // default view
-    View,
-    errorMessage: null,
-    username: null,
-    email: null,
-    password: null,
-    password2: null,
-    nameRules: [
-      (v: string) => !!v || 'Name is required',
-      (v: string) =>
-        (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    passwordRules: [(v: string) => !!v || 'Password is required'],
-    emailRules: [
-      (v: string) => !!v || 'E-mail is required',
-      (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
-    valid: true,
-  }),
-  computed: {
-    matchPasswords() {
-      return () => this.password === this.password2 || 'Passwords must match'
-    },
-  },
-  methods: {
-    createAccount() {
-      userStore
-        .signUp({
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push('/dashboard')
-        })
-        .catch((err) => {
-          alertStore.setError({ msg: err })
-        })
-    },
-    login() {
-      userStore
-        .signInWithEmail({
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push('/dashboard')
-        })
-        .catch((err) => {
-          alertStore.setError({ msg: err })
-        })
-    },
-  },
+@Component
+export default class LoginPage extends Vue {
+  view: View = View.LoginView // default view
+  View: any = View
+  errorMessage: string = ''
+  username: string = ''
+  email: string = ''
+  password: string = ''
+  password2: string = ''
+  nameRules = [
+    (v: string) => !!v || 'Name is required',
+    (v: string) =>
+      (v && v.length <= 10) || 'Name must be less than 10 characters',
+  ]
+
+  passwordRules = [(v: string) => !!v || 'Password is required']
+
+  emailRules = [
+    (v: string) => !!v || 'E-mail is required',
+    (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+  ]
+
+  valid: boolean = true
+
+  get matchPasswords() {
+    return () => this.password === this.password2 || 'Passwords must match'
+  }
+
+  createAccount() {
+    userStore
+      .signUp({
+        email: this.email,
+        password: this.password,
+      })
+      .then(() => {
+        this.$router.push('/dashboard')
+      })
+      .catch((err) => {
+        alertStore.setError({ msg: err })
+      })
+  }
+
+  login() {
+    userStore
+      .signInWithEmail({
+        email: this.email,
+        password: this.password,
+      })
+      .then(() => {
+        this.$router.push('/dashboard')
+      })
+      .catch((err) => {
+        alertStore.setError({ msg: err })
+      })
+  }
 }
 </script>
