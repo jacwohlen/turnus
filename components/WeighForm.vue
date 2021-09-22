@@ -79,35 +79,39 @@
 </template>
 
 <script lang="ts">
-import { competitorsStore } from '~/store'
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-export default {
+import { competitorsStore } from '~/store'
+import { Competitor } from '~/types/models'
+
+const PrefilledProps = Vue.extend({
   props: {
     prefilled: {
       type: Object,
       required: true,
     },
   },
-  data() {
-    return {
-      dialog: false,
-      confirm: false,
-      itemId: this.prefilled['.key'],
-      item: Object.assign({}, this.prefilled),
-      valid: true,
-    }
-  },
-  methods: {
-    add() {
-      competitorsStore.addWeight({
-        id: this.itemId,
-        weight: this.item.weightMeasured,
-      })
-      this.dialog = false
-    },
-    remove() {
-      competitorsStore.removeWeight(this.itemId)
-    },
-  },
+})
+
+@Component
+export default class WeightForm extends PrefilledProps {
+  dialog: boolean = false
+  confirm: boolean = false
+  itemId: string = this.prefilled['.key']
+  item: Competitor = Object.assign({}, this.prefilled)
+  valid: boolean = true
+
+  add(): void {
+    competitorsStore.addWeight({
+      id: this.itemId,
+      weight: this.item.weightMeasured!!, // !! will throw NPE (NullPointerException if null)
+    })
+    this.dialog = false
+  }
+
+  remove(): void {
+    competitorsStore.removeWeight(this.itemId)
+  }
 }
 </script>
