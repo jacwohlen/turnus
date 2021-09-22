@@ -47,6 +47,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
+    "vue-class-component": "^7.2.6",
     "vuex-module-decorators": "^1.0.1"
   }
 }
