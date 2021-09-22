@@ -1,4 +1,5 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+
 import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/database'

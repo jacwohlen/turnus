@@ -1,5 +1,18 @@
-export const state = () => ({
-  list: [
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+
+import { firebaseAction } from 'vuexfire'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
+import { Category, WeightClass } from '~/types/models'
+
+@Module({
+  name: 'categories',
+  stateFactory: true,
+  namespaced: true,
+})
+export default class Categories extends VuexModule {
+  list: Category[] = [
     {
       id: 0,
       name: 'Elite Male',
@@ -60,39 +73,34 @@ export const state = () => ({
         { name: '+100kg', weight_from: 100, weight_to: Infinity },
       ],
     },
-  ],
-})
+  ]
 
-export const mutations = {
-  add(state, { name, sex, ageFrom, ageTo, weights }) {
-    state.list.push({
-      name,
-      sex,
-      ageFrom,
-      ageTo,
-      weights,
-    })
-  },
+  @Mutation
+  add({ name, sex, ageFrom, ageTo, weights }: Category) {
+    firebase
+      .database()
+      .ref(`/categories`)
+      .push({ name, sex, ageFrom, ageTo, weights })
+  }
 
-  update(state, { id, name, sex, ageFrom, ageTo, weights }) {
-    const idx = state.list.findIndex((x) => x.id === id)
-    Object.assign(state.list[idx], { id, name, sex, ageFrom, ageTo, weights })
-  },
+  @Mutation
+  update({ id, name, sex, ageFrom, ageTo, weights }: Category) {
+    firebase
+      .database()
+      .ref(`/categories/${id}`)
+      .update({ name, sex, ageFrom, ageTo, weights })
+  }
 
-  remove(state, id) {
-    const idx = state.list.findIndex((x) => x.id === id)
-    state.list.splice(idx, 1)
-  },
-}
+  @Mutation
+  remove(id: string) {
+    firebase.database().ref(`/categories/${id}`).remove()
+  }
 
-export const actions = {
-  addCategoryAndCreatePools: (
-    context,
-    { name, sex, ageFrom, ageTo, weights }
-  ) => {
-    context.commit('add', { name, sex, ageFrom, ageTo, weights })
+  @Action
+  addCategoryAndCreatePools({ name, sex, ageFrom, ageTo, weights }: Category) {
+    this.add({ name, sex, ageFrom, ageTo, weights })
     weights.forEach((weight) => {
-      context.commit(
+      this.context.commit(
         'pools/add',
         {
           name: name + ' ' + weight.name,
@@ -109,15 +117,25 @@ export const actions = {
         { root: true }
       )
     })
-  },
-  updateCategoryAndRecreatePools: (
-    context,
-    { id, name, sex, ageFrom, ageTo, weights }
-  ) => {
-    context.commit('update', { id, name, sex, ageFrom, ageTo, weights })
-    context.commit('pools/removeAllPoolsFromCategory', { id }, { root: true })
-    weights.forEach((weight) => {
-      context.commit(
+  }
+
+  @Action
+  updateCategoryAndRecreatePools({
+    id,
+    name,
+    sex,
+    ageFrom,
+    ageTo,
+    weights,
+  }: Category) {
+    this.context.commit('update', { id, name, sex, ageFrom, ageTo, weights })
+    this.context.commit(
+      'pools/removeAllPoolsFromCategory',
+      { id },
+      { root: true }
+    )
+    weights.forEach((weight: WeightClass) => {
+      this.context.commit(
         'pools/add',
         {
           name: name + ' ' + weight.name,
@@ -134,9 +152,24 @@ export const actions = {
         { root: true }
       )
     })
-  },
-  removeCategoryAndPools: (context, { id }) => {
-    context.commit('remove', id)
-    context.commit('pools/removeAllPoolsFromCategory', { id }, { root: true })
-  },
+  }
+
+  @Action
+  removeCategoryAndPools({ id }: { id: string }) {
+    this.context.commit('remove', id)
+    this.context.commit(
+      'pools/removeAllPoolsFromCategory',
+      { id },
+      { root: true }
+    )
+  }
+
+  @Action
+  init() {
+    const action = firebaseAction(({ bindFirebaseRef }) => {
+      return bindFirebaseRef('list', firebase.database().ref('categories'))
+    }) as Function
+    return action(this.context)
+  }
+
 }

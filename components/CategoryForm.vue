@@ -151,7 +151,7 @@
           :disabled="!valid"
           @click="edit"
         >
-          Edit
+          Save
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -160,6 +160,7 @@
 
 <script>
 import _ from 'lodash' // for deep cloning
+import { categoriesStore } from '~/store'
 
 export default {
   props: {
@@ -173,6 +174,7 @@ export default {
       dialog: false,
       confirm: false,
       item: _.cloneDeep(this.prefilled),
+      itemId: this.prefilled['.key'],
       nameRules: [
         (v) => !!v || 'Name is required',
         (v) => (v && v.length <= 20) || 'Name must be less than 20 characters',
@@ -193,7 +195,7 @@ export default {
   },
   methods: {
     add() {
-      this.$store.dispatch('categories/addCategoryAndCreatePools', {
+      categoriesStore.addCategoryAndCreatePools({
         name: this.item.name,
         sex: this.item.sex,
         ageFrom: this.item.ageFrom,
@@ -203,8 +205,8 @@ export default {
       this.dialog = false
     },
     edit() {
-      this.$store.dispatch('categories/updateCategoryAndRecreatePools', {
-        id: this.item.id,
+      categoriesStore.updateCategoryAndRecreatePools({
+        id: this.itemId,
         name: this.item.name,
         sex: this.item.sex,
         ageFrom: this.item.ageFrom,
@@ -214,8 +216,8 @@ export default {
       this.dialog = false
     },
     remove() {
-      this.$store.dispatch('categories/removeCategoryAndPools', {
-        id: this.item.id,
+      categoriesStore.removeCategoryAndPools({
+        id: this.itemId,
       })
     },
     removeWeight(item) {
