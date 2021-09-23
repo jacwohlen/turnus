@@ -14,50 +14,23 @@ import { Competitor } from '~/types/models'
 export default class Competitors extends VuexModule {
   list: Competitor[] = [
     {
-      id: 0,
-      firstname: 'Andreas',
-      lastname: 'Schmid',
-      sex: 'male',
-      birthyear: 1990,
-      club: 'JAC Wohlen',
-      weight: 92,
-      weightMeasured: 92.3,
-    },
-    {
-      id: 1,
-      firstname: 'Benjamin',
-      lastname: 'Wey',
-      sex: 'male',
-      birthyear: 1988,
-      club: 'JAC Wohlen',
-      weight: 73,
+      id: '',
+      firstname: '',
+      lastname: '',
+      sex: '',
+      birthyear: 0,
+      club: '',
+      weight: 0,
       weightMeasured: null,
-    },
-    {
-      id: 2,
-      firstname: 'Samuel',
-      lastname: 'Wey',
-      sex: 'male',
-      birthyear: 1992,
-      club: 'JAC Wohlen',
-      weight: 66,
-      weightMeasured: null,
-    },
-    {
-      id: 3,
-      firstname: 'Manuela',
-      lastname: 'Scherer',
-      sex: 'female',
-      birthyear: 1990,
-      club: 'JAC Wohlen',
-      weight: 60,
-      weightMeasured: null,
+      pools: [],
     },
   ]
 
   @Mutation
   add(item: Competitor) {
-    firebase.database().ref('competitors').push(item)
+    const ref = firebase.database().ref('competitors').push()
+    item.id = ref.key!!
+    ref.set(item)
   }
 
   @Mutation

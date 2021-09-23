@@ -1,9 +1,5 @@
 <template>
-  <v-row
-    v-if="editable || getPoolsByCompetitor === []"
-    no-gutters
-    align="center"
-  >
+  <v-row v-if="editable" no-gutters align="center">
     <v-col>
       <v-select
         v-model="potentialPool"
@@ -15,7 +11,7 @@
       ></v-select>
     </v-col>
     <v-col>
-      <v-icon @click="moveToPools()"> mdi-check</v-icon>
+      <v-icon @click="moveCompetitorToSelectedPools()"> mdi-check</v-icon>
     </v-col>
   </v-row>
 
@@ -33,47 +29,63 @@
   </v-row>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropType } from 'vue'
+import Component from 'vue-class-component'
+
+import { poolsStore } from '~/store'
+import { Competitor, Pool } from '~/types/models'
+
+const PrefilledProps = Vue.extend({
   props: {
     competitor: {
-      type: Object,
-      default: () => ({ empty: true }),
+      type: Object as PropType<Competitor>,
+      required: true,
     },
   },
-  data: () => ({
-    potentialPool: [],
-    editable: true,
-  }),
-  computed: {
-    pools() {
-      return this.$store.state.pools.list
-    },
-    getPoolsByCompetitor() {
-      return this.$store.getters['pools/getPoolsByCompetitor'](this.competitor)
-    },
-  },
-  mounted() {
+})
+
+@Component
+export default class AssignToPool extends PrefilledProps {
+  potentialPool: Pool[] = []
+  editable: boolean = true
+
+  get pools() {
+    return poolsStore.list
+  }
+
+  get getPoolsByCompetitor() {
+    if (this.competitor.pools) {
+      return this.competitor.pools
+    }
+    return []
+    // FIXME: Move back into store?
+    // return poolsStore.getPoolsByCompetitor(this.competitor.id)
+    // const t = this
+    // const ret = poolsStore.list.filter(function (e: Pool) {
+    //   if (e.competitors) {
+    //     return Object.hasOwnProperty(e.competitors, t.competitor.id)
+    //   }
+    //   return false
+    // })
+    // return ret
+  }
+
+  async mounted() {
+    this.editable = !this.getPoolsByCompetitor.length
+
     this.potentialPool = this.getPoolsByCompetitor
     if (this.potentialPool.length === 0) {
-      this.potentialPool = this.$store.getters['pools/getPotentialPools'](
-        this.competitor
-      )
+      this.potentialPool = await poolsStore.getPotentialPools(this.competitor)
     }
-  },
-  methods: {
-    moveToPools() {
-      this.$store.commit('pools/removeCompetitorFromAllPools', {
-        competitor: this.competitor,
-      })
-      this.potentialPool.forEach((pool) => {
-        this.$store.commit('pools/addCompetitorToPool', {
-          competitor: this.competitor,
-          pool,
-        })
-      })
-      this.editable = false
-    },
-  },
+  }
+
+  async moveCompetitorToSelectedPools() {
+    await poolsStore.setCompetitorInPools({
+      competitor: this.competitor,
+      pools: this.potentialPool,
+    })
+    this.editable = false
+  }
 }
 </script>

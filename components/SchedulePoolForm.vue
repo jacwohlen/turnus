@@ -6,7 +6,7 @@
     @keydown.esc="dialog = false"
   >
     <template v-slot:activator="{ on, attrs }">
-      <div v-if="pool.tatami_scheduled === null">
+      <div v-if="pool.tatamiScheduled === null">
         <v-btn v-bind="attrs" v-on="on"> Schedule Pool </v-btn>
       </div>
       <div v-else>

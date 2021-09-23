@@ -28,6 +28,12 @@ import { competitorsStore } from '~/store'
 
 export default {
   layout: 'DashboardLayout',
+  async fetch() {
+    await competitorsStore.init()
+  },
+  async mounted() {
+    await competitorsStore.init()
+  },
   data: () => ({
     search: '',
     headers: [
@@ -45,9 +51,6 @@ export default {
     items() {
       return competitorsStore.list
     },
-  },
-  mounted() {
-    competitorsStore.init()
   },
 }
 </script>

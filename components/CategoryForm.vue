@@ -99,14 +99,14 @@
                         </td>
                         <td>
                           <v-text-field
-                            v-model="weight_from"
+                            v-model="weightFrom"
                             type="number"
                             label="From"
                           ></v-text-field>
                         </td>
                         <td>
                           <v-text-field
-                            v-model="weight_to"
+                            v-model="weightTo"
                             type="number"
                             label="To"
                           ></v-text-field>
@@ -184,13 +184,13 @@ export default {
       sexes: ['male', 'female', 'mixed'],
       weight_headers: [
         { text: 'Name', value: 'name' },
-        { text: 'From', value: 'weight_from' },
-        { text: 'To', value: 'weight_to' },
+        { text: 'From', value: 'weightFrom' },
+        { text: 'To', value: 'weightTo' },
         { text: '', value: 'action' },
       ],
       weight_name: '',
-      weight_from: '',
-      weight_to: '',
+      weightFrom: '',
+      weightTo: '',
     }
   },
   methods: {
@@ -226,18 +226,18 @@ export default {
     },
     addWeight() {
       if (this.weight_name === '') {
-        this.weight_name = '-' + this.weight_to + 'kg'
+        this.weight_name = '-' + this.weightTo + 'kg'
       }
       this.item.weights.push({
         name: this.weight_name,
-        weight_from: this.weight_from,
-        weight_to: this.weight_to,
+        weightFrom: this.weightFrom,
+        weightTo: this.weightTo,
       })
       this.weight_name = ''
-      this.weight_from = this.weight_to
-      this.weight_to = ''
+      this.weightFrom = this.weightTo
+      this.weightTo = ''
 
-      this.item.weights.sort((a, b) => a.weight_from - b.weight_from)
+      this.item.weights.sort((a, b) => a.weightFrom - b.weightFrom)
     },
   },
 }

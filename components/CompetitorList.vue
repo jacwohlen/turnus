@@ -8,7 +8,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn class="ma-2" text icon v-bind="attrs" v-on="on">
         <v-icon left>mdi-account-multiple-outline</v-icon>
-        {{ pool.competitors.length }}
+        {{ numberOfCompetitors }}
       </v-btn>
     </template>
     <v-card>
@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import { poolsStore } from '~/store'
+
 export default {
   props: {
     pool: {
@@ -65,9 +67,15 @@ export default {
   data: () => ({
     dialog: false,
   }),
+  computed: {
+    numberOfCompetitors() {
+      if (this.pool.competitors) return this.pool.competitors.list
+      return 0
+    },
+  },
   methods: {
     removeCompetitorFromPool(competitor) {
-      this.$store.commit('pools/removeCompetitorFromPool', {
+      poolsStore.removeCompetitorFromPool({
         competitor,
         pool: this.pool,
       })

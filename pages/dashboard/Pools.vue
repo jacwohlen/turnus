@@ -43,8 +43,8 @@
       </v-col>
       <v-col>
         <v-data-table
-          :headers="competitors_headers"
-          :items="unassigned_people"
+          :headers="competitorsHeaders"
+          :items="unassignedPeople"
           disable-sort
           hide-default-footer
         >
@@ -57,8 +57,8 @@
     <v-card>
       <v-card-title>Pools Ready Scheduled </v-card-title>
       <v-data-table
-        :headers="pools_ready_headers"
-        :items="pools_ready_items"
+        :headers="poolsReadyHeaders"
+        :items="poolsReadyItems"
         item-key="name"
         disable-sort
         hide-default-footer
@@ -75,56 +75,81 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+// FIXME: Should not need to initialize competitors Store here...
+// Maybe move it into init of poolsStore?
+import { poolsStore, competitorsStore } from '~/store'
+import { Pool } from '~/types/models'
+
 import DrawView from '~/components/DrawView.vue'
-export default {
+
+@Component({
   layout: 'DashboardLayout',
+  async fetch() {
+    // server side
+    await competitorsStore.init()
+    await poolsStore.init()
+  },
   components: { DrawView },
-  data: () => ({
-    systems: ['Round Robin', 'Bresil'],
-    headers: [
-      { text: 'Pool', value: 'name' },
-      { text: 'Size', value: 'size' },
-      { text: 'System', value: 'system' },
-      { text: 'Info', value: 'info' },
-      { text: 'Actions', value: 'actions' },
-    ],
-    competitors_headers: [
-      { text: 'Firstname', value: 'firstname' },
-      { text: 'Lastname', value: 'lastname' },
-      { text: 'Weight', value: 'weight' },
-      { text: 'Potential Pools', value: 'potential_pools' },
-      { text: 'Actions', value: 'actions' },
-    ],
-    pools_ready_headers: [
-      { text: 'Pool', value: 'name' },
-      { text: 'Size', value: 'size' },
-      { text: 'System', value: 'system' },
-      { text: 'Actions', value: 'actions' },
-    ],
-  }),
-  computed: {
-    items() {
-      return this.$store.state.pools.list.filter(
-        (pool) => pool.status === 'not ready'
-      )
-    },
-    pools_ready_items() {
-      return this.$store.state.pools.list.filter(
-        (pool) => pool.status === 'ready'
-      )
-    },
-    unassigned_people() {
-      return this.$store.state.competitors.list
-    },
-  },
-  methods: {
-    setReadyForSchedule(pool) {
-      this.$store.commit('pools/ready', pool.id)
-    },
-    setNotReadyForSchedule(pool) {
-      this.$store.commit('pools/notReady', pool.id)
-    },
-  },
+})
+export default class CategoriesPage extends Vue {
+  async mounted() {
+    // client side
+    await competitorsStore.init()
+    await poolsStore.init()
+  }
+
+  systems: any = ['Round Robin', 'Bresil']
+  headers: any = [
+    { text: 'Pool', value: 'name' },
+    { text: 'Size', value: 'size' },
+    { text: 'System', value: 'system' },
+    { text: 'Info', value: 'info' },
+    { text: 'Status', value: 'status' },
+    { text: 'Actions', value: 'actions' },
+  ]
+
+  competitorsHeaders: any = [
+    { text: 'Firstname', value: 'firstname' },
+    { text: 'Lastname', value: 'lastname' },
+    { text: 'Birthyear', value: 'birthyear' },
+    { text: 'Weight', value: 'weightMeasured' },
+    { text: 'Potential Pools', value: 'potential_pools' },
+    { text: 'Actions', value: 'actions' },
+  ]
+
+  poolsReadyHeaders: any = [
+    { text: 'Pool', value: 'name' },
+    { text: 'Size', value: 'size' },
+    { text: 'System', value: 'system' },
+    { text: 'Actions', value: 'actions' },
+  ]
+
+  get items() {
+    return this.$store.state.pools.list.filter(
+      (pool) => pool.status === 'not ready'
+    )
+  }
+
+  get poolsReadyItems() {
+    return this.$store.state.pools.list.filter(
+      (pool: Pool) => pool.status === 'ready'
+    )
+  }
+
+  get unassignedPeople() {
+    return this.$store.state.competitors.list
+  }
+
+  setReadyForSchedule(pool: Pool): void {
+    poolsStore.ready(pool.id)
+  }
+
+  setNotReadyForSchedule(pool: Pool): void {
+    poolsStore.notReady(pool.id)
+  }
 }
 </script>

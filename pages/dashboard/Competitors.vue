@@ -34,13 +34,16 @@ import { competitorsStore } from '~/store'
 
 export default {
   layout: 'DashboardLayout',
+  fetch() {
+    competitorsStore.init()
+  },
+  mounted() {
+    competitorsStore.init()
+  },
   computed: {
     items() {
       return competitorsStore.list
     },
-  },
-  mounted() {
-    competitorsStore.init()
   },
 }
 </script>

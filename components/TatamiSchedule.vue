@@ -48,13 +48,13 @@ export default {
     pool_running_on_tatami() {
       return this.$store.state.pools.list.filter(
         (pool) =>
-          pool.status === 'running' && pool.tatami_scheduled === this.tatami.id
+          pool.status === 'running' && pool.tatamiScheduled === this.tatami.id
       )
     },
     pool_scheduled_on_tatami() {
       return this.$store.state.pools.list.filter(
         (pool) =>
-          pool.status === 'ready' && pool.tatami_scheduled === this.tatami.id
+          pool.status === 'ready' && pool.tatamiScheduled === this.tatami.id
       )
     },
   },

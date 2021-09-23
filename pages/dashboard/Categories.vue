@@ -39,7 +39,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-import { categoriesStore } from '~/store'
+import { categoriesStore, poolsStore } from '~/store'
 import { Category } from '~/types/models'
 
 interface header {
@@ -50,8 +50,20 @@ interface header {
 
 @Component({
   layout: 'DashboardLayout',
+  async fetch() {
+    await categoriesStore.init()
+    // FIXME: remove once these are merged or
+    // the dependency is removed by e.g. letting the pools page
+    // create the pools depending on the categories found
+    await poolsStore.init()
+  },
 })
 export default class CategoriesPage extends Vue {
+  async mounted() {
+    await categoriesStore.init()
+    await poolsStore.init()
+  }
+
   headers: header[] = [
     { text: 'Name', value: 'name' },
     { text: 'Sex', value: 'sex' },
@@ -65,10 +77,6 @@ export default class CategoriesPage extends Vue {
 
   get items() {
     return categoriesStore.list
-  }
-
-  mounted() {
-    categoriesStore.init()
   }
 
   viewCategoryDetails(item: Category): void {
