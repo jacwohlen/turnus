@@ -1,4 +1,4 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { Module, VuexModule, Action } from 'vuex-module-decorators'
 
 import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
@@ -14,7 +14,7 @@ import { Category, WeightClass } from '~/types/models'
 export default class Categories extends VuexModule {
   list: Category[] = []
 
-  @Mutation
+  @Action
   remove(id: string) {
     firebase.database().ref(`/categories/${id}`).remove()
   }
@@ -28,7 +28,7 @@ export default class Categories extends VuexModule {
     // FIXME: call action to add pool instead of mutation
     // or use firebase directly in here and not pool...
     weights.forEach((weight) => {
-      this.context.commit(
+      this.context.dispatch(
         'pools/add',
         {
           name: name + ' ' + weight.name,
@@ -64,7 +64,7 @@ export default class Categories extends VuexModule {
       .update({ name, sex, ageFrom, ageTo, weights })
 
     // Remove all existing pools
-    this.context.commit(
+    this.context.dispatch(
       'pools/removeAllPoolsFromCategory',
       { categoryId: id },
       { root: true }
@@ -72,7 +72,7 @@ export default class Categories extends VuexModule {
 
     // Create the new pools
     weights.forEach((weight: WeightClass) => {
-      this.context.commit(
+      this.context.dispatch(
         'pools/add',
         {
           name: name + ' ' + weight.name,
@@ -94,7 +94,7 @@ export default class Categories extends VuexModule {
   @Action
   removeCategoryAndPools({ id }: { id: string }) {
     this.context.commit('remove', id)
-    this.context.commit(
+    this.context.dispatch(
       'pools/removeAllPoolsFromCategory',
       { categoryId: id },
       { root: true }

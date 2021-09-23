@@ -1,4 +1,4 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { Module, VuexModule, Action } from 'vuex-module-decorators'
 
 import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
@@ -26,19 +26,19 @@ export default class Competitors extends VuexModule {
     },
   ]
 
-  @Mutation
+  @Action
   add(item: Competitor) {
     const ref = firebase.database().ref('competitors').push()
     item.id = ref.key!!
     ref.set(item)
   }
 
-  @Mutation
+  @Action
   remove(_: Competitor) {
     throw new Error('not implemented')
   }
 
-  @Mutation
+  @Action
   addWeight({ id, weight }: { id: string; weight: number }) {
     firebase
       .database()
@@ -46,7 +46,7 @@ export default class Competitors extends VuexModule {
       .update({ weightMeasured: weight })
   }
 
-  @Mutation
+  @Action
   removeWeight(id: string) {
     firebase
       .database()
