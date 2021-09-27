@@ -10,7 +10,7 @@
         <v-btn v-bind="attrs" v-on="on"> Schedule Pool </v-btn>
       </div>
       <div v-else>
-        <SafeButton :execute="unschedule" />
+        <SafeButton @confirmed="unschedule" />
       </div>
     </template>
     <v-card>

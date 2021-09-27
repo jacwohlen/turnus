@@ -1,27 +1,27 @@
 <template>
   <div>
-    <v-icon v-show="!confirm" small @click="confirm = !confirm">
-      mdi-delete
-    </v-icon>
-    <v-btn v-show="confirm" x-small color="primary" dark> Cancel </v-btn>
-    <v-btn v-show="confirm" x-small color="error" dark @click="execute">
-      Delete Weight
+    <v-btn v-show="!confirm" small @click="confirm = !confirm">
+      <slot>Do</slot>
+    </v-btn>
+    <v-btn v-show="confirm" x-small dark @click="confirm = !confirm">
+      Cancel
+    </v-btn>
+    <v-btn v-show="confirm" class="primary" x-small dark @click="execute">
+      Confirm
     </v-btn>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    execute: {
-      type: Function,
-      default() {},
-    },
-  },
-  data() {
-    return {
-      confirm: false,
-    }
-  },
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class extends Vue {
+  confirm: boolean = false
+
+  execute(): void {
+    this.$emit('confirmed')
+  }
 }
 </script>
