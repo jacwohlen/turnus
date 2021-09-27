@@ -12,6 +12,7 @@
             <th class="text-left">Birthday</th>
             <th class="text-left">Club</th>
             <th class="text-left">Weight</th>
+            <th class="text-left">Pools</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +23,9 @@
             <td>{{ item.birthyear }}</td>
             <td>{{ item.club }}</td>
             <td>{{ item.weight }}</td>
+            <td>
+              <v-chip v-for="p in item.pools" :key="p.id">{{ p.name }}</v-chip>
+            </td>
           </tr>
         </tbody>
       </template>
@@ -37,13 +41,13 @@ export default {
   fetch() {
     competitorsStore.init()
   },
-  mounted() {
-    competitorsStore.init()
-  },
   computed: {
     items() {
       return competitorsStore.list
     },
+  },
+  mounted() {
+    competitorsStore.init()
   },
 }
 </script>
