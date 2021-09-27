@@ -44,7 +44,7 @@ export default {
   data: () => ({
     links: [
       { name: 'Home', link: '/dashboard' },
-      { name: 'Registration', link: '/dashboard/competitors' },
+      { name: 'Fighters', link: '/dashboard/competitors' },
       { name: 'Categories', link: '/dashboard/categories' },
       { name: 'Weigh In', link: '/dashboard/weighin' },
       { name: 'Pools', link: '/dashboard/pools' },
