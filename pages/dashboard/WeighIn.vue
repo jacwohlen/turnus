@@ -14,9 +14,8 @@
         ></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="items" :search="search">
-        <template v-slot:item.weightMeasured="{ item }">
-          {{ item.weightMeasured }}
-          <WeighForm :prefilled="item" />
+        <template v-slot:item.action="{ item }">
+          <CheckinForm :prefilled="item" />
         </template>
       </v-data-table>
     </v-card>
@@ -49,6 +48,7 @@ export default {
       { text: 'Club', value: 'club' },
       { text: 'Given Weight', value: 'weight' },
       { text: 'Measured Weight', value: 'weightMeasured' },
+      { text: 'Action', value: 'action' },
     ],
     selectedCategory: null,
   }),

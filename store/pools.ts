@@ -38,7 +38,6 @@ export default class Pools extends VuexModule {
     }
   }
 
-
   @Mutation
   ready(id: string) {
     firebase.database().ref(`pools/${id}`).update({ status: 'ready' })
@@ -85,19 +84,24 @@ export default class Pools extends VuexModule {
     competitor: Competitor
     pool: Pool
   }) {
-    console.log(` Received: ${competitor} and ${pool}`)
     firebase
       .database()
       .ref(`pools/${pool.id}/competitors/${competitor.id}`)
-      .set(competitor)
+      .set({
+        id: competitor.id,
+        firstname: competitor.firstname,
+        lastname: competitor.lastname,
+        club: competitor.club,
+      })
   }
 
   @Action
-  removeCompetitorFromAllPools(competitor: Competitor) {
+  removeCompetitorFromAllPools(competitorId: string) {
+    firebase.database().ref(`/competitors/${competitorId}/pools`).remove()
     this.list.forEach((pool) => {
       firebase
         .database()
-        .ref(`pools/${pool.id}/competitors/${competitor.id}`)
+        .ref(`pools/${pool.id}/competitors/${competitorId}`)
         .remove()
     })
   }
@@ -141,8 +145,7 @@ export default class Pools extends VuexModule {
     pools: Pool[]
   }) {
     const db = firebase.database()
-    this.removeCompetitorFromAllPools(competitor)
-    firebase.database().ref(`/competitors/${competitor.id}/pools`).remove()
+    this.removeCompetitorFromAllPools(competitor.id)
 
     let c = 0
     pools.forEach((item: Pool) => {

@@ -59,16 +59,6 @@ export default class AssignToPool extends PrefilledProps {
       return this.competitor.pools
     }
     return []
-    // FIXME: Move back into store?
-    // return poolsStore.getPoolsByCompetitor(this.competitor.id)
-    // const t = this
-    // const ret = poolsStore.list.filter(function (e: Pool) {
-    //   if (e.competitors) {
-    //     return Object.hasOwnProperty(e.competitors, t.competitor.id)
-    //   }
-    //   return false
-    // })
-    // return ret
   }
 
   async mounted() {

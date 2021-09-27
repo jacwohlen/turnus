@@ -1,3 +1,8 @@
+export enum CompetitorStatus {
+  Registered = 'Registered',
+  CheckedIn = 'Checked in',
+}
+
 export interface Competitor {
   id: string
   firstname: string
@@ -8,6 +13,7 @@ export interface Competitor {
   weight: number
   weightMeasured: number | null
   pools?: Pool[]
+  status?: CompetitorStatus
 }
 
 export interface WeightClass {

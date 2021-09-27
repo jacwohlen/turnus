@@ -6,11 +6,11 @@
     @keydown.esc="dialog = false"
   >
     <template v-slot:activator="{ on, attrs }">
-      <span v-if="prefilled.weightMeasured !== undefined">
-        <SafeButton :execute="remove" />
+      <span v-if="checkedIn">
+        <SafeButton small class="mr-2" @confirmed="reset">Reset</SafeButton>
       </span>
       <span v-else>
-        <v-btn small class="mr-2" v-bind="attrs" v-on="on">
+        <v-btn small class="mr-2 primary" v-bind="attrs" v-on="on">
           Checkin
         </v-btn>
       </span>
@@ -73,7 +73,7 @@
                     hide-selected
                     multiple
                     small-chips
-                    ></v-combobox>
+                  ></v-combobox>
                 </v-col>
               </v-row>
             </v-container>
@@ -86,7 +86,7 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn color="blue darken-1" text :disabled="!valid" @click="add">
+        <v-btn color="blue darken-1" text :disabled="!valid" @click="checkin">
           Checkin
         </v-btn>
       </v-card-actions>
@@ -99,7 +99,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 import { competitorsStore, poolsStore } from '~/store'
-import { Competitor } from '~/types/models'
+import { Competitor, CompetitorStatus, Pool } from '~/types/models'
 
 const PrefilledProps = Vue.extend({
   props: {
@@ -114,29 +114,32 @@ const PrefilledProps = Vue.extend({
 export default class WeightForm extends PrefilledProps {
   dialog: boolean = false
   confirm: boolean = false
-  itemId: string = this.prefilled['.key']
   item: Competitor = Object.assign({}, this.prefilled)
   valid: boolean = true
   matchingPools = []
+
+  get checkedIn(): boolean {
+    return CompetitorStatus.CheckedIn === this.prefilled.status
+  }
 
   get pools(): Pool[] {
     return poolsStore.list
   }
 
-  add(): void {
-    // FIXME: Checkin and create pools association
-    competitorsStore.addWeight({
-      id: this.itemId,
+  checkin(): void {
+    competitorsStore.checkin({
+      competitor: this.item,
       weight: this.item.weightMeasured!!, // !! will throw NPE (NullPointerException if null)
+      pools: this.item.pools!!,
     })
     this.dialog = false
   }
 
-  remove(): void {
-    competitorsStore.removeWeight(this.itemId)
+  reset(): void {
+    competitorsStore.checkout({ id: this.item.id })
   }
 
-  async updateMatchingPools(): Pool[] {
+  async updateMatchingPools(): Promise<void> {
     this.item.pools = await poolsStore.getPotentialPools(this.item)
   }
 }

@@ -4,7 +4,7 @@ import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/database'
 
-import { Competitor } from '~/types/models'
+import { Competitor, CompetitorStatus, Pool } from '~/types/models'
 
 @Module({
   name: 'competitors',
@@ -23,6 +23,7 @@ export default class Competitors extends VuexModule {
       weight: 0,
       weightMeasured: null,
       pools: [],
+      status: CompetitorStatus.Registered,
     },
   ]
 
@@ -39,19 +40,41 @@ export default class Competitors extends VuexModule {
   }
 
   @Action
-  addWeight({ id, weight }: { id: string; weight: number }) {
-    firebase
-      .database()
-      .ref(`competitors/${id}`)
-      .update({ weightMeasured: weight })
+  checkin({
+    competitor,
+    weight,
+    pools,
+  }: {
+    competitor: Competitor
+    weight: number
+    pools: Pool[]
+  }) {
+    firebase.database().ref(`competitors/${competitor.id}`).update({
+      weightMeasured: weight,
+      // pools,
+      status: CompetitorStatus.CheckedIn,
+    })
+    this.context.dispatch(
+      'pools/setCompetitorInPools',
+      {
+        competitor,
+        pools,
+      },
+      {
+        root: true,
+      }
+    )
   }
 
   @Action
-  removeWeight(id: string) {
-    firebase
-      .database()
-      .ref(`competitors/${id}`)
-      .update({ weightMeasured: null })
+  checkout({ id }: { id: string }) {
+    firebase.database().ref(`competitors/${id}`).update({
+      weightMeasured: null,
+      status: CompetitorStatus.Registered,
+    })
+    this.context.dispatch('pools/removeCompetitorFromAllPools', id, {
+      root: true,
+    })
   }
 
   @Action
