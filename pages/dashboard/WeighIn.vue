@@ -24,15 +24,20 @@
 </template>
 
 <script lang="ts">
-import { competitorsStore } from '~/store'
+import { competitorsStore, categoriesStore, poolsStore } from '~/store'
 
 export default {
   layout: 'DashboardLayout',
   async fetch() {
     await competitorsStore.init()
+    await competitorsStore.init()
+    await categoriesStore.init()
+    await poolsStore.init()
   },
   async mounted() {
     await competitorsStore.init()
+    await categoriesStore.init()
+    await poolsStore.init()
   },
   data: () => ({
     search: '',

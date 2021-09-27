@@ -10,14 +10,14 @@
         <SafeButton :execute="remove" />
       </span>
       <span v-else>
-        <v-icon small class="mr-2" v-bind="attrs" v-on="on">
-          mdi-speedometer
-        </v-icon>
+        <v-btn small class="mr-2" v-bind="attrs" v-on="on">
+          Checkin
+        </v-btn>
       </span>
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Measure Weight</span>
+        <span class="headline">Checkin - Measure Weight</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -57,7 +57,23 @@
                     suffix="kg"
                     type="number"
                     required
+                    @keypress="updateMatchingPools"
                   ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-combobox
+                    v-model="item.pools"
+                    label="Starts in"
+                    :items="pools"
+                    item-text="name"
+                    item-value="id"
+                    clearable
+                    hide-selected
+                    multiple
+                    small-chips
+                    ></v-combobox>
                 </v-col>
               </v-row>
             </v-container>
@@ -71,7 +87,7 @@
           Close
         </v-btn>
         <v-btn color="blue darken-1" text :disabled="!valid" @click="add">
-          Add Weight
+          Checkin
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -82,7 +98,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-import { competitorsStore } from '~/store'
+import { competitorsStore, poolsStore } from '~/store'
 import { Competitor } from '~/types/models'
 
 const PrefilledProps = Vue.extend({
@@ -101,8 +117,14 @@ export default class WeightForm extends PrefilledProps {
   itemId: string = this.prefilled['.key']
   item: Competitor = Object.assign({}, this.prefilled)
   valid: boolean = true
+  matchingPools = []
+
+  get pools(): Pool[] {
+    return poolsStore.list
+  }
 
   add(): void {
+    // FIXME: Checkin and create pools association
     competitorsStore.addWeight({
       id: this.itemId,
       weight: this.item.weightMeasured!!, // !! will throw NPE (NullPointerException if null)
@@ -112,6 +134,10 @@ export default class WeightForm extends PrefilledProps {
 
   remove(): void {
     competitorsStore.removeWeight(this.itemId)
+  }
+
+  async updateMatchingPools(): Pool[] {
+    this.item.pools = await poolsStore.getPotentialPools(this.item)
   }
 }
 </script>
