@@ -29,7 +29,7 @@
               </v-toolbar>
             </template>
             <template v-slot:item.size="{ item }">
-              <CompetitorList :pool="item" />
+              <PoolCompetitorList :pool="item" />
             </template>
             <template v-slot:item.system="{ item }">
               <v-row no-gutters align="center">
@@ -37,7 +37,7 @@
                   <PoolSystemSelectBox :pool="item" />
                 </v-col>
                 <v-col>
-                  <DrawView :pool="item" :system="item.system" />
+                  <PoolDrawView :pool="item" :system="item.system" />
                 </v-col>
               </v-row>
             </template>
@@ -85,7 +85,7 @@
       >
         >
         <template v-slot:item.size="{ item }">
-          <CompetitorList :pool="item" :readonly="true" />
+          <PoolCompetitorList :pool="item" :readonly="true" />
         </template>
         <template v-slot:item.actions="{ item }">
           <v-btn @click="setNotReadyForSchedule(item)"> Take back </v-btn>
@@ -104,8 +104,6 @@ import Component from 'vue-class-component'
 import { poolsStore, competitorsStore } from '~/store'
 import { Pool, PoolSystem } from '~/types/models'
 
-import DrawView from '~/components/DrawView.vue'
-
 @Component({
   layout: 'DashboardLayout',
   async fetch() {
@@ -113,7 +111,6 @@ import DrawView from '~/components/DrawView.vue'
     await competitorsStore.init()
     await poolsStore.init()
   },
-  components: { DrawView },
 })
 export default class CategoriesPage extends Vue {
   async mounted() {
