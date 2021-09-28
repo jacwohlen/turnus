@@ -4,7 +4,7 @@ import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-import { Competitor, Pool } from '~/types/models'
+import { Competitor, Pool, PoolSystem } from '~/types/models'
 
 @Module({
   name: 'pools',
@@ -170,6 +170,11 @@ export default class Pools extends VuexModule {
       })
       c = c + 1
     })
+  }
+
+  @Action
+  setPoolSystem({ id, system }: { id: string; system: PoolSystem }) {
+    firebase.database().ref(`pools/${id}`).update({ system })
   }
 
   @Action

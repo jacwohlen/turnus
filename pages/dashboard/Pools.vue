@@ -34,7 +34,7 @@
             <template v-slot:item.system="{ item }">
               <v-row no-gutters align="center">
                 <v-col>
-                  <v-select :value="item.system" :items="systems"></v-select>
+                  <PoolSystemSelectBox :pool="item" />
                 </v-col>
                 <v-col>
                   <DrawView :pool="item" :system="item.system" />
