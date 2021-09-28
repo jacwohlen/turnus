@@ -60,7 +60,7 @@ export default class Pools extends VuexModule {
   }
 
   @Action
-  add({ name, generated, generationSource, criteria }: Pool) {
+  add({ name, generated, generationSource, criteria }: Partial<Pool>) {
     const ref = firebase.database().ref('pools').push()
     const id = ref.key
     ref.set({
@@ -74,6 +74,19 @@ export default class Pools extends VuexModule {
       generationSource,
       criteria,
     })
+  }
+
+  @Action
+  edit({ id, name, system }: Partial<Pool>) {
+    firebase.database().ref(`pools/${id}`).update({
+      name,
+      system,
+    })
+  }
+
+  @Action
+  remove({ id }: { id: string }) {
+    firebase.database().ref(`pools/${id}`).remove()
   }
 
   @Action

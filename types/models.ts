@@ -46,11 +46,16 @@ export interface PoolCriteria {
 export interface Pool {
   id: string
   name: string
-  system: string
+  system: PoolSystem
   status: string
   tatamiScheduled: string | null
   competitors: Competitor[]
   generated: boolean
   generationSource: PoolGenerationSource | null
   criteria: PoolCriteria | null
+}
+
+export enum PoolSystem {
+  ROUND_ROBIN = 'Round Robin',
+  BRESIL = 'Bresil',
 }

@@ -12,6 +12,12 @@
             disable-sort
             hide-default-footer
           >
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-spacer></v-spacer>
+                <PoolForm />
+              </v-toolbar>
+            </template>
             <template v-slot:item.size="{ item }">
               <CompetitorList :pool="item" />
             </template>
@@ -34,13 +40,17 @@
               </v-tooltip>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn @click="setReadyForSchedule(item)">
-                Push to Schedule
-              </v-btn>
+              <PoolForm :prefilled="item">
+                <v-btn small @click="setReadyForSchedule(item)">
+                  Push to Schedule
+                </v-btn>
+              </PoolForm>
             </template>
           </v-data-table>
         </v-card>
       </v-col>
+    </v-row>
+    <v-row>
       <v-col>
         <v-data-table
           :headers="competitorsHeaders"
@@ -82,7 +92,7 @@ import Component from 'vue-class-component'
 // FIXME: Should not need to initialize competitors Store here...
 // Maybe move it into init of poolsStore?
 import { poolsStore, competitorsStore } from '~/store'
-import { Pool } from '~/types/models'
+import { Pool, PoolSystem } from '~/types/models'
 
 import DrawView from '~/components/DrawView.vue'
 
@@ -102,7 +112,7 @@ export default class CategoriesPage extends Vue {
     await poolsStore.init()
   }
 
-  systems: any = ['Round Robin', 'Bresil']
+  systems: PoolSystem[] = [PoolSystem.ROUND_ROBIN, PoolSystem.BRESIL]
   headers: any = [
     { text: 'Pool', value: 'name' },
     { text: 'Size', value: 'size' },
@@ -130,7 +140,7 @@ export default class CategoriesPage extends Vue {
 
   get items() {
     return this.$store.state.pools.list.filter(
-      (pool) => pool.status === 'not ready'
+      (pool: Pool) => pool.status === 'not ready'
     )
   }
 
