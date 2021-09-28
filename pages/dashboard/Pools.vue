@@ -9,9 +9,19 @@
             :headers="headers"
             :items="items"
             item-key="name"
+            group-by="generationSource.name"
             disable-sort
             hide-default-footer
           >
+            <template v-slot:group.header="{ group, headers, toggle, isOpen }">
+              <td :colspan="headers.length">
+                <v-btn :ref="group" small icon @click="toggle">
+                  <v-icon v-if="isOpen">mdi-minus</v-icon>
+                  <v-icon v-else>mdi-plus</v-icon>
+                </v-btn>
+                <span class="mx-5 font-weight-bold">{{ group }}</span>
+              </td>
+            </template>
             <template v-slot:top>
               <v-toolbar flat>
                 <v-spacer></v-spacer>
