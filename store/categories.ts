@@ -25,8 +25,6 @@ export default class Categories extends VuexModule {
     const id = ref.key
     ref.set({ id, name, sex, ageFrom, ageTo, weights })
 
-    // FIXME: call action to add pool instead of mutation
-    // or use firebase directly in here and not pool...
     weights.forEach((weight) => {
       this.context.dispatch(
         'pools/add',
@@ -65,7 +63,7 @@ export default class Categories extends VuexModule {
 
     // Remove all existing pools
     this.context.dispatch(
-      'pools/removeAllPoolsFromCategory',
+      'pools/removeAllPoolsGeneratedByCategory',
       { categoryId: id },
       { root: true }
     )
@@ -95,7 +93,7 @@ export default class Categories extends VuexModule {
   removeCategoryAndPools({ id }: { id: string }) {
     this.context.commit('remove', id)
     this.context.dispatch(
-      'pools/removeAllPoolsFromCategory',
+      'pools/removeAllPoolsGeneratedByCategory',
       { categoryId: id },
       { root: true }
     )

@@ -135,8 +135,7 @@ export default class Pools extends VuexModule {
   }
 
   @Action
-  // FIXME: Rename to removeAllPoolsGeneratedByCategory
-  removeAllPoolsFromCategory({ categoryId }: { categoryId: string }) {
+  removeAllPoolsGeneratedByCategory({ categoryId }: { categoryId: string }) {
     let i = this.list.length
     while (i--) {
       const pool = this.list[i]
