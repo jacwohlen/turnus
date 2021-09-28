@@ -6,7 +6,7 @@
     @keydown.esc="dialog = false"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn class="ma-2" text icon v-bind="attrs" v-on="on">
+      <v-btn small text v-bind="attrs" v-on="on">
         <v-icon left>mdi-account-multiple-outline</v-icon>
         {{ numberOfCompetitors }}
       </v-btn>
@@ -69,7 +69,11 @@ export default {
   }),
   computed: {
     numberOfCompetitors() {
-      if (this.pool.competitors) return this.pool.competitors.list
+      if (this.pool.competitors){
+        // FIXME: vuexfire does not bind to array for nested states
+        // https://github.com/vuejs/vuefire/issues/1172
+        return Object.keys(this.pool.competitors).length
+      }
       return 0
     },
   },
