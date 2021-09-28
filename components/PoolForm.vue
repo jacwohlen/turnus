@@ -116,7 +116,7 @@ export default class extends PrefilledProps {
       name: this.item.name,
       system: this.item.system,
       generated: false,
-      generationSource: null,
+      generationSource: { id: '0', name: 'Custom' },
       criteria: null,
     })
     this.dialog = false
