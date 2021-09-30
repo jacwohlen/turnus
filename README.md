@@ -58,9 +58,19 @@ $ npm run generate
 
 For detailed explanation on how it works, check out [Nuxt.js docs](https://nuxtjs.org).
 
+## Testing
+
+npm install -g firebase-tools
+
+docker pull andreysenov/firebase-tools
+
+=> https://github.com/AndreySenov/firebase-tools-docker/blob/main/doc/guide/running_firebase_emulators.md
+docker run -p 9199:9199 -p 9099:9099 -p 9005:9005 -p 9000:9000 -p 8085:8085 -p 8080:8080 -p 5001:5001 -p 5000:5000 -p 4000:4000 -v /path/to/project:/home/node --name firebase-tools andreysenov/firebase-tools
+
 ## Troubleshooting
 
-1) Check NPM version and Node version (
+1. Check NPM version and Node version (
+
 ```
 npm --version
 6.14.14
@@ -68,9 +78,11 @@ npm --version
 node --version
 v14.17.5
 ```
+
 Tip use `nvm install --lts` to install long term support version of `node`.
 
-2) Check missing peer dependency `npm list` and install them manually
+2. Check missing peer dependency `npm list` and install them manually
+
 ```
 ...
 │ └── stylelint-config-recommended@3.0.0
