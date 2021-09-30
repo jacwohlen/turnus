@@ -61,6 +61,10 @@ For detailed explanation on how it works, check out [Nuxt.js docs](https://nuxtj
 ## Testing
 
 npm install -g firebase-tools
+firebase emulators:start
+apt install openjdk-16-jdk-headless
+
+TODO: run docker container instead
 
 docker pull andreysenov/firebase-tools
 
