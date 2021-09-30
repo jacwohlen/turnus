@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     addCompetitor() {
-      this.$store.commit('competitors/add', {
+      this.$store.dispatch('competitors/add', {
         firstname: this.firstname,
         lastname: this.lastname,
         sex: this.sex,
