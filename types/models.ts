@@ -59,3 +59,14 @@ export enum PoolSystem {
   ROUND_ROBIN = 'Round Robin',
   BRESIL = 'Bresil',
 }
+
+export interface Match {
+  n: number
+  fighter1: string
+  fighter2: string
+}
+
+export interface SchedulerStats {
+  upcoming: number
+  done: number
+}
