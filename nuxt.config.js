@@ -63,15 +63,15 @@ export default {
           auth: {
             initialize: {
               onAuthStateChangedAction: 'users/onAuthStateChanged',
-              emulatorPort:
-                process.env.NODE_ENV === 'development' ? 9099 : undefined,
-              emulatorHost: 'localhost',
+              // emulatorPort:
+              //   process.env.NODE_ENV === 'development' ? 9099 : undefined,
+              // emulatorHost: 'localhost',
             },
           },
           database: {
-            emulatorPort:
-              process.env.NODE_ENV === 'development' ? 9000 : undefined,
-            emulatorHost: 'localhost',
+            // emulatorPort:
+            //   process.env.NODE_ENV === 'development' ? 9000 : undefined,
+            // emulatorHost: 'localhost',
           },
         },
       },
