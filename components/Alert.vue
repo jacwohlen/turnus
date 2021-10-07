@@ -3,9 +3,11 @@
     <v-alert
       class="text-center"
       :value="!!alert['message']"
+      :type="alert.type"
+      absolute
       dismissible
-      outlined
       border="left"
+      elevation="5"
       @input="closeAlert"
       >{{ alert['message'] }}</v-alert
     >
@@ -29,3 +31,13 @@ export default {
   },
 }
 </script>
+<style scoped>
+.v-alert {
+  position: fixed;
+  left: 50%;
+  top: 120px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  z-index: 9999;
+}
+</style>
