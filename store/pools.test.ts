@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 
 import { poolsStore, schedulerStore, competitorsStore } from './'
-import { Competitor, Pool, PoolSystem } from '~/types/models'
+import { Competitor, Pool, PoolSystem, PoolState } from '~/types/models'
 
 describe('store/pools', () => {
   let poolId: string
@@ -57,7 +57,7 @@ describe('store/pools', () => {
       id: '', // will be filled once added
       name: 'pool1',
       system: PoolSystem.ROUND_ROBIN,
-      status: 'not ready',
+      status: PoolState.NOT_READY,
       tatamiScheduled: null,
       competitors: [],
       generated: false,
@@ -102,4 +102,5 @@ describe('store/pools', () => {
     await poolsStore.notReady(pool!)
     expect(schedulerStore.matches).toEqual([])
   })
+
 })

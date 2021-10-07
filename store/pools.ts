@@ -4,7 +4,7 @@ import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-import { Competitor, Pool, PoolSystem, Match } from '~/types/models'
+import { Competitor, Pool, PoolSystem, PoolState, Match } from '~/types/models'
 
 @Module({
   name: 'pools',
@@ -13,6 +13,14 @@ import { Competitor, Pool, PoolSystem, Match } from '~/types/models'
 })
 export default class Pools extends VuexModule {
   list: Pool[] = []
+
+  get pools() {
+    return this.list.filter((pool: Pool) => pool.status === PoolState.NOT_READY)
+  }
+
+  get poolsReady() {
+    return this.list.filter((pool: Pool) => pool.status === PoolState.READY)
+  }
 
   get getPoolById() {
     return (poolId: string): Pool | null => {

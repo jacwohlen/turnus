@@ -47,12 +47,17 @@ export interface Pool {
   id: string
   name: string
   system: PoolSystem
-  status: string
+  status: PoolState
   tatamiScheduled: string | null
   competitors: Competitor[]
   generated: boolean
   generationSource: PoolGenerationSource | null
   criteria: PoolCriteria | null
+}
+
+export enum PoolState {
+  READY = 'ready',
+  NOT_READY = 'not ready',
 }
 
 export enum PoolSystem {

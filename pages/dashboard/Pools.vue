@@ -7,7 +7,7 @@
           <v-card-title>Pools Preparation</v-card-title>
           <v-data-table
             :headers="headers"
-            :items="items"
+            :items="pools"
             item-key="name"
             group-by="generationSource.name"
             disable-sort
@@ -78,7 +78,7 @@
       <v-card-title>Pools Ready Scheduled </v-card-title>
       <v-data-table
         :headers="poolsReadyHeaders"
-        :items="poolsReadyItems"
+        :items="poolsReady"
         item-key="name"
         disable-sort
         hide-default-footer
@@ -145,16 +145,12 @@ export default class CategoriesPage extends Vue {
     { text: 'Actions', value: 'actions' },
   ]
 
-  get items() {
-    return this.$store.state.pools.list.filter(
-      (pool: Pool) => pool.status === 'not ready'
-    )
+  get pools() {
+    return poolsStore.pools
   }
 
-  get poolsReadyItems() {
-    return this.$store.state.pools.list.filter(
-      (pool: Pool) => pool.status === 'ready'
-    )
+  get poolsReady() {
+    return poolsStore.poolsReady
   }
 
   get unassignedPeople() {
