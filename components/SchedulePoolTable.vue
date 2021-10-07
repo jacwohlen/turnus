@@ -26,7 +26,7 @@
           <td>{{ item.name }}</td>
           <td>
             <v-progress-linear height="25">
-              <strong>0/5</strong>
+              <strong>0/{{ item.matches.length }}</strong>
             </v-progress-linear>
           </td>
           <td>

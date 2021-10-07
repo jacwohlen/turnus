@@ -38,24 +38,24 @@ export default class Scheduler extends VuexModule {
   }
 
   @Action
-  addMatches(matches: Match[]) {
-    firebase.database().ref(`matches`).set(matches)
+  async addMatches(matches: Match[]) {
+    await firebase.database().ref(`matches`).set(matches)
   }
 
   @Action
-  next() {
+  async next() {
     if (this.matches.length < 2) return
     const match: Match = this.matches[0]
-    firebase.database().ref(`matches/${match.n}`).remove()
-    firebase.database().ref(`matchesDone/${match.n}`).set(match)
+    await firebase.database().ref(`matches/${match.n}`).remove()
+    await firebase.database().ref(`matchesDone/${match.n}`).set(match)
   }
 
   @Action({ rawError: true })
-  previous() {
+  async previous() {
     if (this.matchesDone.length < 1) return
     const match: Match = this.matchesDone[this.matchesDone.length - 1]
-    firebase.database().ref(`matchesDone/${match.n}`).remove()
-    firebase.database().ref(`matches/${match.n}`).set(match)
+    await firebase.database().ref(`matchesDone/${match.n}`).remove()
+    await firebase.database().ref(`matches/${match.n}`).set(match)
   }
 
   @Action({ rawError: true })
@@ -75,27 +75,5 @@ export default class Scheduler extends VuexModule {
       )
     }) as Function
     return action(this.context)
-  }
-}
-
-export class BracketGenerator {
-  static roundrobin(fighters: string[]): Match[] {
-    const ret: Match[] = []
-
-    let i: number = 0
-    while (i < fighters.length) {
-      let d = i
-      while (d < fighters.length - 1) {
-        ret.push({
-          n: ret.length,
-          fighter1: fighters[i],
-          fighter2: fighters[d + 1],
-        })
-        d = d + 1
-      }
-      i = i + 1
-    }
-
-    return ret
   }
 }

@@ -4,20 +4,22 @@ import { schedulerStore } from './'
 import { Match } from '~/types/models'
 
 describe('store/scheduler', () => {
+  // FIXME: Despite async here, jest somehow is not returning
+  // and needs therefore --forceExit
   beforeEach(async () => {
-    firebase.database().ref('/').remove()
+    await firebase.database().ref('/').remove()
     await schedulerStore.init()
     await schedulerStore.init2()
   })
 
   test('test scheduling mechanics', async () => {
     const matches: Match[] = [
-      { n: 0, fighter1: 'F1', fighter2: 'F2' },
-      { n: 1, fighter1: 'F1', fighter2: 'F3' },
-      { n: 2, fighter1: 'F1', fighter2: 'F4' },
-      { n: 3, fighter1: 'F2', fighter2: 'F3' },
-      { n: 4, fighter1: 'F2', fighter2: 'F4' },
-      { n: 5, fighter1: 'F3', fighter2: 'F4' },
+      { n: 0, fighter1Id: 'F1', fighter2Id: 'F2', poolId: 'Pool1' },
+      { n: 1, fighter1Id: 'F1', fighter2Id: 'F3', poolId: 'Pool1' },
+      { n: 2, fighter1Id: 'F1', fighter2Id: 'F4', poolId: 'Pool1' },
+      { n: 3, fighter1Id: 'F2', fighter2Id: 'F3', poolId: 'Pool1' },
+      { n: 4, fighter1Id: 'F2', fighter2Id: 'F4', poolId: 'Pool1' },
+      { n: 5, fighter1Id: 'F3', fighter2Id: 'F4', poolId: 'Pool1' },
     ]
     expect(schedulerStore.getCurrentMatch).toBeNull()
     expect(schedulerStore.getNextMatch).toBeNull()
@@ -39,11 +41,11 @@ describe('store/scheduler', () => {
 
   test('test cycling through scheduling', async () => {
     const matches: Match[] = [
-      { n: 0, fighter1: 'F1', fighter2: 'F2' },
-      { n: 1, fighter1: 'F1', fighter2: 'F3' },
-      { n: 2, fighter1: 'F1', fighter2: 'F4' },
+      { n: 0, fighter1Id: 'F1', fighter2Id: 'F2', poolId: 'Pool1' },
+      { n: 1, fighter1Id: 'F1', fighter2Id: 'F3', poolId: 'Pool1' },
+      { n: 2, fighter1Id: 'F1', fighter2Id: 'F4', poolId: 'Pool1' },
     ]
-    schedulerStore.addMatches(matches)
+    await schedulerStore.addMatches(matches)
 
     await schedulerStore.previous()
     expect(schedulerStore.getCurrentMatch).toStrictEqual(matches[0])
@@ -60,20 +62,3 @@ describe('store/scheduler', () => {
     await schedulerStore.previous()
   })
 })
-
-// test('generate round robin schedule', () => {
-//   const fighters: string[] = ['F1', 'F2', 'F3', 'F4']
-
-//   const result: Match[] = [
-//     { n: 0, fighter1: 'F1', fighter2: 'F2' },
-//     { n: 1, fighter1: 'F1', fighter2: 'F3' },
-//     { n: 2, fighter1: 'F1', fighter2: 'F4' },
-//     { n: 3, fighter1: 'F2', fighter2: 'F3' },
-//     { n: 4, fighter1: 'F2', fighter2: 'F4' },
-//     { n: 5, fighter1: 'F3', fighter2: 'F4' },
-//   ]
-
-//   const fights: Match[] = BracketGenerator.roundrobin(fighters)
-//   expect(fights).toEqual(result)
-// })
-//

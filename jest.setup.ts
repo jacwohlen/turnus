@@ -4,6 +4,8 @@ import { createLocalVue } from '@vue/test-utils'
 import firebase from 'firebase/app'
 
 import Scheduler from '~/store/scheduler'
+import Pools from '~/store/pools'
+import Competitors from '~/store/competitors'
 import { initializeStores, actions, mutations, plugins } from '~/store'
 
 const localVue = createLocalVue()
@@ -15,6 +17,8 @@ const storeOptions = {
   plugins,
   modules: {
     scheduler: Scheduler,
+    pools: Pools,
+    competitors: Competitors,
   },
 }
 

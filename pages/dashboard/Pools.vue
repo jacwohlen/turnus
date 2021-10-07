@@ -162,11 +162,11 @@ export default class CategoriesPage extends Vue {
   }
 
   setReadyForSchedule(pool: Pool): void {
-    poolsStore.ready(pool.id)
+    poolsStore.ready(pool)
   }
 
   setNotReadyForSchedule(pool: Pool): void {
-    poolsStore.notReady(pool.id)
+    poolsStore.notReady(pool)
   }
 }
 </script>

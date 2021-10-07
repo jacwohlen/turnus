@@ -28,10 +28,10 @@ export default class Competitors extends VuexModule {
   ]
 
   @Action
-  add(item: Competitor) {
+  async add(item: Competitor) {
     const ref = firebase.database().ref('competitors').push()
     item.id = ref.key!!
-    ref.set(item)
+    await ref.set(item)
   }
 
   @Action

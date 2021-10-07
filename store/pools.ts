@@ -4,7 +4,7 @@ import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-import { Competitor, Pool, PoolSystem } from '~/types/models'
+import { Competitor, Pool, PoolSystem, Match } from '~/types/models'
 
 @Module({
   name: 'pools',
@@ -13,6 +13,13 @@ import { Competitor, Pool, PoolSystem } from '~/types/models'
 })
 export default class Pools extends VuexModule {
   list: Pool[] = []
+
+  get getPoolById() {
+    return (poolId: string): Pool | null => {
+      const found = this.list.filter((p) => p.id === poolId)
+      return found.length === 1 ? found[0] : null
+    }
+  }
 
   get getPotentialPools() {
     const t = this
@@ -38,14 +45,46 @@ export default class Pools extends VuexModule {
     }
   }
 
-  @Mutation
-  ready(id: string) {
-    firebase.database().ref(`pools/${id}`).update({ status: 'ready' })
+  @Action({ rawError: true })
+  async ready(pool: Pool) {
+    // FIXME: Create /matches using scheduler store
+    if (pool.system === PoolSystem.ROUND_ROBIN) {
+      const matches = BracketGenerator.roundrobin(
+        Object.keys(pool.competitors),
+        pool.id
+      )
+      await firebase
+        .database()
+        .ref(`pools/${pool.id}`)
+        .update({ status: 'ready' })
+      matches.forEach(async (m) => {
+        await firebase.database().ref(`matches/${pool.id}_${m.n}`).set(m)
+      })
+    } else {
+      alert('Not Implemented')
+    }
   }
 
-  @Mutation
-  notReady(id: string) {
-    firebase.database().ref(`pools/${id}`).update({ status: 'not ready' })
+  @Action({ rawError: true })
+  async notReady(pool: Pool) {
+    await firebase
+      .database()
+      .ref(`matches`)
+      .orderByChild(`poolId`)
+      .equalTo(pool.id)
+      .get()
+      .then(async (snapshot) => {
+        const val = snapshot.val()
+        if (val) {
+          for (const matchId of Object.keys(val)) {
+            await firebase.database().ref(`matches/${matchId}`).remove()
+          }
+        }
+      })
+    await firebase
+      .database()
+      .ref(`pools/${pool.id}`)
+      .update({ status: 'not ready' })
   }
 
   @Mutation
@@ -60,44 +99,44 @@ export default class Pools extends VuexModule {
   }
 
   @Action
-  add({ name, generated, generationSource, criteria }: Partial<Pool>) {
+  async add(pool: Partial<Pool>) {
     const ref = firebase.database().ref('pools').push()
-    const id = ref.key
-    ref.set({
-      id,
-      name,
+    pool.id = ref.key!!
+    await ref.set({
+      id: pool.id,
+      name: pool.name,
       system: 'Round Robin',
       status: 'not ready',
       tatamiScheduled: null,
       competitors: [],
-      generated,
-      generationSource,
-      criteria,
+      generated: pool.generated,
+      generationSource: pool.generationSource,
+      criteria: pool.criteria,
     })
   }
 
   @Action
-  edit({ id, name, system }: Partial<Pool>) {
-    firebase.database().ref(`pools/${id}`).update({
+  async edit({ id, name, system }: Partial<Pool>) {
+    await firebase.database().ref(`pools/${id}`).update({
       name,
       system,
     })
   }
 
   @Action
-  remove({ id }: { id: string }) {
-    firebase.database().ref(`pools/${id}`).remove()
+  async remove({ id }: { id: string }) {
+    await firebase.database().ref(`pools/${id}`).remove()
   }
 
   @Action
-  addCompetitorToPool({
+  async addCompetitorToPool({
     competitor,
     pool,
   }: {
     competitor: Competitor
     pool: Pool
   }) {
-    firebase
+    await firebase
       .database()
       .ref(`pools/${pool.id}/competitors/${competitor.id}`)
       .set({
@@ -109,10 +148,10 @@ export default class Pools extends VuexModule {
   }
 
   @Action
-  removeCompetitorFromAllPools(competitorId: string) {
-    firebase.database().ref(`/competitors/${competitorId}/pools`).remove()
-    this.list.forEach((pool) => {
-      firebase
+  async removeCompetitorFromAllPools(competitorId: string) {
+    await firebase.database().ref(`/competitors/${competitorId}/pools`).remove()
+    this.list.forEach(async(pool) => {
+      await firebase
         .database()
         .ref(`pools/${pool.id}/competitors/${competitorId}`)
         .remove()
@@ -120,22 +159,22 @@ export default class Pools extends VuexModule {
   }
 
   @Action
-  removeCompetitorFromPool({
+  async removeCompetitorFromPool({
     competitor,
     pool,
   }: {
     competitor: Competitor
     pool: Pool
   }) {
-    firebase
+    await firebase
       .database()
       .ref(`pools/${pool.id}/competitors/${competitor.id}`)
       .remove()
-    firebase.database().ref(`/competitors/${competitor.id}/pools`).remove()
+    await firebase.database().ref(`/competitors/${competitor.id}/pools`).remove()
   }
 
   @Action
-  removeAllPoolsGeneratedByCategory({ categoryId }: { categoryId: string }) {
+  async removeAllPoolsGeneratedByCategory({ categoryId }: { categoryId: string }) {
     let i = this.list.length
     while (i--) {
       const pool = this.list[i]
@@ -143,13 +182,13 @@ export default class Pools extends VuexModule {
         pool.generated === true &&
         pool.generationSource!!.id === categoryId
       ) {
-        firebase.database().ref(`pools/${pool.id}`).remove()
+        await firebase.database().ref(`pools/${pool.id}`).remove()
       }
     }
   }
 
   @Action
-  setCompetitorInPools({
+  async setCompetitorInPools({
     competitor,
     pools,
   }: {
@@ -157,13 +196,13 @@ export default class Pools extends VuexModule {
     pools: Pool[]
   }) {
     const db = firebase.database()
-    this.removeCompetitorFromAllPools(competitor.id)
+    await this.removeCompetitorFromAllPools(competitor.id)
 
     let c = 0
-    pools.forEach((item: Pool) => {
-      this.addCompetitorToPool({ competitor, pool: item })
+    pools.forEach(async (item: Pool) => {
+      await this.addCompetitorToPool({ competitor, pool: item })
       // also create competitor/pools reference
-      db.ref(`competitors/${competitor.id}/pools/${c}`).set({
+      await db.ref(`competitors/${competitor.id}/pools/${c}`).set({
         id: item.id,
         name: item.name,
       })
@@ -172,8 +211,8 @@ export default class Pools extends VuexModule {
   }
 
   @Action
-  setPoolSystem({ id, system }: { id: string; system: PoolSystem }) {
-    firebase.database().ref(`pools/${id}`).update({ system })
+  async setPoolSystem({ id, system }: { id: string; system: PoolSystem }) {
+    await firebase.database().ref(`pools/${id}`).update({ system })
   }
 
   @Action
@@ -182,5 +221,28 @@ export default class Pools extends VuexModule {
       return bindFirebaseRef('list', firebase.database().ref('pools'))
     }) as Function
     return action(this.context)
+  }
+}
+
+export class BracketGenerator {
+  static roundrobin(competitors: string[], poolId: string): Match[] {
+    const ret: Match[] = []
+
+    let i: number = 0
+    while (i < competitors.length) {
+      let d = i
+      while (d < competitors.length - 1) {
+        ret.push({
+          n: ret.length,
+          fighter1Id: competitors[i],
+          fighter2Id: competitors[d + 1],
+          poolId,
+        })
+        d = d + 1
+      }
+      i = i + 1
+    }
+
+    return ret
   }
 }

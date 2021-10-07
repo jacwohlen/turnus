@@ -62,8 +62,9 @@ export enum PoolSystem {
 
 export interface Match {
   n: number
-  fighter1: string
-  fighter2: string
+  fighter1Id: string // Competitor Id
+  fighter2Id: string
+  poolId: string
 }
 
 export interface SchedulerStats {
