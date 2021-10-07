@@ -101,7 +101,7 @@ import Component from 'vue-class-component'
 
 // FIXME: Should not need to initialize competitors Store here...
 // Maybe move it into init of poolsStore?
-import { poolsStore, competitorsStore } from '~/store'
+import { poolsStore, competitorsStore, alertStore } from '~/store'
 import { Pool, PoolSystem } from '~/types/models'
 
 @Component({
@@ -158,7 +158,9 @@ export default class CategoriesPage extends Vue {
   }
 
   setReadyForSchedule(pool: Pool): void {
-    poolsStore.ready(pool)
+    poolsStore.ready(pool).catch((err) => {
+      alertStore.setError({ msg: err })
+    })
   }
 
   setNotReadyForSchedule(pool: Pool): void {

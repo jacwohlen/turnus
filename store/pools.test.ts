@@ -3,13 +3,13 @@ import firebase from 'firebase/app'
 import { poolsStore, schedulerStore, competitorsStore } from './'
 import { Competitor, Pool, PoolSystem, PoolState } from '~/types/models'
 
-describe('store/pools', () => {
+describe('store/pools', (): void => {
   let poolId: string
   let competitor1Id: string
   let competitor2Id: string
   let competitor3Id: string
 
-  beforeEach(async () => {
+  beforeEach(async (): Promise<void> => {
     await firebase.database().ref('/').remove()
 
     await poolsStore.init()
@@ -102,5 +102,4 @@ describe('store/pools', () => {
     await poolsStore.notReady(pool!)
     expect(schedulerStore.matches).toEqual([])
   })
-
 })

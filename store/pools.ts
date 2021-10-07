@@ -55,7 +55,11 @@ export default class Pools extends VuexModule {
 
   @Action({ rawError: true })
   async ready(pool: Pool) {
-    // FIXME: Create /matches using scheduler store
+    if (!pool.competitors)
+      throw new Error(
+        `The pool "${pool.name}" has no competitors assigned and therefore cannot be moved to schedule`
+      )
+
     if (pool.system === PoolSystem.ROUND_ROBIN) {
       const matches = BracketGenerator.roundrobin(
         Object.keys(pool.competitors),
@@ -158,7 +162,7 @@ export default class Pools extends VuexModule {
   @Action
   async removeCompetitorFromAllPools(competitorId: string) {
     await firebase.database().ref(`/competitors/${competitorId}/pools`).remove()
-    this.list.forEach(async(pool) => {
+    this.list.forEach(async (pool) => {
       await firebase
         .database()
         .ref(`pools/${pool.id}/competitors/${competitorId}`)
@@ -178,11 +182,18 @@ export default class Pools extends VuexModule {
       .database()
       .ref(`pools/${pool.id}/competitors/${competitor.id}`)
       .remove()
-    await firebase.database().ref(`/competitors/${competitor.id}/pools`).remove()
+    await firebase
+      .database()
+      .ref(`/competitors/${competitor.id}/pools`)
+      .remove()
   }
 
   @Action
-  async removeAllPoolsGeneratedByCategory({ categoryId }: { categoryId: string }) {
+  async removeAllPoolsGeneratedByCategory({
+    categoryId,
+  }: {
+    categoryId: string
+  }) {
     let i = this.list.length
     while (i--) {
       const pool = this.list[i]
@@ -218,8 +229,13 @@ export default class Pools extends VuexModule {
     })
   }
 
-  @Action
-  async setPoolSystem({ id, system }: { id: string; system: PoolSystem }) {
+  @Action async setPoolSystem({
+    id,
+    system,
+  }: {
+    id: string
+    system: PoolSystem
+  }) {
     await firebase.database().ref(`pools/${id}`).update({ system })
   }
 
