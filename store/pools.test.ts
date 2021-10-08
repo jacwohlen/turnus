@@ -102,4 +102,25 @@ describe('store/pools', (): void => {
     await poolsStore.notReady(pool!)
     expect(schedulerStore.matches).toEqual([])
   })
+
+  test('test return error when 0 competitors in pool taking back & removing matches', async () => {
+    const pool: Pool = {
+      id: '', // will be filled once added
+      name: 'pool2',
+      system: PoolSystem.ROUND_ROBIN,
+      status: PoolState.NOT_READY,
+      tatamiScheduled: null,
+      competitors: [],
+      generated: false,
+      generationSource: null,
+      criteria: null,
+    }
+    await poolsStore.add(pool)
+    // competitor is not [] once in firebase, that's why refetch is needed
+    const p = poolsStore.getPoolById(pool.id)
+    const t = async () => {
+      await poolsStore.ready(p!)
+    }
+    await expect(t).rejects.toThrow('has no competitors')
+  })
 })
