@@ -4,6 +4,8 @@ import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
+import { schedulerStore } from '~/store'
+
 import { Competitor, Pool, PoolSystem, PoolState, Match } from '~/types/models'
 
 @Module({
@@ -69,9 +71,7 @@ export default class Pools extends VuexModule {
         .database()
         .ref(`pools/${pool.id}`)
         .update({ status: 'ready' })
-      matches.forEach(async (m) => {
-        await firebase.database().ref(`matches/${pool.id}_${m.n}`).set(m)
-      })
+      await schedulerStore.addMatches(matches)
     } else {
       alert('Not Implemented')
     }
@@ -257,6 +257,7 @@ export class BracketGenerator {
       let d = i
       while (d < competitors.length - 1) {
         ret.push({
+          id: '',
           n: ret.length,
           fighter1Id: competitors[i],
           fighter2Id: competitors[d + 1],

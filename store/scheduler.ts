@@ -3,7 +3,7 @@ import { Module, VuexModule, Action } from 'vuex-module-decorators'
 import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 
-import { Match, SchedulerStats } from '~/types/models'
+import { Match, SchedulerStats, Tatami, MatchStatus } from '~/types/models'
 
 @Module({
   name: 'scheduler',
@@ -12,7 +12,9 @@ import { Match, SchedulerStats } from '~/types/models'
 })
 export default class Scheduler extends VuexModule {
   matches: Match[] = []
+  matchesScheduled: Match[] = []
   matchesDone: Match[] = []
+  tatamis: Tatami[] = []
 
   get getStats(): SchedulerStats {
     return {
@@ -37,42 +39,114 @@ export default class Scheduler extends VuexModule {
     }
   }
 
+  get getTatamis(): Tatami[] {
+    return this.tatamis
+  }
+
+  get getMachtesScheduledOnTatami() {
+    return (tatamiId: string): Match[] => {
+      return this.matchesScheduled.filter(
+        (match: Match) => match.tatamiScheduled === tatamiId
+      )
+    }
+  }
+
+  get getActualMatch() {
+    return (tatamiId: string): Match | null => {
+      const found = this.matchesScheduled.filter(
+        (match: Match) =>
+          match.status === MatchStatus.RUNNING &&
+          match.tatamiScheduled === tatamiId
+      )
+      return found.length === 1 ? found[0] : null
+    }
+  }
+
   @Action
   async addMatches(matches: Match[]) {
-    await firebase.database().ref(`matches`).set(matches)
+    for (const match of matches) {
+      match.id = `${match.poolId}_${match.n}`
+      await firebase.database().ref(`matches/${match.id}`).set(match)
+    }
   }
 
   @Action
   async next() {
     if (this.matches.length < 2) return
     const match: Match = this.matches[0]
-    await firebase.database().ref(`matches/${match.n}`).remove()
-    await firebase.database().ref(`matchesDone/${match.n}`).set(match)
+    await firebase.database().ref(`matches/${match.id}`).remove()
+    await firebase.database().ref(`matchesDone/${match.id}`).set(match)
   }
 
   @Action({ rawError: true })
   async previous() {
     if (this.matchesDone.length < 1) return
     const match: Match = this.matchesDone[this.matchesDone.length - 1]
-    await firebase.database().ref(`matchesDone/${match.n}`).remove()
-    await firebase.database().ref(`matches/${match.n}`).set(match)
+    await firebase.database().ref(`matchesDone/${match.id}`).remove()
+    await firebase.database().ref(`matches/${match.id}`).set(match)
+  }
+
+  @Action
+  async addTatami(tatami: Tatami) {
+    const ref = firebase.database().ref('tatamis').push()
+    tatami.id = ref.key!!
+    await ref.set(tatami)
+  }
+
+  @Action
+  async updateTatami(tatami: Tatami) {
+    await firebase.database().ref(`tatamis/${tatami.id}`).update(tatami)
+  }
+
+  @Action
+  async removeTatami(tatamiId: string) {
+    await firebase.database().ref(`tatamis/${tatamiId}`).remove()
+  }
+
+  @Action({ rawError: true })
+  scheduleMatches({
+    matches,
+    tatamiId,
+  }: {
+    matches: Match[]
+    tatamiId: string
+  }) {
+    matches.forEach((match: Match) => {
+      const updates: { [index: string]: any } = {}
+      updates[`matches/${match.id}`] = null
+      updates[`matchesScheduled/${match.id}`] = {
+        ...match,
+        tatamiScheduled: tatamiId,
+      }
+      return firebase.database().ref().update(updates)
+    })
+  }
+
+  @Action({ rawError: true })
+  unscheduleMatches({ matches }: { matches: Match[] }) {
+    matches.forEach((match: Match) => {
+      const updates: { [index: string]: any } = {}
+      updates[`matchesScheduled/${match.id}`] = null
+      updates[`matches/${match.id}`] = {
+        ...match,
+        tatamiScheduled: null,
+      }
+      return firebase.database().ref().update(updates)
+    })
   }
 
   @Action({ rawError: true })
   init() {
     const action = firebaseAction(({ bindFirebaseRef }) => {
-      return bindFirebaseRef('matches', firebase.database().ref('matches'))
-    }) as Function
-    return action(this.context)
-  }
-
-  @Action
-  init2() {
-    const action = firebaseAction(({ bindFirebaseRef }) => {
-      return bindFirebaseRef(
-        'matchesDone',
-        firebase.database().ref('matchesDone')
-      )
+      return Promise.all([
+        bindFirebaseRef('matches', firebase.database().ref('matches')),
+        bindFirebaseRef(
+          'matchesScheduled',
+          firebase.database().ref('matchesScheduled')
+        ),
+        bindFirebaseRef('matchesDone', firebase.database().ref('matchesDone')),
+        bindFirebaseRef('tatamis', firebase.database().ref('tatamis')),
+      ])
     }) as Function
     return action(this.context)
   }

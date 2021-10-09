@@ -65,14 +65,26 @@ export enum PoolSystem {
   BRESIL = 'Bresil',
 }
 
+export enum MatchStatus {
+  RUNNING = 'running',
+}
+
 export interface Match {
+  id: string
   n: number
   fighter1Id: string // Competitor Id
   fighter2Id: string
   poolId: string
+  status?: MatchStatus
+  tatamiScheduled?: string
 }
 
 export interface SchedulerStats {
   upcoming: number
   done: number
+}
+
+export interface Tatami {
+  id: string
+  name: string
 }

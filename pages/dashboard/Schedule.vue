@@ -3,14 +3,15 @@
     <h1>Schedule</h1>
     <v-container fill-height fluid pl-0 pr-0>
       <!-- FIXME: justify property does not work as intended -->
+      <TatamiForm />
       <v-row justify="space-between">
-        <v-col v-for="(tatami, idx) in tatamis" :key="idx" sm="6" md="4">
-          <TatamiSchedule :tatami="tatami" :tatamis="tatamis" />
+        <v-col v-for="tatami in tatamis" :key="tatami.id">
+          <TatamiSchedule :tatami="tatami" />
         </v-col>
       </v-row>
     </v-container>
 
-    <SchedulePoolTable :pools="pools_unscheduled()" :tatamis="tatamis">
+    <SchedulePoolTable :matches="matchesUnscheduled">
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <ol>
@@ -26,24 +27,34 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+import { schedulerStore } from '~/store'
+// import { Pool, PoolSystem } from '~/types/models'
+
+@Component({
   layout: 'DashboardLayout',
-  data: () => ({
-    tatamis: [
-      { id: 0, name: 'Tatami 1' },
-      { id: 1, name: 'Tatami 2' },
-      { id: 2, name: 'Tatami 3' },
-    ],
-    expanded: [],
-  }),
-  computed: {},
-  methods: {
-    pools_unscheduled() {
-      return this.$store.state.pools.list.filter(
-        (pool) => pool.status === 'ready'
-      )
-    },
+  async fetch() {
+    // server side
+    await schedulerStore.init()
   },
+})
+export default class extends Vue {
+  async mounted() {
+    // client side
+    await schedulerStore.init()
+  }
+
+  get tatamis() {
+    return schedulerStore.getTatamis
+  }
+
+  expanded = []
+
+  get matchesUnscheduled() {
+    return schedulerStore.matches
+  }
 }
 </script>

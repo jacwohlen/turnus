@@ -9,17 +9,52 @@ describe('store/scheduler', () => {
   beforeEach(async () => {
     await firebase.database().ref('/').remove()
     await schedulerStore.init()
-    await schedulerStore.init2()
   })
 
   test('test scheduling mechanics', async () => {
     const matches: Match[] = [
-      { n: 0, fighter1Id: 'F1', fighter2Id: 'F2', poolId: 'Pool1' },
-      { n: 1, fighter1Id: 'F1', fighter2Id: 'F3', poolId: 'Pool1' },
-      { n: 2, fighter1Id: 'F1', fighter2Id: 'F4', poolId: 'Pool1' },
-      { n: 3, fighter1Id: 'F2', fighter2Id: 'F3', poolId: 'Pool1' },
-      { n: 4, fighter1Id: 'F2', fighter2Id: 'F4', poolId: 'Pool1' },
-      { n: 5, fighter1Id: 'F3', fighter2Id: 'F4', poolId: 'Pool1' },
+      {
+        id: 'Pool1_0',
+        n: 0,
+        fighter1Id: 'F1',
+        fighter2Id: 'F2',
+        poolId: 'Pool1',
+      },
+      {
+        id: 'Pool1_1',
+        n: 1,
+        fighter1Id: 'F1',
+        fighter2Id: 'F3',
+        poolId: 'Pool1',
+      },
+      {
+        id: 'Pool1_2',
+        n: 2,
+        fighter1Id: 'F1',
+        fighter2Id: 'F4',
+        poolId: 'Pool1',
+      },
+      {
+        id: 'Pool1_3',
+        n: 3,
+        fighter1Id: 'F2',
+        fighter2Id: 'F3',
+        poolId: 'Pool1',
+      },
+      {
+        id: 'Pool1_4',
+        n: 4,
+        fighter1Id: 'F2',
+        fighter2Id: 'F4',
+        poolId: 'Pool1',
+      },
+      {
+        id: 'Pool1_5',
+        n: 5,
+        fighter1Id: 'F3',
+        fighter2Id: 'F4',
+        poolId: 'Pool1',
+      },
     ]
     expect(schedulerStore.getCurrentMatch).toBeNull()
     expect(schedulerStore.getNextMatch).toBeNull()
@@ -41,9 +76,27 @@ describe('store/scheduler', () => {
 
   test('test cycling through scheduling', async () => {
     const matches: Match[] = [
-      { n: 0, fighter1Id: 'F1', fighter2Id: 'F2', poolId: 'Pool1' },
-      { n: 1, fighter1Id: 'F1', fighter2Id: 'F3', poolId: 'Pool1' },
-      { n: 2, fighter1Id: 'F1', fighter2Id: 'F4', poolId: 'Pool1' },
+      {
+        n: 0,
+        fighter1Id: 'F1',
+        fighter2Id: 'F2',
+        poolId: 'Pool1',
+        id: 'Pool1_0',
+      },
+      {
+        n: 1,
+        fighter1Id: 'F1',
+        fighter2Id: 'F3',
+        poolId: 'Pool1',
+        id: 'Pool1_1',
+      },
+      {
+        n: 2,
+        fighter1Id: 'F1',
+        fighter2Id: 'F4',
+        poolId: 'Pool1',
+        id: 'Pool1_2',
+      },
     ]
     await schedulerStore.addMatches(matches)
 

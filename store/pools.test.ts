@@ -14,7 +14,6 @@ describe('store/pools', (): void => {
 
     await poolsStore.init()
     await schedulerStore.init()
-    await schedulerStore.init2()
 
     const competitor1: Competitor = {
       id: '',
@@ -80,18 +79,21 @@ describe('store/pools', (): void => {
         fighter1Id: competitor1Id,
         fighter2Id: competitor2Id,
         poolId,
+        id: `${poolId}_0`,
       },
       {
         n: 1,
         fighter1Id: competitor1Id,
         fighter2Id: competitor3Id,
         poolId,
+        id: `${poolId}_1`,
       },
       {
         n: 2,
         fighter1Id: competitor2Id,
         fighter2Id: competitor3Id,
         poolId,
+        id: `${poolId}_2`,
       },
     ])
   })

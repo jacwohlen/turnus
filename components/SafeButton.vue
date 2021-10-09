@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn v-show="!confirm" small @click="confirm = !confirm">
+    <v-btn v-show="!confirm" v-bind="$attrs" @click="confirm = !confirm">
       <slot>Do</slot>
     </v-btn>
     <v-btn v-show="confirm" x-small dark @click="confirm = !confirm">

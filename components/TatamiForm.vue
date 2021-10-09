@@ -13,7 +13,7 @@
         v-bind="attrs"
         v-on="on"
       >
-        Add New
+        Add Tatami
       </v-btn>
       <v-row v-else>
         <v-btn v-if="!prefilled.generated" small v-bind="attrs" v-on="on">
@@ -27,7 +27,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <span class="headline">Add Pool</span>
+        <span class="headline">Add Tatami</span>
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -42,10 +42,6 @@
                     label="Name"
                     required
                   ></v-text-field>
-                </v-col>
-
-                <v-col cols="12">
-                  <v-select :value="item.system" :items="systems"></v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -85,9 +81,9 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 import _ from 'lodash' // for deep cloning
-import { poolsStore } from '~/store'
+import { schedulerStore } from '~/store'
 
-import { PoolSystem, Pool } from '~/types/models'
+import { Tatami } from '~/types/models'
 
 const PrefilledProps = Vue.extend({
   props: {
@@ -100,10 +96,9 @@ const PrefilledProps = Vue.extend({
 
 @Component
 export default class extends PrefilledProps {
-  systems: PoolSystem[] = [PoolSystem.ROUND_ROBIN, PoolSystem.BRESIL]
   dialog: boolean = false
   confirm: boolean = false
-  item: Pool = _.cloneDeep(this.prefilled)
+  item: Tatami = _.cloneDeep(this.prefilled)
   nameRules: any[] = [
     (v: any) => !!v || 'Name is required',
     (v: any) => (v && v.length <= 20) || 'Name must be less than 20 characters',
@@ -112,27 +107,22 @@ export default class extends PrefilledProps {
   valid: boolean = true
 
   add(): void {
-    poolsStore.add({
+    schedulerStore.addTatami({
       name: this.item.name,
-      system: this.item.system,
-      generated: false,
-      generationSource: { id: '0', name: 'Custom' },
-      criteria: null,
     })
     this.dialog = false
   }
 
   edit(): void {
-    poolsStore.edit({
+    schedulerStore.updateTatami({
       id: this.item.id,
       name: this.item.name,
-      system: this.item.system,
     })
     this.dialog = false
   }
 
   remove(): void {
-    poolsStore.remove({ id: this.item.id })
+    schedulerStore.removeTatami(this.item.id)
   }
 }
 </script>
