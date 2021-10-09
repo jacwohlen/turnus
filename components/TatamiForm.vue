@@ -108,6 +108,7 @@ export default class extends PrefilledProps {
 
   add(): void {
     schedulerStore.addTatami({
+      id: '',
       name: this.item.name,
     })
     this.dialog = false

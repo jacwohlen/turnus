@@ -124,14 +124,14 @@ export default class Scheduler extends VuexModule {
 
   @Action({ rawError: true })
   unscheduleMatches({ matches }: { matches: Match[] }) {
-    matches.forEach((match: Match) => {
+    matches.forEach(async (match: Match) => {
       const updates: { [index: string]: any } = {}
       updates[`matchesScheduled/${match.id}`] = null
       updates[`matches/${match.id}`] = {
         ...match,
         tatamiScheduled: null,
       }
-      return firebase.database().ref().update(updates)
+      await firebase.database().ref().update(updates)
     })
   }
 

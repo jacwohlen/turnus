@@ -54,12 +54,14 @@
 import Vue, { PropType } from 'vue'
 import Component from 'vue-class-component'
 
-import { schedulerStore } from '~/store'
+import { alertStore, schedulerStore } from '~/store'
+
+import { Match, Tatami } from '~/types/models'
 
 const PrefilledProps = Vue.extend({
   props: {
     matches: {
-      type: Array,
+      type: Array as PropType<Array<Match>>,
       required: true,
     },
   },
@@ -70,13 +72,19 @@ export default class extends PrefilledProps {
   dialog: boolean = false
   valid: boolean = false
   confirm: boolean = false
-  selectedTatami = null
+  selectedTatami: Tatami | null = null
 
   get tatamis() {
     return schedulerStore.getTatamis
   }
 
   schedule() {
+    if (this.selectedTatami === null) {
+      alertStore.setError({
+        msg: 'Please select tatami first in order to schedule the matches',
+      })
+      return
+    }
     schedulerStore.scheduleMatches({
       matches: this.matches,
       tatamiId: this.selectedTatami.id,
@@ -84,8 +92,8 @@ export default class extends PrefilledProps {
     this.dialog = false
   }
 
-  async unschedule() {
-    await schedulerStore.unscheduleMatches({ matches: this.matches })
+  unschedule() {
+    schedulerStore.unscheduleMatches({ matches: this.matches })
   }
 }
 </script>
