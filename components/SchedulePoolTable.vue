@@ -11,12 +11,12 @@
       :expanded="[]"
     >
       <template v-slot:group.header="{ items, group, headers, toggle, isOpen }">
-        <td :colspan="2">
+        <td :colspan="headers.length - 2">
           <v-btn :ref="group" small icon @click="toggle" :data-open="isOpen">
             <v-icon v-if="isOpen">mdi-chevron-up</v-icon>
             <v-icon v-else>mdi-chevron-down</v-icon>
           </v-btn>
-          <span class="mx-5 font-weight-bold">{{ group }}</span>
+          <span class="mx-5 font-weight-bold">{{ getPoolName(group) }}</span>
         </td>
         <td>
           <!-- Progress -->
@@ -29,6 +29,12 @@
           <SchedulePoolForm :matches="items" />
         </td>
       </template>
+      <template v-slot:item.fighter1Id="{ item }">
+        {{getFighterName(item.fighter1Id)}}
+      </template>
+      <template v-slot:item.fighter2Id="{ item }">
+        {{getFighterName(item.fighter2Id)}}
+      </template>
     </v-data-table>
   </div>
 </template>
@@ -37,7 +43,7 @@
 import Vue, { PropType } from 'vue'
 import Component from 'vue-class-component'
 
-import { schedulerStore } from '~/store'
+import { poolsStore, schedulerStore, competitorsStore } from '~/store'
 import { Tatami } from '~/types/models'
 
 const PrefilledProps = Vue.extend({
@@ -51,11 +57,21 @@ const PrefilledProps = Vue.extend({
 
 @Component
 export default class extends PrefilledProps {
+  async mounted(){
+    await poolsStore.init()
+    // FIXME: Cannot init schedulerStore here (luckily it's initialized 
+    // on Schedule Page. When you uncomment the line below you will see a
+    // busy loop in the web... tatamis get binded over and toggles it's value...)
+    // await schedulerStore.init()
+    await competitorsStore.init()
+    this.closeAll()
+  }
   $refs!: HTMLFormElement
 
   headers = [
-    { text: '', value: '' },
-    { text: 'Match #', value: 'n' },
+    { text: 'Match', value: 'n' },
+    { text: 'Fighter1', value: 'fighter1Id' },
+    { text: 'Fighter2', value: 'fighter2Id' },
     { text: 'Progress', value: 'progress' },
     { text: 'Action', value: 'action' },
   ]
@@ -64,18 +80,15 @@ export default class extends PrefilledProps {
     return schedulerStore.getTatamis
   }
 
-  mounted() {
-    this.closeAll()
+  getPoolName(poolId: string){
+    const p = poolsStore.getPoolById(poolId)
+    return p ? p.name : poolId
   }
 
-  // onCutDrop(e) {
-  //   this.cut.push(e.data)
-  // }
-
-  // remove(n) {
-  //   const index = this.pools.indexOf(n)
-  //   this.pools.splice(index, 1)
-  // }
+  getFighterName(competitorId: string){
+    const p = competitorsStore.getCompetitorById(competitorId)
+    return p ? p.lastname.toUpperCase() + ' ' + p.firstname : competitorId
+  }
 
   closeAll() {
     Object.keys(this.$refs).forEach((k) => {

@@ -14,14 +14,6 @@
     </v-toolbar>
     <v-row>
       <v-col>
-        <v-subheader>Actual Fight</v-subheader>
-        <div v-if="actualMatch">
-          {{ actualMatch.fighter1Id }} vs {{ actualMatch.fighter2Id }}
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
         <SchedulePoolTable :matches="matchesScheduled" />
       </v-col>
     </v-row>

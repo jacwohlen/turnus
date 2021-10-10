@@ -35,14 +35,9 @@ import { schedulerStore } from '~/store'
 
 @Component({
   layout: 'DashboardLayout',
-  async fetch() {
-    // server side
-    await schedulerStore.init()
-  },
 })
 export default class extends Vue {
-  async mounted() {
-    // client side
+  async mounted(){
     await schedulerStore.init()
   }
 
