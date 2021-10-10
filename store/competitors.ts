@@ -27,6 +27,13 @@ export default class Competitors extends VuexModule {
     },
   ]
 
+  get getCompetitorById() {
+    return (competitorId: string): Competitor | null => {
+      const found = this.list.filter((c) => c.id === competitorId)
+      return found.length === 1 ? found[0] : null
+    }
+  }
+
   @Action
   async add(item: Competitor) {
     const ref = firebase.database().ref('competitors').push()

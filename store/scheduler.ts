@@ -16,31 +16,53 @@ export default class Scheduler extends VuexModule {
   matchesDone: Match[] = []
   tatamis: Tatami[] = []
 
-  get getStats(): SchedulerStats {
-    return {
-      upcoming: this.matches.length,
-      done: this.matchesDone.length,
+  get getStats(): (tatamiId: string) => SchedulerStats {
+    return (tatamiId: string) => {
+      const upcoming = this.getMachtesScheduledOnTatami(tatamiId).length
+      const done = this.getMachtesDoneOnTatami(tatamiId).length
+      return {
+        upcoming,
+        done,
+        total: upcoming + done,
+      }
     }
   }
 
-  get getCurrentMatch(): Match | null {
-    if (this.matches.length) {
-      return this.matches[0]
-    } else {
-      return null
+  get getCurrentMatch(): (tatamiId: string) => Match | null {
+    return (tatamiId: string): Match | null => {
+      const found = this.matchesScheduled.filter(
+        (match) => match.tatamiScheduled === tatamiId
+      )
+      if (found.length > 0) {
+        return found[0]
+      } else {
+        return null
+      }
     }
   }
 
-  get getNextMatch(): Match | null {
-    if (this.matches.length > 1) {
-      return this.matches[1]
-    } else {
-      return null
+  get getNextMatch(): (tatamiId: string) => Match | null {
+    return (tatamiId: string): Match | null => {
+      const found = this.matchesScheduled.filter(
+        (match) => match.tatamiScheduled === tatamiId
+      )
+      if (found.length > 1) {
+        return found[1]
+      } else {
+        return null
+      }
     }
   }
 
   get getTatamis(): Tatami[] {
     return this.tatamis
+  }
+
+  get getTatamiById() {
+    return (tatamiId: string): Tatami | null => {
+      const found = this.tatamis.filter((t) => t.id === tatamiId)
+      return found.length === 1 ? found[0] : null
+    }
   }
 
   get getMachtesScheduledOnTatami() {
@@ -51,14 +73,23 @@ export default class Scheduler extends VuexModule {
     }
   }
 
+  get getMachtesDoneOnTatami() {
+    return (tatamiId: string): Match[] => {
+      return this.matchesDone.filter(
+        (match: Match) => match.tatamiScheduled === tatamiId
+      )
+    }
+  }
+
   get getActualMatch() {
     return (tatamiId: string): Match | null => {
       const found = this.matchesScheduled.filter(
         (match: Match) =>
-          match.status === MatchStatus.RUNNING &&
+          // match.status === MatchStatus.RUNNING &&
+          // FIXME: SORT by n...
           match.tatamiScheduled === tatamiId
       )
-      return found.length === 1 ? found[0] : null
+      return found.length >= 1 ? found[0] : null
     }
   }
 
@@ -71,19 +102,21 @@ export default class Scheduler extends VuexModule {
   }
 
   @Action
-  async next() {
-    if (this.matches.length < 2) return
-    const match: Match = this.matches[0]
-    await firebase.database().ref(`matches/${match.id}`).remove()
+  async next(tatamiId: string) {
+    const matches = this.getMachtesScheduledOnTatami(tatamiId)
+    if (matches.length < 2) return
+    const match: Match = matches[0]
+    await firebase.database().ref(`matchesScheduled/${match.id}`).remove()
     await firebase.database().ref(`matchesDone/${match.id}`).set(match)
   }
 
   @Action({ rawError: true })
-  async previous() {
-    if (this.matchesDone.length < 1) return
-    const match: Match = this.matchesDone[this.matchesDone.length - 1]
+  async previous(tatamiId: string) {
+    const matches = this.getMachtesDoneOnTatami(tatamiId)
+    if (matches.length < 1) return
+    const match: Match = matches[matches.length - 1]
     await firebase.database().ref(`matchesDone/${match.id}`).remove()
-    await firebase.database().ref(`matches/${match.id}`).set(match)
+    await firebase.database().ref(`matchesScheduled/${match.id}`).set(match)
   }
 
   @Action

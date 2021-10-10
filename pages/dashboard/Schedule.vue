@@ -32,7 +32,6 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 import { schedulerStore } from '~/store'
-// import { Pool, PoolSystem } from '~/types/models'
 
 @Component({
   layout: 'DashboardLayout',
