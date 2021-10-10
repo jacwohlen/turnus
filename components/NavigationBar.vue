@@ -54,6 +54,9 @@ export default {
   }),
   computed: {
     user() {
+      if (userStore === undefined) {
+        console.log('Error: userStore must not be undefined')
+      }
       return userStore.user
     },
   },

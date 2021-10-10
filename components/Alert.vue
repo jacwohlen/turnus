@@ -20,6 +20,9 @@ import { alertStore } from '~/store'
 export default {
   computed: {
     alert() {
+      if (alertStore === undefined) {
+        console.log('Error: alertStore must not be undefined')
+      }
       return alertStore.alert
     },
   },

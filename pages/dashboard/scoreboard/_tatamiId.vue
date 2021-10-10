@@ -54,22 +54,7 @@
       </v-row>
       <v-row class="border">
         <v-col class="red2" md="6">
-          <v-row class="score">
-            <v-col align="center">
-              {{ scoreRed.ippon }}
-            </v-col>
-            <v-col align="center">
-              {{ scoreRed.wazari }}
-            </v-col>
-            <v-col align="center">
-              {{ scoreRed.shido }}
-            </v-col>
-          </v-row>
-          <v-row class="scorelegend">
-            <v-col align="center"> Ippon </v-col>
-            <v-col align="center"> Wazari </v-col>
-            <v-col align="center"> Shido </v-col>
-          </v-row>
+          <ScoreboardScore :score="scoreRed" />
         </v-col>
         <v-col class="white" md="6">
           <v-row class="score">
@@ -99,9 +84,7 @@
         <v-col class="next" md="1">Next</v-col>
         <v-col class="red2" md="5">
           <v-row>
-            <v-col class="nextCompetitor">{{
-              nextCompetitorRed | name
-            }}</v-col>
+            <v-col class="nextCompetitor">{{ nextCompetitorRed | name }}</v-col>
           </v-row>
           <v-row>
             <v-col class="nextCompetitorClub">{{
@@ -139,22 +122,22 @@ import {
 } from '~/store'
 import { Tatami, Competitor } from '~/types/models'
 
-Vue.filter('name',function(c: Competitor) {
+Vue.filter('name', function (c: Competitor) {
   return c !== null ? c.lastname.toUpperCase() + ' ' + c.firstname : ''
 })
 
-Vue.filter('club',function(c: Competitor) {
+Vue.filter('club', function (c: Competitor) {
   return c !== null ? c.club : ''
 })
 
 @Component({
   layout: 'ScreenLayout',
-  async asyncData ({params}) {
+  async asyncData({ params }) {
     return { tatamiId: params.tatamiId }
   },
 })
 export default class extends Vue {
-  async created(){
+  async created() {
     await schedulerStore.init()
     await competitorsStore.init()
     await poolsStore.init()
@@ -186,13 +169,13 @@ export default class extends Vue {
     return poolsStore.getPoolById(this.actualMatch!.poolId)
   }
 
-  get actualCompetitorRed() {    
-    if(!this.actualMatch) return null
+  get actualCompetitorRed() {
+    if (!this.actualMatch) return null
     return competitorsStore.getCompetitorById(this.actualMatch!.fighter1Id)
   }
-   
+
   get actualCompetitorWhite() {
-    if(!this.actualMatch) return null
+    if (!this.actualMatch) return null
     return competitorsStore.getCompetitorById(this.actualMatch!.fighter2Id)
   }
 
@@ -201,12 +184,12 @@ export default class extends Vue {
   }
 
   get nextCompetitorRed() {
-    if(!this.nextMatch) return null
+    if (!this.nextMatch) return null
     return competitorsStore.getCompetitorById(this.nextMatch.fighter1Id)
   }
-   
+
   get nextCompetitorWhite() {
-    if(!this.nextMatch) return null
+    if (!this.nextMatch) return null
     return competitorsStore.getCompetitorById(this.nextMatch!.fighter2Id)
   }
 
@@ -215,7 +198,7 @@ export default class extends Vue {
   }
 
   next() {
-    // FIXME: Only move next after scoring.. 
+    // FIXME: Only move next after scoring..
     schedulerStore.next(this.tatami.id)
   }
   previous() {
