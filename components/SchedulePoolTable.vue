@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-data-table
-      name="expandableTable"
       :headers="headers"
       :items="matches"
+      :group-desc=true
       item-key="id"
       group-by="poolId"
       disable-sort
