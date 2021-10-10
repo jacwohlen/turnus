@@ -69,6 +69,14 @@ export enum MatchStatus {
   RUNNING = 'running',
 }
 
+export interface MatchScore {
+  ippon: number
+  wazari: number
+  yuko: number
+  shido: number
+  hansoku: boolean
+}
+
 export interface Match {
   id: string
   n: number
