@@ -1,113 +1,145 @@
 <template>
-  <div>
-    <v-toolbar>
-      <v-toolbar-title>Operator</v-toolbar-title>
-      <v-btn icon>
-        <v-icon>mdi-coffee</v-icon>
-      </v-btn>
-      <v-btn icon @click="previous()">
-        <v-icon>mdi-skip-previous</v-icon>
-      </v-btn>
-      <v-col cols="1">
-        <v-progress-linear height="25">
-          <strong>{{ stats.done }}/{{ stats.total }}</strong>
-        </v-progress-linear>
+  <v-container fluid class="pa-0">
+    <v-row no-gutters>
+      <v-col cols="12">
+        <v-toolbar>
+          <v-toolbar-title>Operator</v-toolbar-title>
+          <v-btn icon>
+            <v-icon>mdi-coffee</v-icon>
+          </v-btn>
+          <v-btn icon @click="previous()">
+            <v-icon>mdi-skip-previous</v-icon>
+          </v-btn>
+          <v-col cols="1">
+            <v-progress-linear height="25">
+              <strong>{{ stats.done }}/{{ stats.total }}</strong>
+            </v-progress-linear>
+          </v-col>
+          <v-btn icon @click="next()">
+            <v-icon>mdi-skip-next</v-icon>
+          </v-btn>
+          <v-spacer />
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-toolbar>
       </v-col>
-      <v-btn icon @click="next()">
-        <v-icon>mdi-skip-next</v-icon>
-      </v-btn>
-      <v-spacer />
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-container v-if="!actualMatch">
-      <span>Kein Kampf im moment... :)</span>
-    </v-container>
-    <v-container v-else fluid>
-      <v-row class="border">
-        <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
-        <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
-        <v-col md="2"></v-col>
-      </v-row>
-      <v-row>
-        <v-col class="red2" md="6">
-          <v-row>
-            <v-col class="competitor">
-              {{ actualCompetitorRed | name }}
+      <v-col v-if="!actualMatch" cols="12">
+        <span>Kein Kampf im moment... :)</span>
+      </v-col>
+      <template v-else>
+        <v-col cols="12">
+          <v-row no-gutters class="border">
+            <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
+            <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
+            <v-col md="2"></v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="12">
+          <v-row no-gutters>
+            <v-col class="red2" md="6">
+              <v-row no-gutters>
+                <v-col class="competitor">
+                  {{ actualCompetitorRed | name }}
+                </v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col class="club">{{ actualCompetitorRed | club }}</v-col>
+              </v-row>
+            </v-col>
+            <v-col class="white" md="6">
+              <v-row no-gutters>
+                <v-col class="competitor">
+                  {{ actualCompetitorWhite | name }}
+                </v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col class="club">{{ actualCompetitorWhite | club }}</v-col>
+              </v-row>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col class="club">{{ actualCompetitorRed | club }}</v-col>
-          </v-row>
         </v-col>
-        <v-col class="white" md="6">
-          <v-row>
-            <v-col class="competitor">
-              {{ actualCompetitorWhite | name }}
+        <v-col cols="12">
+          <v-row no-gutters class="border">
+            <v-col class="red2" md="6">
+              <!-- <ScoreboardScore :score="scoreRed" /> -->
+              <v-row no-gutters class="score">
+                <v-col align="center">
+                  {{ scoreWhite.ippon }}
+                </v-col>
+                <v-col align="center">
+                  {{ scoreWhite.wazari }}
+                </v-col>
+                <v-col align="center">
+                  {{ scoreWhite.shido }}
+                </v-col>
+              </v-row>
+              <v-row no-gutters class="scorelegend">
+                <v-col align="center"> Ippon </v-col>
+                <v-col align="center"> Wazari </v-col>
+                <v-col align="center"> Shido </v-col>
+              </v-row>
+            </v-col>
+            <v-col class="white" md="6">
+              <v-row no-gutters class="score">
+                <v-col align="center">
+                  {{ scoreWhite.ippon }}
+                </v-col>
+                <v-col align="center">
+                  {{ scoreWhite.wazari }}
+                </v-col>
+                <v-col align="center">
+                  {{ scoreWhite.shido }}
+                </v-col>
+              </v-row>
+              <v-row no-gutters class="scorelegend">
+                <v-col align="center"> Ippon </v-col>
+                <v-col align="center"> Wazari </v-col>
+                <v-col align="center"> Shido </v-col>
+              </v-row>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col class="club">{{ actualCompetitorWhite | club }}</v-col>
+        </v-col>
+        <v-col cols="12">
+          <v-row no-gutters class="border">
+            <v-col class="flag" md="3">Flag</v-col>
+            <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
+            <v-col class="flag" md="3">Flag</v-col>
           </v-row>
         </v-col>
-      </v-row>
-      <v-row class="border">
-        <v-col class="red2" md="6">
-          <ScoreboardScore :score="scoreRed" />
-        </v-col>
-        <v-col class="white" md="6">
-          <v-row class="score">
-            <v-col align="center">
-              {{ scoreWhite.ippon }}
+        <v-col cols="12">
+          <v-row no-gutters class="border">
+            <v-col class="next" md="1">Next</v-col>
+            <v-col class="red2" md="5">
+              <v-row no-gutters>
+                <v-col class="nextCompetitor">{{
+                  nextCompetitorRed | name
+                }}</v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col class="nextCompetitorClub">{{
+                  nextCompetitorRed | club
+                }}</v-col>
+              </v-row>
             </v-col>
-            <v-col align="center">
-              {{ scoreWhite.wazari }}
+            <v-col class="white" md="5">
+              <v-row no-gutters>
+                <v-col class="nextCompetitor">{{
+                  nextCompetitorWhite | name
+                }}</v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col class="nextCompetitorClub">{{
+                  nextCompetitorWhite | club
+                }}</v-col>
+              </v-row>
             </v-col>
-            <v-col align="center">
-              {{ scoreWhite.shido }}
-            </v-col>
-          </v-row>
-          <v-row class="scorelegend">
-            <v-col align="center"> Ippon </v-col>
-            <v-col align="center"> Wazari </v-col>
-            <v-col align="center"> Shido </v-col>
+            <v-col md="1"></v-col>
           </v-row>
         </v-col>
-      </v-row>
-      <v-row class="border">
-        <v-col class="flag" md="3">Flag</v-col>
-        <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
-        <v-col class="flag" md="3">Flag</v-col>
-      </v-row>
-      <v-row class="border">
-        <v-col class="next" md="1">Next</v-col>
-        <v-col class="red2" md="5">
-          <v-row>
-            <v-col class="nextCompetitor">{{ nextCompetitorRed | name }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col class="nextCompetitorClub">{{
-              nextCompetitorRed | club
-            }}</v-col>
-          </v-row>
-        </v-col>
-        <v-col class="white" md="5">
-          <v-row>
-            <v-col class="nextCompetitor">{{
-              nextCompetitorWhite | name
-            }}</v-col>
-          </v-row>
-          <v-row>
-            <v-col class="nextCompetitorClub">{{
-              nextCompetitorWhite | club
-            }}</v-col>
-          </v-row>
-        </v-col>
-        <v-col md="1"></v-col>
-      </v-row>
-    </v-container>
-  </div>
+      </template>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -212,7 +244,7 @@ export default class extends Vue {
   padding-bottom: 0;
 }
 .border {
-  border-bottom: solid black 1px;
+  background-color: lightgray;
 }
 .tatami {
   font-size: 3vh;
