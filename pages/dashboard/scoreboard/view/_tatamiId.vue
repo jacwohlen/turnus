@@ -2,104 +2,113 @@
   <v-container v-if="!actualMatch">
     <span>Kein Kampf im moment... :)</span>
   </v-container>
-  <v-container v-else fluid pt-0 pb-0>
-    <v-row class="border">
-      <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
-      <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
-      <v-col md="2"></v-col>
-    </v-row>
-    <v-row>
-      <v-col class="red2" md="6">
-        <v-row>
-          <v-col class="competitor">
-            {{ actualMatch.competitorRed.name }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="club">{{ actualMatch.competitorRed.club }}</v-col>
+  <v-container v-else fluid class="pa-0">
+    <v-row no-gutters>
+      <v-col cols="12">
+        <v-row no-gutters class="border">
+          <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
+          <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
+          <v-col md="2"></v-col>
         </v-row>
       </v-col>
-      <v-col class="white" md="6">
-        <v-row>
-          <v-col class="competitor">
-            {{ actualMatch.competitorWhite.name }}
+      <v-col cols="12">
+        <v-row no-gutters>
+          <v-col class="red2" md="6">
+            <v-row no-gutters>
+              <v-col cols="12" class="competitor">
+                {{ actualCompetitorRed | name }}
+              </v-col>
+              <v-col cols="12" class="club">{{
+                actualCompetitorRed | club
+              }}</v-col>
+            </v-row>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="club">{{ actualMatch.competitorWhite.club }}</v-col>
+          <v-col class="white" md="6">
+            <v-row no-gutters>
+              <v-col cols="12" class="competitor">
+                {{ actualCompetitorWhite | name }}
+              </v-col>
+              <v-col cols="12" class="club">{{
+                actualCompetitorWhite | club
+              }}</v-col>
+            </v-row>
+          </v-col>
         </v-row>
       </v-col>
-    </v-row>
-    <v-row class="border">
-      <v-col class="red2" md="6">
-        <v-row class="score">
-          <v-col align="center">
-            {{ actualMatch.competitorRed.score.ippon }}
+      <v-col cols="12">
+        <v-row no-gutters class="border">
+          <v-col class="red2" md="6">
+            <!-- <ScoreboardScore :score="scoreRed" /> -->
+            <v-row no-gutters class="score">
+              <v-col cols="4" align="center">
+                {{ scoreWhite.ippon }}
+              </v-col>
+              <v-col cols="4" align="center">
+                {{ scoreWhite.wazari }}
+              </v-col>
+              <v-col cols="4" align="center">
+                {{ scoreWhite.shido }}
+              </v-col>
+              <v-col cols="4" class="scorelegend" align="center"> Ippon </v-col>
+              <v-col cols="4" class="scorelegend" align="center">
+                Wazari
+              </v-col>
+              <v-col cols="4" class="scorelegend" align="center"> Shido </v-col>
+            </v-row>
           </v-col>
-          <v-col align="center">
-            {{ actualMatch.competitorRed.score.wazari }}
+          <v-col class="white" md="6">
+            <v-row no-gutters class="score">
+              <v-col cols="4" align="center">
+                {{ scoreWhite.ippon }}
+              </v-col>
+              <v-col cols="4" align="center">
+                {{ scoreWhite.wazari }}
+              </v-col>
+              <v-col cols="4" align="center">
+                {{ scoreWhite.shido }}
+              </v-col>
+              <v-col cols="4" class="scorelegend" align="center"> Ippon </v-col>
+              <v-col cols="4" class="scorelegend" align="center">
+                Wazari
+              </v-col>
+              <v-col cols="4" class="scorelegend" align="center"> Shido </v-col>
+            </v-row>
           </v-col>
-          <v-col align="center">
-            {{ actualMatch.competitorRed.score.shido }}
-          </v-col>
-        </v-row>
-        <v-row class="scorelegend">
-          <v-col align="center"> Ippon </v-col>
-          <v-col align="center"> Wazari </v-col>
-          <v-col align="center"> Shido </v-col>
         </v-row>
       </v-col>
-      <v-col class="white" md="6">
-        <v-row class="score">
-          <v-col align="center">
-            {{ actualMatch.competitorRed.score.ippon }}
-          </v-col>
-          <v-col align="center">
-            {{ actualMatch.competitorRed.score.wazari }}
-          </v-col>
-          <v-col align="center">
-            {{ actualMatch.competitorRed.score.shido }}
-          </v-col>
-        </v-row>
-        <v-row class="scorelegend">
-          <v-col align="center"> Ippon </v-col>
-          <v-col align="center"> Wazari </v-col>
-          <v-col align="center"> Shido </v-col>
+      <v-col cols="12">
+        <v-row no-gutters class="border">
+          <v-col class="flag" md="3">Flag</v-col>
+          <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
+          <v-col class="flag" md="3">Flag</v-col>
         </v-row>
       </v-col>
-    </v-row>
-    <v-row class="border">
-      <v-col class="flag" md="3">Flag</v-col>
-      <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
-      <v-col class="flag" md="3">Flag</v-col>
-    </v-row>
-    <v-row class="border">
-      <v-col class="next" md="1">Next</v-col>
-      <v-col class="red2" md="5">
-        <v-row>
-          <v-col class="nextCompetitor">{{
-            nextMatch.competitorRed.name
-          }}</v-col>
-        </v-row>
-        <v-row>
-          <v-col class="nextCompetitorClub">{{
-            nextMatch.competitorRed.club
-          }}</v-col>
-        </v-row>
-      </v-col>
-      <v-col class="white" md="5">
-        <v-row>
-          <v-col class="nextCompetitor">{{
-            nextMatch.competitorWhite.name
-          }}</v-col>
-        </v-row>
-        <v-row>
-          <v-col class="nextCompetitorClub">{{
-            nextMatch.competitorWhite.club
-          }}</v-col>
+      <v-col cols="12">
+        <v-row no-gutters class="border">
+          <v-col class="next" md="1">Next</v-col>
+          <v-col class="red2" md="5">
+            <v-row no-gutters>
+              <v-col cols="12" class="nextCompetitor">{{
+                nextCompetitorRed | name
+              }}</v-col>
+              <v-col cols="12" class="nextCompetitorClub">{{
+                nextCompetitorRed | club
+              }}</v-col>
+            </v-row>
+          </v-col>
+          <v-col class="white" md="5">
+            <v-row no-gutters>
+              <v-col cols="12" class="nextCompetitor">{{
+                nextCompetitorWhite | name
+              }}</v-col>
+              <v-col cols="12" class="nextCompetitorClub">{{
+                nextCompetitorWhite | club
+              }}</v-col>
+            </v-row>
+          </v-col>
+          <v-col md="1"></v-col>
         </v-row>
       </v-col>
-      <v-col md="1"></v-col>
     </v-row>
   </v-container>
 </template>
@@ -114,136 +123,130 @@ import {
   competitorsStore,
   poolsStore,
 } from '~/store'
-import { Tatami } from '~/types/models'
+import { Tatami, Competitor } from '~/types/models'
+
+Vue.filter('name', function (c: Competitor) {
+  return c !== null ? c.lastname.toUpperCase() + ' ' + c.firstname : ''
+})
+
+Vue.filter('club', function (c: Competitor) {
+  return c !== null ? c.club : ''
+})
 
 @Component({
   layout: 'ScreenLayout',
   async asyncData({ params }) {
-    await schedulerStore.init()
-    await competitorsStore.init()
-    await poolsStore.init()
-    if (!params.tatamiId) {
-      alertStore.setError({ msg: 'Missing tatamiId' })
-      return
-    }
-    const tatami = schedulerStore.getTatamiById(params.tatamiId)
-    if (!tatami) {
-      alertStore.setError({
-        msg: `Tatami with Id '${params.tatamiId}' not found.`,
-      })
-      return
-    }
-    // FIXME: prevent page from loading...
-    // maybe middleware?
-    return { tatami }
+    return { tatamiId: params.tatamiId }
   },
 })
 export default class extends Vue {
-  tatami: Tatami = { id: '', name: '' }
+  async created() {
+    await schedulerStore.init()
+    await competitorsStore.init()
+    await poolsStore.init()
 
+    if (!this.tatamiId) {
+      alertStore.setError({ msg: 'Missing tatamiId' })
+      return
+    }
+    const tatami = schedulerStore.getTatamiById(this.tatamiId)
+    if (!tatami) {
+      alertStore.setError({
+        msg: `Tatami with Id '${this.tatamiId}' not found.`,
+      })
+      return
+    }
+    this.tatami = tatami
+  }
+  tatamiId: string = '' // set in asyncData
+  tatami: Tatami = { id: '', name: '' } // set in created()
   clock = '4:00'
+  scoreRed = { ippon: 0, wazari: 0, shido: 0 }
+  scoreWhite = { ippon: 0, wazari: 0, shido: 0 }
+
+  get stats() {
+    return schedulerStore.getStats(this.tatami.id)
+  }
 
   get pool() {
     return poolsStore.getPoolById(this.actualMatch!.poolId)
   }
 
+  get actualCompetitorRed() {
+    if (!this.actualMatch) return null
+    return competitorsStore.getCompetitorById(this.actualMatch!.fighter1Id)
+  }
+
+  get actualCompetitorWhite() {
+    if (!this.actualMatch) return null
+    return competitorsStore.getCompetitorById(this.actualMatch!.fighter2Id)
+  }
+
   get actualMatch() {
-    const match = schedulerStore.getActualMatch(this.tatami.id)
-    if (!match) return
-    const comp1 = competitorsStore.getCompetitorById(match.fighter1Id)
-    const comp2 = competitorsStore.getCompetitorById(match.fighter2Id)
-    return {
-      competitorRed: {
-        name: comp1!.lastname.toUpperCase() + ' ' + comp1!.firstname,
-        club: comp1!.club,
-        score: { ippon: 0, wazari: 0, shido: 0 },
-      },
-      competitorWhite: {
-        name: comp2!.lastname.toUpperCase() + ' ' + comp2!.firstname,
-        club: comp2!.club,
-        score: { ippon: 0, wazari: 0, shido: 0 },
-      },
-      poolId: match.poolId,
-    }
+    return schedulerStore.getActualMatch(this.tatami.id)
+  }
+
+  get nextCompetitorRed() {
+    if (!this.nextMatch) return null
+    return competitorsStore.getCompetitorById(this.nextMatch.fighter1Id)
+  }
+
+  get nextCompetitorWhite() {
+    if (!this.nextMatch) return null
+    return competitorsStore.getCompetitorById(this.nextMatch!.fighter2Id)
   }
 
   get nextMatch() {
-    const match = schedulerStore.getNextMatch(this.tatami.id)
-    if (!match) return
-    const comp1 = competitorsStore.getCompetitorById(match.fighter1Id)
-    const comp2 = competitorsStore.getCompetitorById(match.fighter2Id)
-    return {
-      competitorRed: {
-        name: comp1!.lastname.toUpperCase() + ' ' + comp1!.firstname,
-        club: comp1!.club,
-        score: { ippon: 0, wazari: 0, shido: 0 },
-      },
-      competitorWhite: {
-        name: comp2!.lastname.toUpperCase() + ' ' + comp2!.firstname,
-        club: comp2!.club,
-        score: { ippon: 0, wazari: 0, shido: 0 },
-      },
-    }
-  }
-
-  win() {
-    // set score
-    this.next()
-  }
-  next() {
-    schedulerStore.next(this.tatami.id)
-  }
-  previous() {
-    schedulerStore.next(this.tatami.id)
+    return schedulerStore.getNextMatch(this.tatami.id)
   }
 }
 </script>
 <style>
-.container div {
-  padding-top: 0;
-  padding-bottom: 0;
+.container {
+  line-height: 1.163;
+  overflow: hidden;
 }
 .border {
-  border-bottom: solid black 1px;
+  background-color: lightgray;
 }
 .tatami {
-  font-size: 3vh;
+  font-size: 6vh;
   font-weight: bold;
 }
 .pool {
-  font-size: 4vh;
+  font-size: 7vh;
 }
 .competitor {
-  font-size: 7.5vh;
+  font-size: 10vh;
   font-weight: bold;
 }
 .club {
-  font-size: 4.2vh;
+  font-size: 7vh;
 }
 .score {
-  font-size: 16vh;
+  font-size: 19vh;
   font-weight: bold;
 }
 .scorelegend {
-  font-size: 3vh;
+  font-size: 6vh;
   font-weight: bold;
 }
 .clock {
-  font-size: 21vh;
+  font-size: 24vh;
   font-weight: bold;
 }
 .flag {
-  font-size: 1vh;
+  font-size: 4vh;
 }
 .next {
-  font-size: 3.2vh;
+  font-size: 6vh;
 }
 .nextCompetitor {
-  font-size: 4.2vh;
+  font-size: 7vh;
   font-weight: bold;
 }
 .nextCompetitorClub {
-  font-size: 3vh;
+  font-size: 6vh;
   font-weight: bold;
 }
 
