@@ -13,7 +13,13 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="items" :search="search">
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :search="search"
+        hide-default-footer
+        disable-pagination
+      >
         <template v-slot:item.action="{ item }">
           <CheckinForm :prefilled="item" />
         </template>
