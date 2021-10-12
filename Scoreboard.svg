@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1600"
+   height="900"
+   viewBox="0 0 423.33333 238.125"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="Scoreboard.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1416"
+     id="namedview979"
+     showgrid="false"
+     inkscape:zoom="0.8989095"
+     inkscape:cx="825.45364"
+     inkscape:cy="442.08599"
+     inkscape:window-x="1440"
+     inkscape:window-y="541"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8" />
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     y="17.305584"
+     x="-2.2825714e-06"
+     height="117.33195"
+     width="211.66647"
+     id="rect1383"
+     style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.77555096;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="17.305593"
+     x="211.66647"
+     height="117.33195"
+     width="211.66647"
+     id="rect1383-3"
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.77555096;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="134.63754"
+     x="1.8027235e-05"
+     height="66.799606"
+     width="423.33331"
+     id="rect1383-6"
+     style="fill:#d3d3d3;fill-opacity:1;stroke:none;stroke-width:0.82756925;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="201.26411"
+     x="35.574024"
+     height="36.687859"
+     width="176.09264"
+     id="rect1383-6-7"
+     style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.39555597;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="201.26411"
+     x="211.66666"
+     height="36.687859"
+     width="176.09264"
+     id="rect1383-6-7-5"
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.39555597;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="201.26411"
+     x="387.75928"
+     height="36.687859"
+     width="35.573654"
+     id="rect1383-6-7-5-3"
+     style="fill:#d3d3d3;fill-opacity:1;stroke:none;stroke-width:0.17778766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="201.43713"
+     x="1.8027235e-05"
+     height="36.687859"
+     width="35.573654"
+     id="rect1383-6-7-5-3-5"
+     style="fill:#d3d3d3;fill-opacity:1;stroke:none;stroke-width:0.17778766;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     y="-3.6734963e-07"
+     x="-2.2825714e-06"
+     height="17.30559"
+     width="423.33331"
+     id="rect1383-6-6"
+     style="fill:#d3d3d3;fill-opacity:1;stroke:none;stroke-width:0.42122155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <text
+     id="textTatami "
+     y="13.738612"
+     x="2.7469461"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.89469147px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.34736729"
+     xml:space="preserve"
+     transform="scale(1.0138163,0.98637203)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.34736729"
+       y="13.738612"
+       x="2.7469461"
+       id="tspan1563">Matte 1</tspan></text>
+  <text
+     id="textPool"
+     y="12.605595"
+     x="208.98222"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.89485931px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.34736729"
+     xml:space="preserve"
+     transform="scale(1.0138163,0.98637203)"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.89485931px;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.34736729"
+       y="12.605595"
+       x="208.98222"
+       id="tspan1563-3">Category/Pool Description</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.27554131px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.43188331"
+     x="103.73224"
+     y="37.367996"
+     id="textFighterRedName"
+     transform="scale(1.0138163,0.98637203)"><tspan
+       id="tspan4642"
+       x="103.73224"
+       y="37.367996"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.75555611px;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;stroke-width:0.43188331">LASTNAME firstname</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20.18689728px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.50467241"
+     x="2.2526956"
+     y="58.129482"
+     id="textFighterRedClub"><tspan
+       id="tspan4646"
+       x="2.2526956"
+       y="58.129482"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;stroke-width:0.50467241">Club</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:20.59006119px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51475149"
+     x="18.510466"
+     y="106.62606"
+     id="text4671"
+     textFighterRedScoreIppon="text4671"><tspan
+       id="tspan4669"
+       x="18.510466"
+       y="106.62606"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.41614914px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.51475149">0</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:20.59006119px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51475149"
+     x="87.599487"
+     y="106.62606"
+     id="textFighterRedScoreWazari"><tspan
+       id="tspan4669-6"
+       x="87.599487"
+       y="106.62606"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.41614914px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.51475149">0</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:20.59006119px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51475149"
+     x="156.68849"
+     y="106.62606"
+     id="text4671-textFighterRedScoreShido"><tspan
+       id="tspan4669-65"
+       x="156.68849"
+       y="106.62606"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.41614914px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.51475149">0</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:6.37497091px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15937427"
+     x="11.097716"
+     y="127.02429"
+     id="text4671-6"><tspan
+       id="tspan4669-3"
+       x="11.097716"
+       y="127.02429"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.29993153px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.15937427">Ippon</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:6.37497091px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15937427"
+     x="75.86869"
+     y="128.1171"
+     id="text4671-6-9"><tspan
+       id="tspan4669-3-4"
+       x="75.86869"
+       y="128.1171"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.29993153px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.15937427">Wazari</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:6.37497091px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15937427"
+     x="149.35046"
+     y="128.1171"
+     id="text4671-6-9-8"><tspan
+       id="tspan4669-3-4-1"
+       x="149.35046"
+       y="128.1171"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.29993153px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#ffffff;stroke-width:0.15937427">Shido</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:27.77326393px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.69433153"
+     x="128.86761"
+     y="192.30098"
+     id="textTime"><tspan
+       id="tspan4669-6-9"
+       x="128.86761"
+       y="192.30098"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:66.65583801px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.69433153">4:00</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.38206482px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.40955159"
+     x="0.38089985"
+     y="214.75127"
+     id="text4648-3"><tspan
+       id="tspan4646-9"
+       x="0.38089985"
+       y="214.75127"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;stroke-width:0.40955159">Next</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.73799324px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.34344569"
+     x="121.64702"
+     y="218.70398"
+     id="textFighterRedNextName"
+     transform="scale(1.0138163,0.98637203)"><tspan
+       id="tspan4642-6"
+       x="121.64702"
+       y="218.70398"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.71016979px;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;stroke-width:0.34344569">LASTNAME firstname</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.05318642px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.40132964"
+     x="41.48864"
+     y="232.63853"
+     id="textFighterRedNextClub"><tspan
+       id="tspan4646-56"
+       x="41.48864"
+       y="232.63853"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;stroke-width:0.40132964">Club</tspan></text>
+  <text
+     id="text4833"
+     y="218.70398"
+     x="295.33987"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:13.73799324px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.34344569"
+     xml:space="preserve"
+     transform="scale(1.0138163,0.98637203)"
+     textFighterRedWhiteName=""><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.71016979px;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#000000;stroke-width:0.34344569"
+       y="218.70398"
+       x="295.33987"
+       id="tspan4831">LASTNAME firstname</tspan></text>
+  <text
+     id="text4837"
+     y="232.63853"
+     x="217.58128"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.05318642px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.40132964"
+     xml:space="preserve"
+     textFighterRedWhiteClub=""><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;stroke-width:0.40132964"
+       y="232.63853"
+       x="217.58128"
+       id="tspan4835">Club</tspan></text>
+  <text
+     id="text4843"
+     y="37.367996"
+     x="312.87668"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:17.27554131px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.43188331"
+     xml:space="preserve"
+     transform="scale(1.0138163,0.98637203)"
+     textFighterWhiteName="text4843"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.75555611px;font-family:Arial;-inkscape-font-specification:'Arial Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#000000;stroke-width:0.43188331"
+       y="37.367996"
+       x="312.87668"
+       id="tspan4841">LASTNAME firstname</tspan></text>
+  <text
+     id="textFighterWhiteClub"
+     y="58.129482"
+     x="214.28668"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20.18689728px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.50467241"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;stroke-width:0.50467241"
+       y="58.129482"
+       x="214.28668"
+       id="tspan4845">Club</tspan></text>
+  <text
+     id="textFighterWhiteScoreIppon"
+     y="106.62606"
+     x="230.54445"
+     style="font-style:normal;font-weight:normal;font-size:20.59006119px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51475149"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.41614914px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.51475149"
+       y="106.62606"
+       x="230.54445"
+       id="tspan4849">0</tspan></text>
+  <text
+     id="textFighterWhiteScoreWazari"
+     y="106.62606"
+     x="299.63351"
+     style="font-style:normal;font-weight:normal;font-size:20.59006119px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51475149"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.41614914px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.51475149"
+       y="106.62606"
+       x="299.63351"
+       id="tspan4853">0</tspan></text>
+  <text
+     id="textFighterWhiteScoreShido"
+     y="106.62606"
+     x="368.72253"
+     style="font-style:normal;font-weight:normal;font-size:20.59006119px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51475149"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:49.41614914px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.51475149"
+       y="106.62606"
+       x="368.72253"
+       id="tspan4857">0</tspan></text>
+  <text
+     id="text4863"
+     y="127.02429"
+     x="223.13171"
+     style="font-style:normal;font-weight:normal;font-size:6.37497091px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15937427"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.29993153px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.15937427"
+       y="127.02429"
+       x="223.13171"
+       id="tspan4861">Ippon</tspan></text>
+  <text
+     id="text4867"
+     y="128.1171"
+     x="287.90271"
+     style="font-style:normal;font-weight:normal;font-size:6.37497091px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15937427"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.29993153px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.15937427"
+       y="128.1171"
+       x="287.90271"
+       id="tspan4865">Wazari</tspan></text>
+  <text
+     id="text4871"
+     y="128.1171"
+     x="361.38446"
+     style="font-style:normal;font-weight:normal;font-size:6.37497091px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15937427"
+     xml:space="preserve"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.29993153px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#000000;stroke-width:0.15937427"
+       y="128.1171"
+       x="361.38446"
+       id="tspan4869">Shido</tspan></text>
+</svg>
