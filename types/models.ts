@@ -91,6 +91,7 @@ export interface Match {
   tatamiScheduled?: string
   fighter1Score?: MatchScore
   fighter2Score?: MatchScore
+  timerMs?: number
 }
 
 export interface SchedulerStats {

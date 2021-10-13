@@ -262,6 +262,8 @@ export class BracketGenerator {
           fighter1Id: competitors[i],
           fighter2Id: competitors[d + 1],
           poolId,
+          // Default 4 mins
+          timerMs: 240000,
         })
         d = d + 1
       }
