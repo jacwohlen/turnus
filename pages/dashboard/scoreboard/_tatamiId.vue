@@ -400,7 +400,7 @@ export default class extends Vue {
   font-weight: bold;
 }
 .pool {
-  font-size: 7vh;
+  font-size: 6vh;
 }
 .competitor {
   font-size: 10vh;
