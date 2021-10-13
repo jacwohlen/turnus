@@ -6,6 +6,7 @@ import Competitors from '~/store/competitors'
 import Categories from '~/store/categories'
 import Pools from '~/store/pools'
 import Scheduler from '~/store/scheduler'
+import MatchRunner from '~/store/matchRunner'
 
 let userStore: Users
 let alertStore: Alert
@@ -13,6 +14,7 @@ let competitorsStore: Competitors
 let categoriesStore: Categories
 let poolsStore: Pools
 let schedulerStore: Scheduler
+let matchRunnerStore: MatchRunner
 
 function initializeStores(store: Store<any>) {
   userStore = getModule(Users, store)
@@ -21,6 +23,7 @@ function initializeStores(store: Store<any>) {
   categoriesStore = getModule(Categories, store)
   poolsStore = getModule(Pools, store)
   schedulerStore = getModule(Scheduler, store)
+  matchRunnerStore = getModule(MatchRunner, store)
 }
 
 export {
@@ -31,4 +34,5 @@ export {
   categoriesStore,
   poolsStore,
   schedulerStore,
+  matchRunnerStore,
 }

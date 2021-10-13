@@ -202,7 +202,9 @@
         <v-col cols="12">
           <v-row no-gutters class="border">
             <v-col class="flag" md="3">Flag</v-col>
-            <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
+            <v-col md="6" align="center">
+              <Clock :matchId="actualMatch.id" :useTimer="true" />
+            </v-col>
             <v-col class="flag" md="3">Flag</v-col>
           </v-row>
         </v-col>
@@ -290,7 +292,6 @@ export default class extends Vue {
   }
   tatamiId: string = '' // set in asyncData
   tatami: Tatami = { id: '', name: '' } // set in created()
-  clock = '4:00'
   Fighter: any = Fighter
   Score: any = Score
   scoreRed: MatchScore = { ippon: 0, wazari: 0, shido: 0 }
@@ -415,10 +416,6 @@ export default class extends Vue {
 }
 .scorelegend {
   font-size: 6vh;
-  font-weight: bold;
-}
-.clock {
-  font-size: 24vh;
   font-weight: bold;
 }
 .flag {

@@ -65,8 +65,17 @@ export enum PoolSystem {
   BRESIL = 'Bresil',
 }
 
+// TODO: remove matchStatus by MatchState
 export enum MatchStatus {
   RUNNING = 'running',
+}
+
+export interface MatchState {
+  timeBeganMs: number
+  timeStoppedMs: number
+  stoppedDurationMs: number
+  started: boolean
+  timeElapsedMs: number
 }
 
 export interface MatchScore {
@@ -91,6 +100,7 @@ export interface Match {
   tatamiScheduled?: string
   fighter1Score?: MatchScore
   fighter2Score?: MatchScore
+  MatchState?: MatchState
   timerMs?: number
 }
 
