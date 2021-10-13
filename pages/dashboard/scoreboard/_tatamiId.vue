@@ -301,7 +301,7 @@ export default class extends Vue {
   }
 
   get pool() {
-    return '' // poolsStore.getPoolById(this.actualMatch!.poolId)
+    return poolsStore.getPoolById(this.actualMatch!.poolId)
   }
 
   get actualCompetitorRed() {
