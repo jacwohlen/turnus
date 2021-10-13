@@ -72,9 +72,13 @@ export enum MatchStatus {
 export interface MatchScore {
   ippon: number
   wazari: number
-  yuko: number
   shido: number
-  hansoku: boolean
+  hansoku?: boolean
+}
+
+export enum Fighter {
+  Red = 1,
+  White = 2,
 }
 
 export interface Match {
@@ -85,6 +89,8 @@ export interface Match {
   poolId: string
   status?: MatchStatus
   tatamiScheduled?: string
+  fighter1Score?: MatchScore
+  fighter2Score?: MatchScore
 }
 
 export interface SchedulerStats {

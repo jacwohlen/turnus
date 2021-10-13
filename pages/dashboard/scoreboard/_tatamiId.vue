@@ -63,15 +63,57 @@
           <v-row no-gutters class="border">
             <v-col class="red2" md="6">
               <!-- <ScoreboardScore :score="scoreRed" /> -->
-              <v-row no-gutters class="score">
+              <v-row no-gutters>
                 <v-col cols="4" align="center">
-                  {{ scoreWhite.ippon }}
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <v-btn @click="incrementScore(Fighter.Red, Score.Ippon)">
+                        Up
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" class="score">
+                      {{ scoreRed.ippon }}
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn @click="decrementScore(Fighter.Red, Score.Ippon)"
+                        >Down</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-col>
                 <v-col cols="4" align="center">
-                  {{ scoreWhite.wazari }}
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <v-btn @click="incrementScore(Fighter.Red, Score.Wazari)">
+                        Up
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" class="score">
+                      {{ scoreRed.wazari }}
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn @click="decrementScore(Fighter.Red, Score.Wazari)"
+                        >Down</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-col>
                 <v-col cols="4" align="center">
-                  {{ scoreWhite.shido }}
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <v-btn @click="incrementScore(Fighter.Red, Score.Shido)">
+                        Up
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" class="score">
+                      {{ scoreRed.shido }}
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn @click="decrementScore(Fighter.Red, Score.Shido)"
+                        >Down</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-col>
                 <v-col cols="4" class="scorelegend" align="center">
                   Ippon
@@ -85,15 +127,64 @@
               </v-row>
             </v-col>
             <v-col class="white" md="6">
-              <v-row no-gutters class="score">
+              <v-row no-gutters>
                 <v-col cols="4" align="center">
-                  {{ scoreWhite.ippon }}
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <v-btn
+                        @click="incrementScore(Fighter.White, Score.Ippon)"
+                      >
+                        Up
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" class="score">
+                      {{ scoreWhite.ippon }}
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn @click="decrementScore(Fighter.White, Score.Ippon)"
+                        >Down</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-col>
                 <v-col cols="4" align="center">
-                  {{ scoreWhite.wazari }}
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <v-btn
+                        @click="incrementScore(Fighter.White, Score.Wazari)"
+                      >
+                        Up
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" class="score">
+                      {{ scoreWhite.wazari }}
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn
+                        @click="decrementScore(Fighter.White, Score.Wazari)"
+                        >Down</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-col>
                 <v-col cols="4" align="center">
-                  {{ scoreWhite.shido }}
+                  <v-row no-gutters>
+                    <v-col cols="12">
+                      <v-btn
+                        @click="incrementScore(Fighter.White, Score.Shido)"
+                      >
+                        Up
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" class="score">
+                      {{ scoreWhite.shido }}
+                    </v-col>
+                    <v-col cols="12">
+                      <v-btn @click="decrementScore(Fighter.White, Score.Shido)"
+                        >Down</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-col>
                 <v-col cols="4" class="scorelegend" align="center">
                   Ippon
@@ -156,7 +247,7 @@ import {
   competitorsStore,
   poolsStore,
 } from '~/store'
-import { Tatami, Competitor } from '~/types/models'
+import { Tatami, Competitor, MatchScore, Fighter } from '~/types/models'
 
 Vue.filter('name', function (c: Competitor) {
   return c !== null ? c.lastname.toUpperCase() + ' ' + c.firstname : ''
@@ -165,6 +256,12 @@ Vue.filter('name', function (c: Competitor) {
 Vue.filter('club', function (c: Competitor) {
   return c !== null ? c.club : ''
 })
+
+enum Score {
+  Ippon = 1,
+  Wazari = 2,
+  Shido = 3,
+}
 
 @Component({
   layout: 'ScreenLayout',
@@ -194,8 +291,10 @@ export default class extends Vue {
   tatamiId: string = '' // set in asyncData
   tatami: Tatami = { id: '', name: '' } // set in created()
   clock = '4:00'
-  scoreRed = { ippon: 0, wazari: 0, shido: 0 }
-  scoreWhite = { ippon: 0, wazari: 0, shido: 0 }
+  Fighter: any = Fighter
+  Score: any = Score
+  scoreRed: MatchScore = { ippon: 0, wazari: 0, shido: 0 }
+  scoreWhite: MatchScore = { ippon: 0, wazari: 0, shido: 0 }
 
   get stats() {
     return schedulerStore.getStats(this.tatami.id)
@@ -239,6 +338,47 @@ export default class extends Vue {
   }
   previous() {
     schedulerStore.previous(this.tatami.id)
+  }
+
+  async incrementScore(fighter: Fighter, score: Score) {
+    const fscore = Fighter.Red === fighter ? this.scoreRed : this.scoreWhite
+
+    if (Score.Ippon === score) {
+      if (fscore.ippon < 1) {
+        fscore.ippon = this.scoreRed.ippon + 1
+      }
+    } else if (Score.Wazari === score) {
+      fscore.wazari = fscore.wazari + 1
+    } else if (Score.Shido === score) {
+      fscore.shido = fscore.shido + 1
+    }
+    await schedulerStore.setScore({
+      matchId: this.actualMatch!.id,
+      fighter,
+      score: fscore,
+    })
+  }
+
+  async decrementScore(fighter: Fighter, score: Score) {
+    const fscore = Fighter.Red === fighter ? this.scoreRed : this.scoreWhite
+    if (Score.Ippon === score) {
+      if (fscore.ippon > 0) {
+        fscore.ippon = fscore.ippon - 1
+      }
+    } else if (Score.Wazari === score) {
+      if (fscore.wazari > 0) {
+        fscore.wazari = fscore.wazari - 1
+      }
+    } else if (Score.Shido === score) {
+      if (fscore.shido > 0) {
+        fscore.shido = fscore.shido - 1
+      }
+    }
+    await schedulerStore.setScore({
+      matchId: this.actualMatch!.id,
+      fighter,
+      score: fscore,
+    })
   }
 }
 </script>
