@@ -25,6 +25,7 @@
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "nuxt": "^2.15.8",
+    "vue-property-decorator": "^9.1.2",
     "vuexfire": "^3.2.5"
   },
   "devDependencies": {
