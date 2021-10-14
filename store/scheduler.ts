@@ -3,13 +3,7 @@ import { Module, VuexModule, Action } from 'vuex-module-decorators'
 import { firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 
-import {
-  Match,
-  SchedulerStats,
-  Tatami,
-  MatchScore,
-  Fighter,
-} from '~/types/models'
+import { Match, SchedulerStats, Tatami } from '~/types/models'
 
 @Module({
   name: 'scheduler',
@@ -172,31 +166,6 @@ export default class Scheduler extends VuexModule {
       }
       await firebase.database().ref().update(updates)
     })
-  }
-
-  // Score Functionality
-  // TODO: Extract code into separate module
-  @Action({ rawError: true })
-  async setScore({
-    matchId,
-    fighter,
-    score,
-  }: {
-    matchId: string
-    fighter: Fighter
-    score: MatchScore
-  }) {
-    if (Fighter.Red === fighter) {
-      await firebase
-        .database()
-        .ref(`matchesScheduled/${matchId}`)
-        .update({ fighter1Score: score })
-    } else {
-      await firebase
-        .database()
-        .ref(`matchesScheduled/${matchId}`)
-        .update({ fighter2Score: score })
-    }
   }
 
   @Action({ rawError: true })

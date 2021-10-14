@@ -98,10 +98,13 @@ export interface Match {
   poolId: string
   status?: MatchStatus
   tatamiScheduled?: string
-  fighter1Score?: MatchScore
-  fighter2Score?: MatchScore
-  MatchState?: MatchState
   timerMs?: number
+}
+
+export interface RunningMatch extends Match {
+  fighter1Score: MatchScore
+  fighter2Score: MatchScore
+  MatchState: MatchState
 }
 
 export interface SchedulerStats {
