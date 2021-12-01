@@ -116,3 +116,9 @@ export interface Tatami {
   id: string
   name: string
 }
+
+export interface User {
+  uid: string
+  email: string | null
+  emailVerified: boolean
+}
