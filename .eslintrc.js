@@ -5,13 +5,23 @@ module.exports = {
     node: true,
   },
   extends: [
-    '@nuxtjs/eslint-config-typescript',
-    'prettier',
-    'prettier/vue',
-    'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
+    'plugin:vue/essential',
+    'eslint:recommended',
+    '@vue/typescript/recommended'
   ],
-  plugins: ['prettier'],
+  parserOptions: {
+    ecmaVersion: 2020
+  },
+  plugins: [],
   // add your custom rules here
-  rules: {},
+  rules: {
+    'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
+    'vue/no-unused-vars': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-control-regex': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    'no-undef': 0,
+  },
 }
