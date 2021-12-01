@@ -2,7 +2,7 @@
   <v-container fill-height fluid>
     <v-row align="center" justify="center">
       <v-col align="center">
-        <Logo />
+        <Logo/>
         <h1 class="text-h1">turnus</h1>
       </v-col>
     </v-row>
@@ -19,16 +19,19 @@
 </template>
 
 <script lang="ts">
-import { userStore } from '~/store'
+import {userStore} from '~/store'
+import {Component, Vue} from 'vue-property-decorator';
 
-export default {
-  computed: {
-    isAuthenticated() {
-      return userStore.isAuthenticated
-    },
-    user() {
-      return userStore.user
-    },
-  },
+@Component
+export default class Home extends Vue {
+
+  private get isAuthenticated() {
+    return userStore.isAuthenticated
+  }
+
+  private get user() {
+    return userStore.user
+  }
+
 }
 </script>
