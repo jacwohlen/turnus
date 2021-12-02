@@ -29,5 +29,6 @@ module.exports = {
       named: 'never',
       asyncArrow: 'always',
     }],
+    'vue/singleline-html-element-content-newline': 'off',
   },
 };
