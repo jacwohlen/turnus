@@ -5,13 +5,7 @@
       <v-card-title>
         Competitors
         <v-spacer/>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          hide-details
-          label="Search"
-          single-line
-        />
+        <SearchInput v-model="search" />
       </v-card-title>
       <v-data-table
         :headers="headers"
@@ -29,12 +23,15 @@
 </template>
 
 <script lang="ts">
-import {competitorsStore, categoriesStore, poolsStore} from '~/store'
 import {Component, Vue} from 'vue-property-decorator';
 import {Competitor} from '~/types/models';
 import {DataTableHeader} from 'vuetify';
+import CheckinForm from "~/components/CheckinForm.vue";
+import SearchInput from "~/components/common/SearchInput.vue";
+import {categoriesStore, competitorsStore, poolsStore} from "~/utils/store-accessor";
 
 @Component({
+  components: {SearchInput, CheckinForm},
   layout: 'DashboardLayout',
 })
 export default class WeighIn extends Vue {
@@ -50,21 +47,21 @@ export default class WeighIn extends Vue {
     {text: 'Action', value: 'action'}
   ];
 
+  // noinspection JSMethodCanBeStatic
   private get items(): Competitor[] {
     return competitorsStore.list;
   }
 
   public async fetch() {
-    await competitorsStore.init();
-    await competitorsStore.init();
-    await categoriesStore.init();
-    await poolsStore.init();
+    competitorsStore.init();
+    categoriesStore.init();
+    poolsStore.init();
   }
 
   public async mounted() {
-    await competitorsStore.init();
-    await categoriesStore.init();
-    await poolsStore.init();
+    competitorsStore.init();
+    categoriesStore.init();
+    poolsStore.init();
   }
 }
 </script>
