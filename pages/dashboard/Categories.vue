@@ -31,7 +31,7 @@
 
     <v-container v-if="selectedCategory">
       <v-row>
-        <v-col md="6" sm="12" v-for="(wclass, idx) in selectedCategory.weights" :key="idx">
+        <v-col v-for="(wclass, idx) in selectedCategory.weights" :key="idx" md="6" sm="12">
           <v-card>
             <v-card-title>{{ selectedCategory.name }} {{ wclass.name }}</v-card-title>
             <v-card-subtitle>{{ wclass.weightFrom }} - {{ wclass.weightTo }}</v-card-subtitle>
@@ -48,13 +48,12 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator';
+import { DataTableHeader } from 'vuetify';
 import { categoriesStore, poolsStore } from '~/store';
 import { Category } from '~/types/models';
 import PageTitle from '~/components/common/PageTitle.vue';
-import { DataTableHeader } from 'vuetify';
-import CategoryForm from "~/components/CategoryForm.vue";
-import CategoryMembersList from "~/components/CategoryMembersList.vue";
-
+import CategoryForm from '~/components/CategoryForm.vue';
+import CategoryMembersList from '~/components/CategoryMembersList.vue';
 
 @Component({
   components: { CategoryMembersList, CategoryForm, PageTitle },
