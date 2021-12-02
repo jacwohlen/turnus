@@ -1,9 +1,9 @@
 <template>
   <v-app class="background">
     <NavigationBar />
-    <v-main class="content">
+    <v-main class="blue lighten-3">
       <Alert />
-      <v-container>
+      <v-container class="content">
         <Nuxt />
       </v-container>
     </v-main>
@@ -30,9 +30,6 @@ export default class DashboardLayout extends Vue {
   min-width: calc(min(100%, 1200px));
   margin: 0 auto;
   background-color: white;
-}
-
-.background {
-  background-color: lightblue;
+  min-height: 100%;
 }
 </style>
