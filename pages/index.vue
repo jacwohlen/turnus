@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height fluid class="flex-column">
-    <Logo/>
+    <Logo />
     <h1 class="text-h1">turnus</h1>
-    <v-divider class="my-6"/>
+    <v-divider class="my-6" />
     <template v-if="isAuthenticated" align="center">
       <p>Hi {{ user.email }}</p>
       <v-btn class="primary" to="/dashboard">Open Dashboard</v-btn>
