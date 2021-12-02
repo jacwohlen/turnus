@@ -1,24 +1,19 @@
 <template>
   <div>
-    <h1>Schedule</h1>
-    <v-container fill-height fluid pl-0 pr-0>
-      <!-- FIXME: justify property does not work as intended -->
-      <TatamiForm />
-      <v-row justify="space-between">
-        <v-col v-for="tatami in tatamis" :key="tatami.id">
-          <TatamiSchedule :tatami="tatami" />
-        </v-col>
-      </v-row>
-    </v-container>
+    <PageTitle title="Schedule" />
+    <TatamiForm />
+    <v-row>
+      <v-col v-for="tatami in tatamis" :key="tatami.id" md="6" sm="12">
+        <TatamiSchedule :tatami="tatami" />
+      </v-col>
+    </v-row>
 
     <SchedulePoolTable :matches="matchesUnscheduled">
-      <template v-slot:expanded-item="{ headers, item }">
+      <template #expanded-item="{ headers, item }">
         <td :colspan="headers.length">
           <ol>
             <li v-for="(comp, idx) in item.competitors" :key="idx">
-              {{ comp.firstname }} {{ comp.lastname }} ({{
-                comp.weightMeasured
-              }})
+              {{ comp.firstname }} {{ comp.lastname }} ({{ comp.weightMeasured }})
             </li>
           </ol>
         </td>
@@ -28,27 +23,33 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-
-import { schedulerStore } from '~/store'
+import { Component, Vue } from 'vue-property-decorator';
+import { schedulerStore } from '~/store';
+import { Match } from '~/types/models';
+import TatamiForm from '~/components/TatamiForm.vue';
+import TatamiSchedule from '~/components/TatamiSchedule.vue';
+import SchedulePoolTable from '~/components/SchedulePoolTable.vue';
+import PageTitle from '~/components/common/PageTitle.vue';
 
 @Component({
+  components: { PageTitle, SchedulePoolTable, TatamiSchedule, TatamiForm },
   layout: 'DashboardLayout',
 })
-export default class extends Vue {
-  async mounted(){
-    await schedulerStore.init()
+export default class Schedule extends Vue {
+  private get matchesUnscheduled(): Match[] {
+    return schedulerStore.matches;
   }
 
-  get tatamis() {
-    return schedulerStore.getTatamis
+  private get tatamis() {
+    return schedulerStore.getTatamis;
   }
 
-  expanded = []
+  public async fetch() {
+    await schedulerStore.init();
+  }
 
-  get matchesUnscheduled() {
-    return schedulerStore.matches
+  public async mounted() {
+    await schedulerStore.init();
   }
 }
 </script>
