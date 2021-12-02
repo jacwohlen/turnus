@@ -30,5 +30,6 @@ module.exports = {
       asyncArrow: 'always',
     }],
     'vue/singleline-html-element-content-newline': 'off',
+    'vue/attribute-hyphenation': 'off',
   },
 };

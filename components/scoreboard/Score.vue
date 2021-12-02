@@ -1,48 +1,24 @@
 <template>
   <div>
     <v-row no-gutters>
-      <v-col cols="4" align="center">
-        <v-row no-gutters>
-          <v-col cols="12">
-            <v-btn @click="incrementScore(Score.Ippon)"> Up </v-btn>
-          </v-col>
-          <v-col cols="12" class="score">
-            {{ score.ippon }}
-          </v-col>
-          <v-col cols="12">
-            <v-btn @click="decrementScore(Score.Ippon)">Down</v-btn>
-          </v-col>
-        </v-row>
+      <v-col cols="4" class="d-flex flex-column align-center">
+        <v-btn @click="incrementScore(scores.Ippon)"><v-icon>mdi-arrow-up</v-icon></v-btn>
+        <p class="my-3 text-h1 font-weight-bold">{{ score.ippon }}</p>
+        <v-btn @click="decrementScore(scores.Ippon)"><v-icon>mdi-arrow-down</v-icon></v-btn>
+        <p class="ma-0 text-h5">Ippon</p>
       </v-col>
-      <v-col cols="4" align="center">
-        <v-row no-gutters>
-          <v-col cols="12">
-            <v-btn @click="incrementScore(Score.Wazari)"> Up </v-btn>
-          </v-col>
-          <v-col cols="12" class="score">
-            {{ score.wazari }}
-          </v-col>
-          <v-col cols="12">
-            <v-btn @click="decrementScore(Score.Wazari)">Down</v-btn>
-          </v-col>
-        </v-row>
+      <v-col cols="4" class="d-flex flex-column align-center">
+        <v-btn @click="incrementScore(scores.Wazari)"><v-icon>mdi-arrow-up</v-icon></v-btn>
+        <p class="my-3 text-h1 font-weight-bold">{{ score.wazari }}</p>
+        <v-btn @click="decrementScore(scores.Wazari)"><v-icon>mdi-arrow-down</v-icon></v-btn>
+        <p class="ma-0 text-h5">Wazari</p>
       </v-col>
-      <v-col cols="4" align="center">
-        <v-row no-gutters>
-          <v-col cols="12">
-            <v-btn @click="incrementScore(Score.Shido)"> Up </v-btn>
-          </v-col>
-          <v-col cols="12" class="score">
-            {{ score.shido }}
-          </v-col>
-          <v-col cols="12">
-            <v-btn @click="decrementScore(Score.Shido)">Down</v-btn>
-          </v-col>
-        </v-row>
+      <v-col cols="4" class="d-flex flex-column align-center">
+        <v-btn @click="incrementScore(scores.Shido)"><v-icon>mdi-arrow-up</v-icon></v-btn>
+        <p class="my-3 text-h1 font-weight-bold">{{ score.shido }}</p>
+        <v-btn @click="decrementScore(scores.Shido)"><v-icon>mdi-arrow-down</v-icon></v-btn>
+        <p class="ma-0 text-h5">Shido</p>
       </v-col>
-      <v-col cols="4" class="scorelegend" align="center"> Ippon </v-col>
-      <v-col cols="4" class="scorelegend" align="center"> Wazari </v-col>
-      <v-col cols="4" class="scorelegend" align="center"> Shido </v-col>
     </v-row>
   </div>
 </template>
@@ -55,21 +31,21 @@ import { matchRunnerStore } from '~/store'
 
 import { Fighter } from '~/types/models'
 
-enum Score {
+enum Scores {
   Ippon = 1,
   Wazari = 2,
   Shido = 3,
 }
 
 @Component
-export default class About extends Vue {
+export default class Score extends Vue {
   @Prop({ type: String, required: true })
   matchId!: string
 
   @Prop({ type: Number, required: true })
   fighter!: Fighter
 
-  Score: any = Score
+  scores: any = Scores
 
   get score() {
     if (Fighter.Red === this.fighter) return matchRunnerStore.getScoreRed
@@ -83,16 +59,16 @@ export default class About extends Vue {
     await matchRunnerStore.init(this.matchId)
   }
 
-  async incrementScore(score: Score) {
+  async incrementScore(score: Scores) {
     const fscore = _.clone(this.score)
 
-    if (Score.Ippon === score) {
+    if (Scores.Ippon === score) {
       if (fscore.ippon < 1) {
         fscore.ippon = this.score.ippon + 1
       }
-    } else if (Score.Wazari === score) {
+    } else if (Scores.Wazari === score) {
       fscore.wazari = fscore.wazari + 1
-    } else if (Score.Shido === score) {
+    } else if (Scores.Shido === score) {
       fscore.shido = fscore.shido + 1
     }
     await matchRunnerStore.setScore({
@@ -102,17 +78,17 @@ export default class About extends Vue {
     })
   }
 
-  async decrementScore(score: Score) {
+  async decrementScore(score: Scores) {
     const fscore = _.clone(this.score)
-    if (Score.Ippon === score) {
+    if (Scores.Ippon === score) {
       if (fscore.ippon > 0) {
         fscore.ippon = fscore.ippon - 1
       }
-    } else if (Score.Wazari === score) {
+    } else if (Scores.Wazari === score) {
       if (fscore.wazari > 0) {
         fscore.wazari = fscore.wazari - 1
       }
-    } else if (Score.Shido === score) {
+    } else if (Scores.Shido === score) {
       if (fscore.shido > 0) {
         fscore.shido = fscore.shido - 1
       }
