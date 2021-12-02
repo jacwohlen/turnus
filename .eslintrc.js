@@ -5,11 +5,11 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/essential',
-    'eslint:recommended',
+    '@nuxtjs/eslint-config-typescript',
+    'plugin:nuxt/recommended',
   ],
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2020,
   },
   plugins: [],
   // add your custom rules here
@@ -22,5 +22,12 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
     'no-undef': 0,
+    'comma-dangle': ['error', 'always-multiline'],
+    semi: ['error', 'always'],
+    'space-before-function-paren': ['error', {
+      anonymous: 'always',
+      named: 'never',
+      asyncArrow: 'always',
+    }],
   },
-}
+};
