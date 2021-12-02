@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1>Weigh In</h1>
+    <PageTitle title="Weigh in" />
     <v-card>
       <v-card-title>
         Competitors
-        <v-spacer/>
+        <v-spacer />
         <SearchInput v-model="search" />
       </v-card-title>
       <v-data-table
@@ -14,8 +14,8 @@
         disable-pagination
         hide-default-footer
       >
-        <template v-slot:item.action="{ item }">
-          <CheckinForm :prefilled="item"/>
+        <template #[`item.action`]="{ item }">
+          <CheckinForm :prefilled="item" />
         </template>
       </v-data-table>
     </v-card>
@@ -23,28 +23,29 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
-import {Competitor} from '~/types/models';
-import {DataTableHeader} from 'vuetify';
-import CheckinForm from "~/components/CheckinForm.vue";
-import SearchInput from "~/components/common/SearchInput.vue";
-import {categoriesStore, competitorsStore, poolsStore} from "~/utils/store-accessor";
+import { Component, Vue } from 'vue-property-decorator';
+import { DataTableHeader } from 'vuetify';
+import { Competitor } from '~/types/models';
+import CheckinForm from '~/components/CheckinForm.vue';
+import SearchInput from '~/components/common/SearchInput.vue';
+import { categoriesStore, competitorsStore, poolsStore } from '~/utils/store-accessor';
+import PageTitle from '~/components/common/PageTitle.vue';
 
 @Component({
-  components: {SearchInput, CheckinForm},
+  components: { PageTitle, SearchInput, CheckinForm },
   layout: 'DashboardLayout',
 })
 export default class WeighIn extends Vue {
   private search: string = '';
   private headers: DataTableHeader<Competitor>[] = [
-    {text: 'Firstname', value: 'firstname'},
-    {text: 'Lastname', value: 'lastname'},
-    {text: 'Sex', value: 'sex'},
-    {text: 'Birthday', value: 'birthyear'},
-    {text: 'Club', value: 'club'},
-    {text: 'Given Weight', value: 'weight'},
-    {text: 'Measured Weight', value: 'weightMeasured'},
-    {text: 'Action', value: 'action'}
+    { text: 'Firstname', value: 'firstname' },
+    { text: 'Lastname', value: 'lastname' },
+    { text: 'Sex', value: 'sex' },
+    { text: 'Birthday', value: 'birthyear' },
+    { text: 'Club', value: 'club' },
+    { text: 'Given Weight', value: 'weight' },
+    { text: 'Measured Weight', value: 'weightMeasured' },
+    { text: 'Action', value: 'action' },
   ];
 
   // noinspection JSMethodCanBeStatic
@@ -53,15 +54,15 @@ export default class WeighIn extends Vue {
   }
 
   public async fetch() {
-    competitorsStore.init();
-    categoriesStore.init();
-    poolsStore.init();
+    await competitorsStore.init();
+    await categoriesStore.init();
+    await poolsStore.init();
   }
 
   public async mounted() {
-    competitorsStore.init();
-    categoriesStore.init();
-    poolsStore.init();
+    await competitorsStore.init();
+    await categoriesStore.init();
+    await poolsStore.init();
   }
 }
 </script>
