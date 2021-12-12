@@ -13,15 +13,15 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Emit, Vue } from 'vue-property-decorator';
+import Component from 'vue-class-component';
 
 @Component
 export default class extends Vue {
   confirm: boolean = false
 
+  @Emit('confirmed')
   execute(): void {
-    this.$emit('confirmed')
   }
 }
 </script>

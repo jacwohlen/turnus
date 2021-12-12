@@ -1,26 +1,20 @@
 <template>
   <div>
-    <h1>Weigh In</h1>
+    <PageTitle title="Weigh in" />
     <v-card>
       <v-card-title>
         Competitors
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-spacer />
+        <SearchInput v-model="search" />
       </v-card-title>
       <v-data-table
         :headers="headers"
         :items="items"
         :search="search"
-        hide-default-footer
         disable-pagination
+        hide-default-footer
       >
-        <template v-slot:item.action="{ item }">
+        <template #[`item.action`]="{ item }">
           <CheckinForm :prefilled="item" />
         </template>
       </v-data-table>
@@ -29,39 +23,46 @@
 </template>
 
 <script lang="ts">
-import { competitorsStore, categoriesStore, poolsStore } from '~/store'
+import { Component, Vue } from 'vue-property-decorator';
+import { DataTableHeader } from 'vuetify';
+import { Competitor } from '~/types/models';
+import CheckinForm from '~/components/CheckinForm.vue';
+import SearchInput from '~/components/common/SearchInput.vue';
+import { categoriesStore, competitorsStore, poolsStore } from '~/utils/store-accessor';
+import PageTitle from '~/components/common/PageTitle.vue';
 
-export default {
+@Component({
+  components: { PageTitle, SearchInput, CheckinForm },
   layout: 'DashboardLayout',
-  async fetch() {
-    await competitorsStore.init()
-    await competitorsStore.init()
-    await categoriesStore.init()
-    await poolsStore.init()
-  },
-  async mounted() {
-    await competitorsStore.init()
-    await categoriesStore.init()
-    await poolsStore.init()
-  },
-  data: () => ({
-    search: '',
-    headers: [
-      { text: 'Firstname', value: 'firstname' },
-      { text: 'Lastname', value: 'lastname' },
-      { text: 'Sex', value: 'sex' },
-      { text: 'Birthday', value: 'birthyear' },
-      { text: 'Club', value: 'club' },
-      { text: 'Given Weight', value: 'weight' },
-      { text: 'Measured Weight', value: 'weightMeasured' },
-      { text: 'Action', value: 'action' },
-    ],
-    selectedCategory: null,
-  }),
-  computed: {
-    items() {
-      return competitorsStore.list
-    },
-  },
+})
+export default class WeighIn extends Vue {
+  private search: string = '';
+  private headers: DataTableHeader<Competitor>[] = [
+    { text: 'Firstname', value: 'firstname' },
+    { text: 'Lastname', value: 'lastname' },
+    { text: 'Sex', value: 'sex' },
+    { text: 'Birthday', value: 'birthyear' },
+    { text: 'Club', value: 'club' },
+    { text: 'Given Weight', value: 'weight' },
+    { text: 'Measured Weight', value: 'weightMeasured' },
+    { text: 'Action', value: 'action' },
+  ];
+
+  // noinspection JSMethodCanBeStatic
+  private get items(): Competitor[] {
+    return competitorsStore.list;
+  }
+
+  public async fetch() {
+    await competitorsStore.init();
+    await categoriesStore.init();
+    await poolsStore.init();
+  }
+
+  public async mounted() {
+    await competitorsStore.init();
+    await categoriesStore.init();
+    await poolsStore.init();
+  }
 }
 </script>

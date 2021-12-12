@@ -5,7 +5,7 @@ enum AlertType {
   Info = 'info',
 }
 
-interface AlertMessage {
+export interface AlertMessage {
   message: string
   type: AlertType
 }

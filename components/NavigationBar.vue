@@ -4,7 +4,7 @@
       <v-avatar tile>
         <img src="~/assets/turnus-logo.svg" height="70%" alt="turnus logo" />
       </v-avatar>
-      <h1 class="text-h5 ml-3 mr-3">turnus</h1>
+      <h1 class="text-h5 ml-3 mr-3" v-if="$vuetify.breakpoint.mdAndUp">turnus</h1>
     </v-btn>
 
     <v-tabs centered class="ml-n9" color="grey darken-1">

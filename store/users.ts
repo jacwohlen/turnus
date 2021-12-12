@@ -3,12 +3,8 @@ import Cookie from 'js-cookie'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import {User} from '~/types/models';
 
-interface User {
-  uid: string
-  email: string | null
-  emailVerified: boolean
-}
 
 interface LoginData {
   email: string

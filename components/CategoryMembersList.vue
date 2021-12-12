@@ -9,7 +9,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-spacer></v-spacer>
+          <v-spacer />
         </v-toolbar>
       </template>
     </v-data-table>

@@ -2,10 +2,10 @@
   <v-container v-if="!actualMatch">
     <span>Kein Kampf im moment... :)</span>
   </v-container>
-  <v-container v-else fluid class="pa-0">
+  <v-container v-else fluid class="pa-0 grey lighten-3">
     <v-row no-gutters>
       <v-col cols="12">
-        <v-row no-gutters class="border">
+        <v-row no-gutters>
           <v-col class="tatami" md="2">{{ tatami.name }}</v-col>
           <v-col class="pool" md="8" align="center">{{ pool.name }}</v-col>
           <v-col md="2"></v-col>
@@ -13,9 +13,9 @@
       </v-col>
       <v-col cols="12">
         <v-row no-gutters>
-          <v-col class="red2" md="6">
+          <v-col class="blue darken-3 white--text" md="6">
             <v-row no-gutters>
-              <v-col cols="12" class="competitor">
+              <v-col cols="12" class="competitor text-truncate">
                 {{ actualCompetitorRed | name }}
               </v-col>
               <v-col cols="12" class="club">{{
@@ -25,7 +25,7 @@
           </v-col>
           <v-col class="white" md="6">
             <v-row no-gutters>
-              <v-col cols="12" class="competitor">
+              <v-col cols="12" class="competitor text-truncate">
                 {{ actualCompetitorWhite | name }}
               </v-col>
               <v-col cols="12" class="club">{{
@@ -36,8 +36,8 @@
         </v-row>
       </v-col>
       <v-col cols="12">
-        <v-row no-gutters class="border">
-          <v-col class="red2" md="6">
+        <v-row no-gutters>
+          <v-col class="blue darken-3 white--text" md="6">
             <!-- <ScoreboardScore :score="scoreRed" /> -->
             <v-row no-gutters class="score">
               <v-col cols="4" align="center">
@@ -77,16 +77,16 @@
         </v-row>
       </v-col>
       <v-col cols="12">
-        <v-row no-gutters class="border">
+        <v-row no-gutters>
           <v-col class="flag" md="3">Flag</v-col>
           <v-col class="clock" md="6" align="center">{{ clock }}</v-col>
           <v-col class="flag" md="3">Flag</v-col>
         </v-row>
       </v-col>
       <v-col cols="12">
-        <v-row no-gutters class="border">
+        <v-row no-gutters>
           <v-col class="next" md="1">Next</v-col>
-          <v-col class="red2" md="5">
+          <v-col class="blue darken-3 white--text" md="5">
             <v-row no-gutters>
               <v-col cols="12" class="nextCompetitor">{{
                 nextCompetitorRed | name
@@ -201,13 +201,10 @@ export default class extends Vue {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .container {
   line-height: 1.163;
   overflow: hidden;
-}
-.border {
-  background-color: lightgray;
 }
 .tatami {
   font-size: 6vh;
@@ -250,11 +247,6 @@ export default class extends Vue {
   font-weight: bold;
 }
 
-/* red is a class known by vuetify -> red2 */
-.red2 {
-  background-color: blue;
-  color: white;
-}
 .white {
   background-color: inherit;
 }
