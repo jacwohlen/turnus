@@ -36,7 +36,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { competitorsStore } from '~/store';
 import { Competitor } from '~/types/models';
 import PageTitle from '~/components/common/PageTitle.vue';
-import CompetitorForm from '~/components/CompetitorForm.vue';
+import CompetitorForm from '~/components/competitor/CompetitorForm.vue';
 
 @Component({
   components: { CompetitorForm, PageTitle },
