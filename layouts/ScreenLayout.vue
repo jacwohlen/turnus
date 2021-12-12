@@ -6,3 +6,14 @@
     </v-main>
   </v-app>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import Alert from '~/components/Alert.vue';
+
+@Component({
+  components: { Alert },
+})
+export default class ScreenLayout extends Vue {
+}
+</script>
