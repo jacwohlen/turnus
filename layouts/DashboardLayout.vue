@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import NavigationBar from '~/components/NavigationBar.vue';
-import Alert from '~/components/Alert.vue';
+import Alert from '~/components/common/Alert.vue';
 
 @Component({
   components: { Alert, NavigationBar },
