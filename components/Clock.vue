@@ -130,7 +130,7 @@ export default class Clock extends Vue {
     });
   }
 
-  private async stop(): void {
+  private async stop(): Promise<void> {
     const timeStoppedMs = new Date().getTime();
     this.clearInterval();
     await matchRunnerStore.updateMatchState({
@@ -142,7 +142,7 @@ export default class Clock extends Vue {
     });
   }
 
-  private async reset(): void {
+  private async reset(): Promise<void> {
     this.clearInterval();
     this.timer = new Date(matchRunnerStore.getTimerMs);
     this.timeElapsedMs = 0;
