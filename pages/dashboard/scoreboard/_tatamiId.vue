@@ -81,7 +81,7 @@ Vue.filter('club', function (c: Competitor | null) {
 })
 export default class ScoreBoardOperator extends Vue {
   private tatami: Tatami = { id: '', name: '' } // set in created()
-  private fighter: Fighter = Fighter;
+  private fighter: Fighter = Fighter.Red;
 
   private get tatamiId(): string {
     return this.$route.params.tatamiId;
@@ -130,7 +130,7 @@ export default class ScoreBoardOperator extends Vue {
     return competitorsStore.getCompetitorById(this.nextMatch!.fighter2Id);
   }
 
-  private get nextMatch(): Match {
+  private get nextMatch(): Match | null {
     return schedulerStore.getNextMatch(this.tatami.id);
   }
 
