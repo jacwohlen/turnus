@@ -1,11 +1,12 @@
 <template>
-  <img class="rotating" src="~/assets/turnus-logo.svg" alt="turnus logo" />
+  <img class="rotating" src="~/assets/turnus-logo.svg" alt="turnus logo">
 </template>
 
-<style>
+<style lang="scss" scoped>
 .rotating {
   animation: rotateZ 2s;
 }
+
 @keyframes rotateZ {
   to {
     transform: rotateZ(-360deg);

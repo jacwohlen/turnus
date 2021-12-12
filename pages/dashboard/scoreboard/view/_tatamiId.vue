@@ -201,7 +201,7 @@ export default class extends Vue {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .container {
   line-height: 1.163;
   overflow: hidden;

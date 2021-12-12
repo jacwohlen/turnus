@@ -209,7 +209,6 @@ export default class Clock extends Vue {
     matchRunnerStore.setTimer(this.timer.getTime());
   }
 
-
   public async created() {
     await matchRunnerStore.init(this.matchId);
     this.timeElapsedMs = this.state.timeElapsedMs;
@@ -217,7 +216,7 @@ export default class Clock extends Vue {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .clock {
   font-size: 12vh;
   font-weight: bold;

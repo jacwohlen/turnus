@@ -5,5 +5,5 @@
 <script>
 export default {
   layout: 'DashboardLayout',
-}
+};
 </script>
